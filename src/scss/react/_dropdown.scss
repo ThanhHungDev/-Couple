@@ -1,0 +1,12 @@
+.dropdown-toggle{
+  ~ ul{
+    display: none;
+  }
+
+  &.open{
+    ~ ul {
+      display: block;
+    }
+  }
+}
+
