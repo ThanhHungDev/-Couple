@@ -25,12 +25,14 @@ class Slider extends Component {
       arrows: true,
       slidesToShow: 1,
       dots: true,
+      // autoplay:true,
+      // autoplaySpeed:1500
     });
   }
   render() {
     return (
       <div className="component-slider position-relative">
-        <div className="slider">
+        <div className="slider animated fadeIn line-height-0">
           <div className="image">
             <img src="image/slide-1.jpg" alt="" />
           </div>
@@ -38,10 +40,10 @@ class Slider extends Component {
             <img src="image/slide-2.jpg" alt="" />
           </div>
         </div>
-        <div className="content-text">
+        <div className="content-text animated slideInDown">
           <div className="caption">
             <div className="couple-text">
-              <h3 id="curve-text">We're Getting Married</h3>
+              <h3 id="curve-text">We'll Create Marriages</h3>
             </div>
           </div>
           <div className="description">

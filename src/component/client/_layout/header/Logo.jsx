@@ -13,7 +13,7 @@ class Logo extends Component {
       <div className="component-logo">
         <h2 className="logo">
         <NavLink activeClassName="active" exact to="/">
-        Almost before we knew it, we had left the ground. <Heart fillClass="fa-w-10 fix-vertical-logo" />
+        Perfect Couple <Heart fillClass="fa-w-10 fix-vertical-logo" />
         </NavLink>
         </h2>
       </div>

@@ -19,16 +19,16 @@ class Header extends Component {
     
     return (
       <div className="component-header">
-        <Slider />
         <div className="container">
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 gradient">
               <Logo />
               <Menu />  
               <BtnToggle />
             </div>
           </div>
         </div>
+        <Slider />
       </div>
     )
   }
