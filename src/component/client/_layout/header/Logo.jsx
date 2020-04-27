@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Heart from '../../../svg/heart.jsx'
 
 import { NavLink } from "react-router-dom";
+
+import LayerGroup from "../../../svg/layer-group.jsx";
 
 
 
@@ -12,9 +13,9 @@ class Logo extends Component {
     return (
       <div className="component-logo">
         <h2 className="logo">
-        <NavLink activeClassName="active" exact to="/">
-        Perfect Couple <Heart fillClass="fa-w-10 fix-vertical-logo" />
-        </NavLink>
+          <NavLink activeClassName="active" exact to="/">
+            <LayerGroup /> EBUDEZAIN
+          </NavLink>
         </h2>
       </div>
     )

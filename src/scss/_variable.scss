@@ -238,4 +238,11 @@ $custom-font-size : (
   src: url('/font/Great_Vibes/GreatVibes-Regular.ttf');
 }
 // // Font Variables
-$font-logo: 'Great Vibes';
+$font-logo-bak: 'Great Vibes';
+
+@font-face {
+  font-family: 'Muli';
+  src: url('/font/Muli/Muli-VariableFont_wght.ttf');
+}
+
+$font-logo : "Muli";

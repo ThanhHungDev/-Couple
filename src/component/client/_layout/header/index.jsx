@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 
 import  '../../../../scss/react/client/header/menu.scss'
 
-import Slider from "./Slider.jsx"
-
-
+import { Link } from "react-router-dom";
 import Logo from './Logo.jsx'
-import Menu from "./Menu.jsx"
-import BtnToggle from "./BtnToggle.jsx"
 
 class Header extends Component {
   constructor(props) {
@@ -18,17 +14,20 @@ class Header extends Component {
   render() {
     
     return (
-      <div className="component-header">
-        <div className="container">
+      <div className="component-header wrapper-header-page bg-gradient-home-page">
+        <div className="container-fluid ">
           <div className="row">
-            <div className="col-12 gradient">
-              <Logo />
-              <Menu />  
-              <BtnToggle />
+            <div className="col-6">
+              <Logo fillClass=' fix-vertical-logo'/> 
+              <h1 class="des-create-explore">CREATE AND EXPLORE</h1>
+              <Link to="/service" className="btn btn-success btn-create-service">use service</Link>
+              <Link to="/theme" className="link-create-explore">EXPLORE</Link>
+            </div>
+            <div className="col-6">
+              <Logo fillClass=' fix-vertical-logo'/> 
             </div>
           </div>
         </div>
-        <Slider />
       </div>
     )
   }

@@ -22,9 +22,8 @@
   .svg-inline--fa {
     display: inline-block;
     font-size: inherit;
-    height: 1em;
+    height: 1.5em;
     overflow: visible;
-    vertical-align: -0.125em;
 
     &.fa-w-16 {
       width: 1em;
@@ -32,33 +31,73 @@
     &.fa-w-10 {
       width: 0.8em;
     }
-    &.fix-vertical-logo {
-      vertical-align: -0.17em !important;
-    }
+    
 
     .fa-secondary {
       fill: $pink;
     }
     .fa-primary {
-      fill: #f2f2f2;
+      fill: $orange;
     }
   }
 }
 
 .component-header {
+
   padding: 0;
-  width: 100%;
+  width: 100%; 
+
+  &.wrapper-header-page{
+    padding: 30px 30px 15px 30px;
+
+
+    .des-create-explore{
+      animation-delay: 0.8s;
+      animation-name: fadeIn;
+      margin-top: 130px;
+      font-size: 75px;
+      line-height: 1.04;
+      letter-spacing: -.01em;
+      color: #020549;
+      margin-bottom: 30px;
+    }
+    .btn-create-service{
+      
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+      color: #ffffff;
+      background-color: $green;
+      border-color: $green;
+      padding: 14px 40px;
+      border-radius: 60px;
+      font-size: 18px;
+      text-transform: capitalize;
+      font-family: $font-logo;
+    }
+    .link-create-explore{
+      padding: 14px 20px;
+      color:$orange;
+      font-family: $font-logo;
+
+      &:hover{
+        color: $green;
+        text-decoration: underline;
+      }
+    }
+  }
+  
 
   @include clearfix();
 
   .logo {
-    float: left;
     font-family: $font-logo;
     font-size: 20px;
-    font-weight: 100;
+    vertical-align: middle;
+    padding: 15px;
 
     a {
-      color: $gray-500;
+      font-weight: 900;
+      color: $gray-900;
+      display: block;
     }
   }
 }
@@ -269,3 +308,9 @@
     }
   }
 }
+
+
+.bg-gradient-home-page {
+  background: linear-gradient(131.93deg, #E1FEFA 0%, #FCF7F4 77.11%);
+}
+
