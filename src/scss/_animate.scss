@@ -12,7 +12,7 @@
 // @import '_animate/attention_seekers/shakeY.scss';
 // @import '_animate/attention_seekers/headShake.scss';
 // @import '_animate/attention_seekers/swing.scss';
-// @import '_animate/attention_seekers/tada.scss';
+@import '_animate/attention_seekers/tada.scss';
 // @import '_animate/attention_seekers/wobble.scss';
 // @import '_animate/attention_seekers/jello.scss';
 // @import '_animate/attention_seekers/heartBeat.scss';
@@ -99,15 +99,16 @@
 // @import '_animate/rotating_exits/rotateOutDownRight.scss';
 // @import '_animate/rotating_exits/rotateOutUpLeft.scss';
 // @import '_animate/rotating_exits/rotateOutUpRight.scss';
+@import '_animate/rotating_exits/rotateCircle.scss';
 
 // /* Specials */
 // @import '_animate/specials/hinge.scss';
-// @import '_animate/specials/jackInTheBox.scss';
-// @import '_animate/specials/rollIn.scss';
+@import '_animate/specials/jackInTheBox.scss';
+@import '_animate/specials/rollIn.scss';
 // @import '_animate/specials/rollOut.scss';
 
 // /* Zooming entrances */
-// @import '_animate/zooming_entrances/zoomIn.scss';
+@import '_animate/zooming_entrances/zoomIn.scss';
 // @import '_animate/zooming_entrances/zoomInDown.scss';
 // @import '_animate/zooming_entrances/zoomInLeft.scss';
 // @import '_animate/zooming_entrances/zoomInRight.scss';

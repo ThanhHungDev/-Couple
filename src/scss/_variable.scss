@@ -246,3 +246,11 @@ $font-logo-bak: 'Great Vibes';
 }
 
 $font-logo : "Muli";
+
+
+
+@font-face {
+  font-family: 'Archivo-Medium';
+  src: url('/font/Archivo/Archivo-Medium.ttf');
+}
+$font-archivo-medium : "Archivo-Medium";

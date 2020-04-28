@@ -31,7 +31,6 @@
     &.fa-w-10 {
       width: 0.8em;
     }
-    
 
     .fa-secondary {
       fill: $pink;
@@ -43,26 +42,77 @@
 }
 
 .component-header {
-
   padding: 0;
-  width: 100%; 
+  width: 100%;
 
-  &.wrapper-header-page{
+  &.wrapper-header-page {
     padding: 30px 30px 15px 30px;
 
+    @include Responsive(SM){
 
-    .des-create-explore{
+      padding: 30px 0 15px 0;
+    }
+
+    .button-click-interactive{
+      text-align: left;
+      margin-bottom: 30px;
+
+      @include Responsive(SM){
+
+        text-align: center;
+      }
+    }
+    .des-create-explore {
       animation-delay: 0.8s;
       animation-name: fadeIn;
-      margin-top: 130px;
+      margin-top: 70px;
       font-size: 75px;
       line-height: 1.04;
-      letter-spacing: -.01em;
+      letter-spacing: -0.01em;
       color: #020549;
       margin-bottom: 30px;
-    }
-    .btn-create-service{
+
+      @include Responsive(LG){
+        font-size: 45px;
+      }
+      @include Responsive(SM){
+        text-align: center;
+        padding: 0 20%;
+      }
+      @include Responsive(XS){
+        padding: 0 5%;
+        font-size: 35px;
+        margin-top: 20px;
+      }
+
+      .decor-element {
+        position: absolute;
+        top: 10%;
+        right: 20%;
+
+        .polygon-svg-rotate{
+          width: 176px;
+  
+          @include Responsive(LG){
+
+            width: 100px;
+          }
+          @include Responsive(XS){
+
+            width: 70px;
+          }
+        }
+        @include Responsive(XL){
+          right: 15%;
+        }
+        @include Responsive(XS){
+          right: 5%;
+        }
+      }
+
       
+    }
+    .btn-create-service {
       box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
       color: #ffffff;
       background-color: $green;
@@ -72,19 +122,29 @@
       font-size: 18px;
       text-transform: capitalize;
       font-family: $font-logo;
+
+      @include Responsive(XS){
+        padding: 12px 30px;
+        font-size: 16px;
+      }
     }
-    .link-create-explore{
+    .link-create-explore {
+
       padding: 14px 20px;
-      color:$orange;
+      color: $orange;
       font-family: $font-logo;
 
-      &:hover{
+      &:hover {
         color: $green;
         text-decoration: underline;
       }
+
+      @include Responsive(XS){
+
+        font-size: 16px;
+      }
     }
   }
-  
 
   @include clearfix();
 
@@ -116,7 +176,7 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 
-    @include Responsive(MD){
+    @include Responsive(MD) {
       top: 30%;
     }
 
@@ -137,15 +197,15 @@
           padding-bottom: 2.5rem;
           text-shadow: 0px 3px 0px rgba(0, 0, 0, 0.35);
 
-          @include Responsive(MD){
+          @include Responsive(MD) {
             padding-bottom: 1.7rem;
             font-size: 22px;
           }
-          @include Responsive(SM){
+          @include Responsive(SM) {
             padding-bottom: 1.5rem;
             font-size: 20px;
           }
-          @include Responsive(XS){
+          @include Responsive(XS) {
             padding-bottom: 1rem;
             font-size: 18px;
           }
@@ -166,13 +226,13 @@
         text-shadow: 0px 4px 0px rgba(0, 0, 0, 0.35);
         font-weight: 100;
 
-        @include Responsive(MD){
+        @include Responsive(MD) {
           font-size: 50px;
         }
-        @include Responsive(SM){
+        @include Responsive(SM) {
           font-size: 40px;
         }
-        @include Responsive(XS){
+        @include Responsive(XS) {
           font-size: 32px;
         }
       }
@@ -206,7 +266,7 @@
         opacity: 1;
       }
 
-      @include Responsive(XS){
+      @include Responsive(XS) {
         width: 25px;
         height: 35px;
         padding: 0;
@@ -224,15 +284,16 @@
       left: 20px;
     }
 
-    &:before, &:after{
+    &:before,
+    &:after {
       content: "";
       width: 140px;
       height: 140px;
       position: absolute;
-      
+
       z-index: 10;
 
-      @include Responsive(XS){
+      @include Responsive(XS) {
         width: 80px;
         height: 80px;
       }
@@ -242,11 +303,11 @@
         no-repeat local;
       left: 30px;
       top: 30px;
-      @include Responsive(MD){
+      @include Responsive(MD) {
         left: 15px;
         top: 15px;
       }
-      @include Responsive(XS){
+      @include Responsive(XS) {
         left: 0px;
         top: 0px;
       }
@@ -256,17 +317,17 @@
         no-repeat local;
       right: 30px;
       bottom: 30px;
-      @include Responsive(MD){
+      @include Responsive(MD) {
         right: 15px;
         bottom: 15px;
       }
-      @include Responsive(XS){
+      @include Responsive(XS) {
         right: 0px;
         bottom: 0px;
       }
     }
   }
-  .slick-dots{
+  .slick-dots {
     position: absolute;
     bottom: 15px;
     left: 0;
@@ -274,15 +335,15 @@
     text-align: right;
     padding: 0 15%;
 
-    @include Responsive(MD){
+    @include Responsive(MD) {
       text-align: center;
       bottom: 5px;
     }
 
-    li{
+    li {
       font-size: 100px;
       padding: 5px;
-      button{
+      button {
         background-color: $white;
         color: $white;
         border-radius: 50%;
@@ -290,27 +351,118 @@
         height: 12px;
         border: 1px solid $white;
 
-        &:before{
-          color: $white!important;
+        &:before {
+          color: $white !important;
         }
       }
 
-      &.slick-active{
-
-        button{
+      &.slick-active {
+        button {
           background-color: $gray-700;
 
-          &:before{
-            color: $gray-700!important;
+          &:before {
+            color: $gray-700 !important;
           }
         }
       }
     }
   }
 }
+.service-description {
+  margin-top: 40px;
+  max-width: 370px;
+  padding: 0 0 0 60px;
+  position: relative;
+  line-height: 1.66em;
+  font-family: $font-logo;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: $gray-700;
+  @include Responsive(MD){
+    padding: 0;
+    padding: 0;
+    text-align: center;
+    margin: 0 auto;
+  }
 
 
-.bg-gradient-home-page {
-  background: linear-gradient(131.93deg, #E1FEFA 0%, #FCF7F4 77.11%);
+  &::before {
+    content: ".";
+    color: transparent;
+    width: 50px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    border-top: 1px solid $gray-900;
+
+    @include Responsive(MD){
+      display: none
+    }
+  }
+  
+}
+.text-bordered {
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  line-height: 1em;
+  -webkit-text-stroke-color: rgba(2, 5, 73, 0.14);
+  -webkit-text-stroke-width: 2px;
+  color: transparent;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-family: $font-archivo-medium;
+  font-size: 2.5em;
+
+  @include Responsive(SM){
+    font-size: 2em;
+  }
+
+
+  &:hover{
+    color: $cyan;
+    opacity: .2;
+  }
 }
 
+
+.component-web-design-image{
+  overflow: hidden;
+  width: 100%;
+
+  img{
+    width: 40%;
+    height: auto;
+    -webkit-transition: all 2s;
+    -moz-transition: all 2s;
+    -o-transition: all 2s;
+    -ms-transition: all 2s;
+    transition: all 2s;
+  }
+
+  .box-samples-img-1{
+    position: absolute;
+    top: 20%;
+    left: 15px;
+  }
+  .box-samples-img-2{
+    position: absolute;
+    top: 10%;
+    right: 15px;
+  }
+  .box-samples-img-3{
+    position: absolute;
+    bottom: 10%;
+    right: 20%;
+    -webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  }
+}
+
+.bg-gradient-home-page {
+  background: linear-gradient(131.93deg, #e1fefa 0%, #fcf7f4 77.11%);
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from "react-router-dom";
 /**
  * import define
  */
@@ -29,6 +30,8 @@ class Register extends Component {
         <Dropdown button={'sờ chị đi cưng'} list={['ahihi', 'nà ní']} />
         hùng đẹp trai
         <button onClick={this.handleChangeState}>click me</button>
+
+        <Link to='/'>trang chủ</Link>
       </div>
     )
   }

@@ -191,6 +191,21 @@ img{
     display: block;
 	}
 }
+.pc {
+  display: block;
+  @include Responsive(SM) {
+
+    display: none;
+	}
+}
+.md-d-block {
+  display: block;
+  @include Responsive(MD) {
+
+    display: none;
+	}
+}
+
 
 .small {
   display: none;
