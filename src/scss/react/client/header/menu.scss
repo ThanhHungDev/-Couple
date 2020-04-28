@@ -418,6 +418,10 @@
   @include Responsive(SM){
     font-size: 2em;
   }
+  @include Responsive(XS){
+    font-size: 1.7em;
+    text-align: center;
+  }
 
 
   &:hover{
