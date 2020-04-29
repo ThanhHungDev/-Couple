@@ -4,7 +4,6 @@ export default class BackTop extends Component {
 
   constructor(props) {
     super(props);
-    this.timeOut; 
   }
 
 

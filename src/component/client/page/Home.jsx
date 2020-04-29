@@ -11,6 +11,7 @@ import $ from "jquery";
 import checkInViewPosition from "../../../library/check-in-view-position.js"
 
 import BackTop from "../_layout/partial/General/BackTop.jsx"
+import AloNow from "../_layout/partial/General/AloNow.jsx"
 
 
 class Home extends Component {
@@ -33,6 +34,7 @@ class Home extends Component {
         <ServiceWebsiteSelector />
         <HomeIntroLayout />
         <BackTop />
+        <AloNow />
         <Footer />
       </div>
     );

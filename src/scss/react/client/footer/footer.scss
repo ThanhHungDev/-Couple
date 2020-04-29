@@ -1,3 +1,65 @@
-.wrapper-footer-page{
+@import "../../../variable";
+
+.wrapper-footer-page {
   padding: 60px;
+  text-align: center;
+
+  .footer-title {
+    font-size: 26px;
+    line-height: 45px;
+    margin: 15px;
+    font-family: $font-archivo-medium;
+    .footer-go-to-chat {
+      cursor: pointer;
+    }
+  }
+  .des-footer {
+    margin-bottom: 35px;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+
+
+  .option-contact{
+    display: block;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 0 ;
+    @include clearfix();
+
+    .item-advisory{
+      display: block;
+      float: left;
+      position: relative;
+
+      &:nth-child(1){
+        width: 40%;
+      }
+      &:nth-child(2){
+        width: 30%;
+      }
+      &:nth-child(3){
+        width: 30%;
+      }
+
+      span{
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        .hero-icon{
+          font-size: 36px;
+          color: #9c27b0;
+        }
+      }
+      .option-contact-content{
+        padding-left: 40px;
+        text-align: left;
+        font-size: 13px;
+      }
+    }
+  }
 }
+
+

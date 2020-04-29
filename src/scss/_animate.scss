@@ -6,7 +6,7 @@
 // /* Attention seekers  */
 // @import '_animate/attention_seekers/bounce.scss';
 // @import '_animate/attention_seekers/flash.scss';
-// @import '_animate/attention_seekers/pulse.scss';
+@import '_animate/attention_seekers/pulse.scss';
 // @import '_animate/attention_seekers/rubberBand.scss';
 // @import '_animate/attention_seekers/shakeX.scss';
 // @import '_animate/attention_seekers/shakeY.scss';
@@ -132,3 +132,7 @@
 // @import '_animate/sliding_exits/slideOutLeft.scss';
 // @import '_animate/sliding_exits/slideOutRight.scss';
 // @import '_animate/sliding_exits/slideOutUp.scss';
+
+
+/// custom 
+@import '_animate/custom/float.scss';
