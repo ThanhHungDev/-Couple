@@ -3,6 +3,8 @@ import "../../../../../scss/react/client/page/home.scss";
 
 import BoxClassic from "../../../../svg/box-classic.jsx";
 
+import StandardContract from "./StandardContract.jsx";
+
 class ServiceWebsiteSelector extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class ServiceWebsiteSelector extends Component {
             <h4 className="title-block-language">事業</h4>
             <p className="content-language">ビジネスの開発と促進、ブランド価値の向上</p>
           </div>
-          <div className="block-website-selector clear animate-support middle animated fadeInUp">
+          <div className="block-website-selector clear middle animated fadeInUp">
             <div className="icon-title-block">
               <span className="icon-title">
                 <i className="icon-abs-middle hero-icon hero-format-list-text"></i>
@@ -49,6 +51,7 @@ class ServiceWebsiteSelector extends Component {
             <p className="content-language">ビジネスを促進し、オンライン市場を支配する</p>
           </div>
         </div>
+        <StandardContract />
       </div>
     );
   }
