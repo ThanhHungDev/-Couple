@@ -40,7 +40,7 @@ class Header extends Component {
                 </div>
               </h1>
               <div className="button-click-interactive">
-                <Link to="/service" className="btn btn-success btn-create-service animated tada">
+                <Link to="/service" className="btn btn-success btn-create-service animate-support animated tada">
                 利用サービス
                 </Link>
                 <Link to="/theme" className="link-create-explore">探検する</Link>

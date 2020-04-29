@@ -14,7 +14,7 @@ class ServiceWebsiteSelector extends Component {
         <div className="topic-website-selector">
           <div className="title-topic">ウェブサイトのデザインニーズ</div>
         </div>
-        <div className="wrapper-website-selector clear">
+        <div className="wrapper-website-selector clear animated fadeInRight">
           <div className="block-website-selector">
             <div className="icon-title-block">
               <span className="icon-title">
@@ -26,7 +26,7 @@ class ServiceWebsiteSelector extends Component {
             <h4 className="title-block-language">事業</h4>
             <p className="content-language">ビジネスの開発と促進、ブランド価値の向上</p>
           </div>
-          <div className="block-website-selector middle">
+          <div className="block-website-selector clear animate-support middle animated fadeInUp">
             <div className="icon-title-block">
               <span className="icon-title">
                 <i className="icon-abs-middle hero-icon hero-format-list-text"></i>
@@ -37,7 +37,7 @@ class ServiceWebsiteSelector extends Component {
             <h4 className="title-block-language">ご自身の要件に応じた</h4>
             <p className="content-language">アイデアを与えてビジネスに集中し、残りは私たちに任せます</p>
           </div>
-          <div className="block-website-selector">
+          <div className="block-website-selector clear animated fadeInLeft">
             <div className="icon-title-block">
             <span className="icon-title">
               <i className="icon-abs-middle hero-icon hero-auto-fix"></i>
