@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "../../../../scss/react/client/page/home.scss";
+import "../../../../../scss/react/client/page/home.scss";
 
-import BoxClassic from "../../../svg/box-classic.jsx";
+import BoxClassic from "../../../../svg/box-classic.jsx";
 
 class ServiceWebsiteSelector extends Component {
   constructor(props) {

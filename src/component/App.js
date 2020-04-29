@@ -5,6 +5,8 @@ import Register from './client/Register.jsx';
 
 import Home from './client/page/Home.jsx'
 
+import DetailTheme from "./client/page/DetailTheme.jsx"
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ class App extends Component {
         <BrowserRouter>
           <Route exact path="/" render={() => <Home />} />
           <Route path="/play-now" render={() => <p>trang play now</p>} />
-          <Route path="/friend" render={() => <p>trang friend</p>} />
+          <Route path="/theme-detail" render={() => <DetailTheme />} />
           <Route path="/register" render={() => <Register />} />
 
         </BrowserRouter>

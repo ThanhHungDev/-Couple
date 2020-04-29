@@ -1,0 +1,19 @@
+@import "../../../variable";
+
+.component-back-top{
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  cursor: pointer;
+
+  .hero-icon{
+
+    font-size: 50px;
+    color: $indigo;
+
+    &:hover{
+      color: $purple;
+      opacity: 0.3;
+    }
+  }
+}

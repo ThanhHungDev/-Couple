@@ -1,5 +1,6 @@
 const TYPE =  {
-  ADD_ARTICLE                    : 'abc',
-  CLICK_DEMO                     : 'click',
+  HOME : {
+    CHANGE_LAYOUTS : 'CHANGE_LAYOUTS'
+  }
 }
 export default TYPE;

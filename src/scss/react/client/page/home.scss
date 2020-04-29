@@ -1,6 +1,6 @@
 @import "../../../variable";
 
-.component-home{
+.component-home {
   overflow: hidden;
 }
 
@@ -130,6 +130,53 @@
     .content-language {
       text-align: center;
       color: #142149;
+    }
+  }
+}
+.component-home-intro-layout {
+  @include clearfix();
+  @include Responsive(SM) {
+    padding: 0 3px;
+  }
+
+  .wrapper-item-craft-layout {
+    display: block;
+    width: 33.3333%;
+    float: left;
+    padding: 15px;
+
+    @include Responsive(SM) {
+      padding: 3px;
+      width: 50%;
+
+      &:last-child {
+        display: none;
+      }
+
+      figure.box-modern-figure {
+        display: block;
+        margin: 15px 0;
+      }
+    }
+
+    figure.box-modern-figure {
+      display: block;
+      margin: 25px 0;
+
+      img {
+        &:hover {
+          opacity: 0.8;
+          box-shadow: 0 4px 12px $gray-800;
+        }
+      }
+    }
+
+    .box-modern-title {
+      text-align: center;
+
+      @include Responsive(SM) {
+        font-size: 13px;
+      }
     }
   }
 }
