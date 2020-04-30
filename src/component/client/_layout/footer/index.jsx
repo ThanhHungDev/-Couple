@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 import "../../../../scss/react/client/footer/footer.scss"
-
+import ContentFooter from './Content.jsx'
 export default class Footer extends Component {
 
   render(){
@@ -49,6 +49,7 @@ export default class Footer extends Component {
           </div>
 
         </div>
+        <ContentFooter />
 
 
       </div>

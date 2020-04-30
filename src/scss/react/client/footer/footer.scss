@@ -41,14 +41,28 @@
       float: left;
       position: relative;
 
+      @include Responsive(SM){
+        float: none;
+        text-align: left;
+      }
+
       &:nth-child(1){
         width: 40%;
+        @include Responsive(SM){
+          width: 100%;
+        }
       }
       &:nth-child(2){
         width: 30%;
+        @include Responsive(SM){
+          width: 100%;
+        }
       }
       &:nth-child(3){
         width: 30%;
+        @include Responsive(SM){
+          width: 100%;
+        }
       }
 
       .hero-icon{
@@ -79,6 +93,19 @@
       }
     }
   }
+
+  .component-footer-content{
+    text-align: left;
+    .about-us{
+      padding: 15px;
+    }
+  }
 }
 
+
+.fa-address-card{
+  color: $pink;
+  font-size: 36px;
+  background-color: blue($color: #000000);
+}
 
