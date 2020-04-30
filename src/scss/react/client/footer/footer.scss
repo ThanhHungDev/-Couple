@@ -1,22 +1,27 @@
 @import "../../../variable";
 
 .wrapper-footer-page {
-  padding: 60px;
   text-align: center;
 
-  .footer-title {
-    font-size: 26px;
-    line-height: 45px;
-    margin: 15px;
-    font-family: $font-archivo-medium;
-    .footer-go-to-chat {
-      cursor: pointer;
+  .head-footer{
+    padding: 60px 60px 15px 60px;
+    @include Responsive(SM){
+      padding: 20px 0 15px 0;
     }
-  }
-  .des-footer {
-    margin-bottom: 35px;
-    margin: 0 auto;
-    max-width: 600px;
+
+    .footer-title {
+      font-size: 26px;
+      line-height: 45px;
+      font-family: $font-archivo-medium;
+      .footer-go-to-chat {
+        cursor: pointer;
+      }
+    }
+    .des-footer {
+      margin: 0 auto;
+      padding: 20px;
+      max-width: 600px;
+    }
   }
 
 
@@ -25,10 +30,13 @@
     display: block;
     max-width: 900px;
     margin: 0 auto;
-    padding: 40px 0 ;
+    
+    
     @include clearfix();
 
     .item-advisory{
+      
+      padding: 15px;
       display: block;
       float: left;
       position: relative;
@@ -43,20 +51,31 @@
         width: 30%;
       }
 
-      span{
-        position: absolute;
-        left: 0;
-        top: 0;
-
-        .hero-icon{
-          font-size: 36px;
-          color: #9c27b0;
-        }
+      .hero-icon{
+        display: inline-block;
+        font-size: 32px;
+        vertical-align: middle;
+        color: $custom-deep-purple;
+        opacity: 0.7;
       }
       .option-contact-content{
-        padding-left: 40px;
+        vertical-align: middle;
+        display: inline-block;
+        padding-left: 10px;
         text-align: left;
         font-size: 13px;
+
+        .type{
+          a{
+            color : $gray-500
+          }
+        }
+        .link{
+          color : $black;
+          &:hover{
+            color: $gray-700
+          }
+        }
       }
     }
   }

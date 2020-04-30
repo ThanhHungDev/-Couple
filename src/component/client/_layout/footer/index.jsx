@@ -9,7 +9,7 @@ export default class Footer extends Component {
     return(
       <div className="component-footer wrapper-footer-page bg-gradient-home-page">
         
-        <div className="container">
+        <div className="container head-footer">
           <div className="row">
 
             <div className="col-12">
@@ -25,26 +25,26 @@ export default class Footer extends Component {
         <div className="option-contact">
 
           <div className="item-advisory">
-            <span><i className='hero-icon hero-headset'></i></span>
+            <i className='hero-icon hero-message-cog-outline'></i>
             <div className="option-contact-content">
-              <h6>コンサルティングウェブデザイン</h6>
-              <Link to='/chat/advisory-system'>クリックしてチャット</Link>
+              <h6 className="type"><Link to='/chat/advisory-system'>コンサルティングウェブデザイン</Link></h6>
+              <Link className="link" to='/chat/advisory-system'>クリックしてチャット</Link>
             </div>
           </div>
 
           <div className="item-advisory">
-            <span><i className='hero-icon hero-cellphone-cog'></i></span>
+            <i className='hero-icon hero-certificate-outline'></i>
             <div className="option-contact-content">
-              <h6>技術サポート</h6>
-              <Link to='/chat/advisory-system'>クリックしてチャット</Link>
+              <h6 className="type"><Link to='/chat/advisory-system'>技術サポート</Link></h6>
+              <Link className="link" to='/chat/advisory-system'>クリックしてチャット</Link>
             </div>
           </div>
 
           <div className="item-advisory">
-            <span><i className='hero-icon hero-email-edit-outline'></i></span>
+            <i className='hero-icon hero-email-edit-outline'></i>
             <div className="option-contact-content">
-              <h6>Webリクエストを送信</h6>
-              <Link to='/chat/advisory-system'>クリックしてチャット</Link>
+              <h6 className="type"><Link to='/chat/advisory-system'>Webリクエストを送信</Link></h6>
+              <Link className="link" to='/chat/advisory-system'>クリックしてチャット</Link>
             </div>
           </div>
 

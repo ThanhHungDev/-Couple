@@ -1,6 +1,6 @@
 
 
-$mdi-icons: (
+$hero-icons: (
   // "ab-testing": F01C9,
   // "abjad-arabic": F1328,
   // "abjad-hebrew": F1329,
@@ -1121,7 +1121,7 @@ $mdi-icons: (
   // "celtic-cross": F0CF5,
   // "centos": F111A,
   // "certificate": F0124,
-  // "certificate-outline": F1188,
+  "certificate-outline": F1188,
   // "chair-rolling": F0F48,
   // "chair-school": F0125,
   // "charity": F0C4F,
@@ -1313,7 +1313,7 @@ $mdi-icons: (
   // "clipboard-text-outline": F0A38,
   // "clipboard-text-play": F0C5B,
   // "clipboard-text-play-outline": F0C5C,
-  // "clippy": F014F,
+  "clippy": F014F,
   // "clock": F0954,
   // "clock-alert": F0955,
   // "clock-alert-outline": F05CE,
@@ -3176,7 +3176,7 @@ $mdi-icons: (
   // "message-bulleted": F06A2,
   // "message-bulleted-off": F06A3,
   // "message-cog": F06F1,
-  // "message-cog-outline": F1172,
+  "message-cog-outline": F1172,
   // "message-draw": F0363,
   // "message-image": F0364,
   // "message-image-outline": F116C,
@@ -5191,12 +5191,9 @@ i.hero-icon{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  @each $key, $value in $mdi-icons {
+  @each $key, $value in $hero-icons {
     &.hero-#{$key}::before {
         content: char($value);
     }
-  }
-  &.mdi-clippy::before {
-    content: "\F014F";
   }
 }
