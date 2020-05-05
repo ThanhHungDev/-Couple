@@ -279,18 +279,17 @@
       width: 33.33%;
       float: left;
       padding: 10px;
+      @include Responsive(MD){
+        &:last-child{
+          display: none!important;
+        }
+      }
       @include Responsive(SM){
         width: 50%;
         padding: 5px;
       }
-      // @include Responsive(XS){
-      //   width: 100%;
-      //   float: none;
-      //   padding: 5px;
-      // }
-      &:last-child{
-        display: none!important;
-      }
+      
+      
       
 
       .box-modern-figure{
