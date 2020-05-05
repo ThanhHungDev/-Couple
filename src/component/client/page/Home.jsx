@@ -4,7 +4,7 @@ import Footer from "../_layout/footer/index.jsx";
 import "../../../scss/react/client/page/home.scss";
 import ServiceWebsiteSelector from "../_layout/partial/HomePage/ServiceWebsiteSelector.jsx";
 
-import HomeIntroLayout from "../_layout/partial/HomePage/HomeIntroLayout.jsx"
+import HomePage from "../_layout/partial/HomePage/index.jsx"
 
 import $ from "jquery";
 
@@ -32,7 +32,7 @@ class Home extends Component {
       <div className="component-home">
         <Header />
         <ServiceWebsiteSelector />
-        <HomeIntroLayout />
+        <HomePage />
         <BackTop />
         <AloNow />
         <Footer />
