@@ -7,18 +7,18 @@ var themes = [
     author: 'by チュン　タン　フン'
   },
   {
-    img: '/image/intro-layout/page-2-465x357.jpg',
-    name: 'Home Shop',
+    img: 'image/theme/myservice.png',
+    name: 'Ebudezain',
     author: 'by チュン　タン　フン'
   },
   {
-    img: '/image/intro-layout/page-3-465x357.jpg',
-    name: 'Home Shop',
+    img: 'image/theme/kandc.png',
+    name: 'kandc',
     author: 'by チュン　タン　フン'
   },
   {
-    img: '/image/intro-layout/page-4-465x357.jpg',
-    name: 'Home Shop',
+    img: 'image/theme/doctor-recruit.png',
+    name: 'trust-growth',
     author: 'by チュン　タン　フン'
   },
   {
