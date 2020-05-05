@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from "react-router-dom"
 
 class Menu extends Component {
   constructor(props) {
@@ -12,16 +13,16 @@ class Menu extends Component {
       <div className="component-menu">
         <ul className="wrapper-link">
           <li>
-            <a href="#">trang chủ</a>
+            <NavLink activeClassName="active" exact to="/">ホームページ</NavLink>
           </li>
           <li>
-            <a href="#">tìm kiếm bạn</a>
+            <NavLink activeClassName="active" to="/service">サービス</NavLink>
           </li>
           <li>
-            <a href="#">thông báo</a>
+            <NavLink activeClassName="active" to="/chat">チャット</NavLink>
           </li>
           <li>
-            <a href="#">xem trang cá nhân</a>
+            <NavLink activeClassName="active" to="/theme">意匠</NavLink>
           </li>
         </ul>
       </div>

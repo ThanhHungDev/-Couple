@@ -65,9 +65,6 @@ $link-color:                              $teal !default;
 $link-decoration:                         none !default;
 $link-hover-color:                        darken($link-color, 15%) !default;
 
-/// font 
-$font-family-sans-serif:      Arial, Helvetica, sans-serif !default;
-$font-family-base:            "Times New Roman", Times, serif !default;
 
 // heading 
 $font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
@@ -311,3 +308,9 @@ $font-logo : "Muli";
   src: url('/font/Archivo/Archivo-Medium.ttf');
 }
 $font-archivo-medium : "Archivo-Medium";
+
+
+
+/// font 
+$font-family-sans-serif:      Arial, Helvetica, sans-serif !default;
+$font-family-base:            "Times New Roman", Times, serif !default;

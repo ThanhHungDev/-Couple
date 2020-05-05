@@ -82,7 +82,7 @@
       @include Responsive(XS){
         padding: 0 5%;
         font-size: 35px;
-        margin-top: 20px;
+        margin-top: 60px;
       }
 
       .decor-element {
@@ -469,4 +469,87 @@
 
 .bg-gradient-home-page {
   background: linear-gradient(131.93deg, #e1fefa 0%, #fcf7f4 77.11%);
+}
+
+.component-menu{
+  position: absolute;
+    top: 30px;
+    right: 10%;
+    z-index: 999;
+    background-color: $white;
+    box-shadow: -4px 20px 40px rgba(0, 0, 0, 0.15);
+
+    @include Responsive(SM){
+      top: 90px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      margin: 0 auto;
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+  .wrapper-link{
+    margin: 0;
+    padding: 0 10px 8px;
+    @include clearfix();
+    @include Responsive(SM){
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    li{
+      padding: 0 15px;
+      float: left;
+      @include Responsive(SM){
+        float: none;
+        display: inline-block;
+        text-align: center;
+        margin: 0 auto;
+      }
+      @include Responsive(XS){
+        padding: 0 4px;
+      }
+
+      a{
+        display: block;
+        padding: 10px 5px 5px;
+        font-size: 19px;
+        margin-left: 3px;
+        color: $custom-primary-color-dark;
+        font-weight: 900;
+        position: relative;
+        @include Responsive(XS){
+          font-size: 14px;
+          &:after{
+            border-bottom: 2px solid $custom-primary-color-dark;
+          }
+        }
+
+        &:after{
+          content: '.';
+          color: transparent;
+          position: absolute;
+          left: 50%;
+          right: 50%;
+          bottom: 0;
+          border-bottom: 3px solid $custom-primary-color-dark;
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          transition: all 0.5s;
+        }
+        &:hover, &.active{
+          color: $link-color;
+
+          &:after{
+            left: 0;
+            right: 0;
+
+          }
+        }
+      }
+    }
+  }
 }

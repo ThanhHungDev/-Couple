@@ -96,16 +96,105 @@
 
   .component-footer-content{
     text-align: left;
+    max-width: 1100px;
+    margin: 0 auto ;
+    border-top: 1px solid $gray-600;
+    padding-top: 20px;
+    @include clearfix();
     .about-us{
+      width: 30%;
+
+      @include Responsive(LG){
+        width: 50%;
+      }
+      @include Responsive(SM){
+        width: 100%;
+        float: none;
+      }
+    }
+    .service-us{
+      width: 30%;
+
+      @include Responsive(LG){
+        width: 50%;
+      }
+      @include Responsive(SM){
+        width: 100%;
+        float: none;
+      }
+    }
+    .map-us{
+      width: 40%;
+      float: left;
+      min-width: 300px;
+      height: 100%;
+      height: 250px;
+      position: relative;
+      overflow: hidden;
+      @include Responsive(LG){
+        width: 100%;
+        float: none;
+      }
+
+      .address_detail_map{
+        font-size: 11px;
+        color: $gray-700;
+      }
+      .main_color{
+        font-size: 13px;
+        color: $custom-primary-color-dark;
+      }
+    }
+    .about-us, .service-us{
+      
       padding: 15px;
+      line-height: 1;
+      vertical-align: middle;
+      float: left;
+      font-family: $font-archivo-medium;
+
+      .company-name, .tax-code, .tax-code-date, .address, .phone, .email,
+      .seo-standard, .chat-realtime, .recruit, .news, .marketing-sale-online, .responsive{
+        margin-bottom: 10px;
+        cursor: pointer;
+
+        &:hover{
+
+          span{
+            color: $gray-500;
+          }
+          a{
+            color: $link-hover-color;
+          }
+          .hero-icon{
+            color: $custom-purple
+          }
+        }
+      }
+
+      .title{
+        font-size: 21px;
+        
+        color: $custom-primary-color-dark;
+        text-transform: capitalize;
+        padding-bottom: 15px;
+        margin-bottom: 0;
+      }
+      span, a{
+        vertical-align: middle;
+        font-size: 13px;
+        color: $gray-700;
+      }
+
+      .hero-icon{
+
+        width: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
+        font-size: 24px;
+        color: $custom-primary-color-dark ;
+      }
     }
   }
-}
-
-
-.fa-address-card{
-  color: $pink;
-  font-size: 36px;
-  background-color: blue($color: #000000);
 }
 

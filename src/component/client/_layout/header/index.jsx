@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import Logo from './Logo.jsx'
 import LstWebDesignImg from "./LstWebDesignImg.jsx"
 
+import Menu from './Menu.jsx'
+
+
 class Header extends Component {
   constructor(props) {
 
@@ -26,11 +29,15 @@ class Header extends Component {
   render() {
     
     return (
-      <div className="component-header wrapper-header-page bg-gradient-home-page">
-        <div className="container-fluid ">
+      <div className="component-header wrapper-header-page bg-gradient-home-page position-relative">
+        <Menu />
+        <div className="container-fluid">
+
           <div className="row">
+
             <div className="col-6 col-sm-12 js-nomal-height">
               <Logo fillClass=' fix-vertical-logo'/> 
+
               <h1 className="des-create-explore position-relative">
                 あなたのウェブサイトを作成
                 <div className="decor-element animated fadeIn">
@@ -39,6 +46,7 @@ class Header extends Component {
                   </svg>
                 </div>
               </h1>
+              
               <div className="button-click-interactive">
                 <Link to="/service" className="btn btn-success btn-create-service animate-support animated tada">
                 利用サービス
@@ -49,9 +57,11 @@ class Header extends Component {
               <h4 className="service-description">私たちはプロのウェブサイトデザインユニットです。 エブデザインは、日本企業の成長に対応できることをうれしく思います。</h4>
               <Link to='/register' className="text-bordered">クリックしてチャット</Link>
             </div>
+
             <div className="col-6 col-sm-12 pc">
               <LstWebDesignImg fillClass="component-web-design-image " />
             </div>
+            
           </div>
         </div>
       </div>
