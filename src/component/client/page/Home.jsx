@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../_layout/header/index.jsx";
+import Header from "../_layout/header/HeaderHomePage.jsx";
 import Footer from "../_layout/footer/index.jsx";
 import "../../../scss/react/client/page/home.scss";
 import ServiceWebsiteSelector from "../_layout/partial/HomePage/ServiceWebsiteSelector.jsx";

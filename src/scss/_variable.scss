@@ -309,7 +309,17 @@ $font-logo : "Muli";
 }
 $font-archivo-medium : "Archivo-Medium";
 
+@font-face {
+  font-family: 'BenchNine-Regular';
+  src: url('/font/BenchNine/BenchNine-Regular.ttf');
+}
+$font-benchNine-regular : "BenchNine-Regular";
 
+@font-face {
+  font-family: 'Sawarabi-Mincho-Regular';
+  src: url('/font/Sawarabi_Mincho/SawarabiMincho-Regular.ttf');
+}
+$font-sawarabi-mincho-regular : "Sawarabi-Mincho-Regular";
 
 /// font 
 $font-family-sans-serif:      Arial, Helvetica, sans-serif !default;

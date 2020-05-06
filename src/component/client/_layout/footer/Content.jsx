@@ -54,7 +54,7 @@ export default class ContentFooter extends Component {
     var marker = new google.maps.Marker({
       position: myLatlng,
       map: map,
-      icon: 'image/map-icon.png'
+      icon: '/image/map-icon.png'
     });
     var map = new google.maps.Map(
       document.getElementById("map-canvas"),

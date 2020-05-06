@@ -2,22 +2,22 @@
 
 var themes = [
   {
-    img: 'image/theme/homeshop.png',
+    img: '/image/theme/homeshop.png',
     name: 'ホームショップ',
     author: 'by チュン　タン　フン'
   },
   {
-    img: 'image/theme/myservice.png',
+    img: '/image/theme/myservice.png',
     name: 'Ebudezain',
     author: 'by チュン　タン　フン'
   },
   {
-    img: 'image/theme/kandc.png',
+    img: '/image/theme/kandc.png',
     name: 'kandc',
     author: 'by チュン　タン　フン'
   },
   {
-    img: 'image/theme/doctor-recruit.png',
+    img: '/image/theme/doctor-recruit.png',
     name: 'trust-growth',
     author: 'by チュン　タン　フン'
   },

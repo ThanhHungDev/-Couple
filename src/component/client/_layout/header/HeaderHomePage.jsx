@@ -17,13 +17,17 @@ class Header extends Component {
 
   componentDidMount(){
 
-    var heightPrevColumn = document.getElementsByClassName('js-nomal-height')[0].clientHeight;
-    document.getElementsByClassName('component-web-design-image')[0]['style']['height'] = heightPrevColumn + "px";
+    let instance = this;
+    instance.formatHeightHeader();
     window.addEventListener("resize", function(){
-
+      instance.formatHeightHeader();
+    });
+  }
+  formatHeightHeader = ()=> {
+    if(document.getElementsByClassName('js-nomal-height').length){
       var heightPrevColumn = document.getElementsByClassName('js-nomal-height')[0].clientHeight;
       document.getElementsByClassName('component-web-design-image')[0]['style']['height'] = heightPrevColumn + "px";
-    });
+    }
   }
   
   render() {
@@ -36,7 +40,7 @@ class Header extends Component {
           <div className="row">
 
             <div className="col-6 col-sm-12 js-nomal-height">
-              <Logo fillClass=' fix-vertical-logo'/> 
+              <Logo /> 
 
               <h1 className="des-create-explore position-relative">
                 あなたのウェブサイトを作成
@@ -55,7 +59,7 @@ class Header extends Component {
               </div>
               
               <h4 className="service-description">私たちはプロのウェブサイトデザインユニットです。 エブデザインは、日本企業の成長に対応できることをうれしく思います。</h4>
-              <Link to='/register' className="text-bordered">クリックしてチャット</Link>
+              <Link to='/chat' className="text-bordered">クリックしてチャット</Link>
             </div>
 
             <div className="col-6 col-sm-12 pc">

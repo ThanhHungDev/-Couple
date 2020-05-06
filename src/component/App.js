@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Register from './client/Register.jsx';
 
 import Home from './client/page/Home.jsx'
 
 import DetailTheme from "./client/page/DetailTheme.jsx"
+import Chat from './client/page/Chat.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +17,10 @@ class App extends Component {
       <div className="AppComponent">
         <BrowserRouter>
           <Route exact path="/" render={() => <Home />} />
-          <Route path="/play-now" render={() => <p>trang play now</p>} />
+          <Switch>
+            <Route exact path='/chat' render={({ match }) => <Chat match={match}/>}/>
+            <Route path='/chat/:id' render={({ match }) => <Chat match={match}/>}/>
+          </Switch>
           <Route path="/theme-detail" render={() => <DetailTheme />} />
           <Route path="/register" render={() => <Register />} />
 
