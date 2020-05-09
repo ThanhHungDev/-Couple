@@ -6,10 +6,10 @@ export default class ButtonHambeger extends Component {
 
   toggleMenu = () => {
 
-    let listLink = document.getElementById('js-toggle-menu-mobile');
-    if(listLink){
+    let wrapperLink = document.getElementById('js-toggle-menu-mobile');
+    if(wrapperLink){
 
-      listLink.classList.toggle('open');
+      wrapperLink.classList.toggle('open');
       document.body.classList.toggle('neo-scroll')
     }
   }

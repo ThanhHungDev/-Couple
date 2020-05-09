@@ -43,37 +43,32 @@ class MenuFull extends Component {
     
     return (
       <div id='js-toggle-menu-mobile' className="component-menu menu-full">
+
         <ul className="wrapper-link">
           <li>
-            <NavLink activeClassName="active" exact to="/">ホームページ</NavLink>
+            <NavLinkCustom exact={true} to="/" text='ホームページ' />
           </li>
           <li className={'dropdown-menu ' + this.getClassActive('service')}>
-            <NavLink activeClassName="active" to="/service"> サービス </NavLink>
+            <NavLinkCustom to="/service" text='サービス' />
             <i className='hero-icon hero-plus-outline' onClick={this.activeMenuMobile}></i>
             <ul className="sub-link">
-              <li><NavLink activeClassName="active" to="/service/system"> サービス </NavLink></li>
-              <li><NavLink activeClassName="active" to="/service/hugn"> hugn </NavLink></li>
-              <li><NavLink activeClassName="active" to="/service/nhi"> nhi </NavLink></li>
+              <li><NavLinkCustom to="/service/system" text='サービス' /></li>
+              <li><NavLinkCustom to="/service/hung" text='hùng' /></li>
+              <li><NavLinkCustom to="/service/nhin" text='nhi' /></li>
             </ul>
           </li>
           <li className={'dropdown-menu ' + this.getClassActive('chat')}>
-            <NavLink activeClassName="active" to="/chat">チャット </NavLink>
+            <NavLinkCustom to="/chat" text='チャット' />
             <i className='hero-icon hero-plus-outline' onClick={this.activeMenuMobile}></i>
             <ul className="sub-link">
-              <li><NavLink activeClassName="active" to="/chat/advisory-system"> コンサルティングウェブデザイン </NavLink></li>
-              <li><NavLink activeClassName="active" to="/chat/technical-support"> 技術サポート </NavLink></li>
-              <li><NavLink activeClassName="active" to="/chat/website-creation-request"> ウェブサイト作成依頼 </NavLink></li>
+              <li><NavLinkCustom to="/chat/advisory-system" text='コンサルティングウェブデザイン' /></li>
+              <li><NavLinkCustom to="/chat/technical-support" text='技術サポート' /></li>
+              <li><NavLinkCustom to="/chat/website-creation-request" text='ウェブサイト作成依頼' /></li>
             </ul>
           </li>
-          <li>
-            <NavLink activeClassName="active" to="/theme">意匠</NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active" to="/contact">お問い合わせ</NavLink>
-          </li>
-          <li>
-            <NavLink activeClassName="active" to="/register-trial">登録トライアル</NavLink>
-          </li>
+          <li><NavLinkCustom to="/theme" text='意匠' /></li>
+          <li><NavLinkCustom to="/contact" text='お問い合わせ' /></li>
+          <li><NavLinkCustom to="/register-trial" text='登録トライアル' /></li>
         </ul>
       </div>
     )
@@ -81,3 +76,21 @@ class MenuFull extends Component {
 }
 
 export default MenuFull;
+
+
+
+class NavLinkCustom extends Component{
+
+  closeMenuToggle = event => {
+    if(window.innerWidth > 767){
+      return;
+    }
+    document.getElementById('js-toggle-menu-mobile').classList.toggle('open');
+    document.body.classList.remove('neo-scroll')
+  }
+  render(){
+    return(
+      <NavLink onClick={this.closeMenuToggle} activeClassName="active" exact = {this.props.exact} to={this.props.to}>{this.props.text}</NavLink>
+    )
+  }
+}
