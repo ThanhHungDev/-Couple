@@ -1,0 +1,284 @@
+@import "../../../../scss/variable.scss";
+
+.component-button-hambeger {
+  position: absolute;
+  top: 30%;
+  right: 15px;
+
+  svg {
+    width: 25px;
+    height: auto;
+
+    path {
+      &:first-child {
+        fill: #0542a2;
+        opacity: 0.4;
+      }
+      &:last-child {
+        fill: #0542a2;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.component-menu.menu-full {
+  /*********** <---- MENU FULL ***********/
+  float: right;
+
+  ul.wrapper-link {
+    margin: 0;
+    padding: 15px 20px 0;
+    @include clearfix();
+
+    .dropdown-menu {
+      position: relative;
+
+      /// a text head of dropdown
+      a:after {
+        content: unset;
+      }
+
+      .sub-link {
+        display: block;
+        padding: 0;
+        background: $gray-100 none repeat scroll 0 0;
+        width: 230px;
+        margin: -6px 2px 0;
+        border: 1px solid $gray-200;
+        position: absolute;
+        top: 70px;
+        left: 80%;
+        visibility: hidden;
+        opacity: 0;
+        z-index: -1;
+        overflow: hidden;
+        height: 0;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        -webkit-transition: all 0.15s ease-in-out;
+        -moz-transition: all 0.15s ease-in-out;
+        -o-transition: all 0.15s ease-in-out;
+        -ms-transition: all 0.15s ease-in-out;
+        transition: all 0.15s ease-in-out;
+
+        @include clearfix();
+
+        li {
+          display: block;
+          float: none;
+
+          &:last-child {
+            a {
+              border-bottom: none;
+            }
+          }
+
+          a {
+            display: block;
+            color: $custom-primary-color-dark;
+            border-bottom: 1px solid $gray-200;
+            box-shadow: none;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 16px;
+            padding: 10px 14px 10px 20px;
+            text-transform: none;
+            position: relative;
+            transition: all 0.3s ease-out 0s;
+            -webkit-transition: all 0.3s ease-out 0s;
+
+            &:hover {
+              padding-left: 14px;
+              padding-right: 20px;
+              color: $link-color;
+            }
+          }
+        }
+      }
+
+      &:hover {
+        .sub-link {
+          top: 120%;
+          height: unset;
+          opacity: 1;
+          z-index: 100;
+          visibility: unset;
+        }
+      }
+    }
+
+    & > li {
+      padding: 0 10px;
+      float: left;
+      position: relative;
+
+      @include Responsive(MD) {
+        padding: 0 5px;
+      }
+
+      .hero-icon {
+        position: absolute;
+        top: 60%;
+        @include render-transform(translateY(-50%));
+        right: 0px;
+        color: $custom-primary-color-dark;
+        width: 16px;
+        font-size: 14px;
+        -webkit-transition: all 0.35s linear 0s;
+        -moz-transition: all 0.35s linear 0s;
+        -o-transition: all 0.35s linear 0s;
+        -ms-transition: all 0.35s linear 0s;
+        transition: all 0.35s linear 0s;
+      }
+      & > a {
+        display: block;
+        padding: 10px 5px 5px;
+        font-size: 17px;
+        margin-left: 3px;
+        font-weight: 900;
+        color: $custom-primary-color-dark;
+        font-family: $font-sawarabi-mincho-regular;
+        position: relative;
+
+        @include Responsive(MD) {
+          font-size: 15px;
+        }
+
+        &.active{
+          color: $link-color;
+        }
+        &:after {
+          content: ".";
+          color: transparent;
+          position: absolute;
+          left: 50%;
+          right: 50%;
+          bottom: 0;
+          border-bottom: 3px solid $custom-primary-color-dark;
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          transition: all 0.5s;
+        }
+        
+      }
+
+      &:hover {
+        > a {
+          color: $link-color;
+
+          
+          &:after {
+            left: 0;
+            right: 0;
+          }
+        }
+
+        .hero-icon {
+          color: $link-color;
+          @include render-transform(translateY(-50%) scale(1) rotate(270deg));
+        }
+      }
+
+    }
+
+    /// responsive ul.wrapper-link
+    @include Responsive(MD) {
+      padding: 15px 10px 0;
+    }
+  }
+}
+
+//// mobile for .component-menu
+@include Responsive(SM) {
+  .component-menu.menu-full {
+    display: none;
+    -webkit-transition: 0.2s 0s;
+    -o-transition: 0.2s 0s;
+    transition: 0.2s 0s;
+
+    &.open {
+      display: block;
+      position: fixed;
+      overflow: scroll;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      @include render-gradient(0deg, #ffd1d4, #d6ffc6);
+      z-index: 2;
+      top: 0;
+      // left: -767px;
+      // right: 767px;
+      bottom: 0;
+      overflow-y: scroll;
+      padding: 15px;
+    }
+
+    ul.wrapper-link {
+      margin: 0;
+      padding: 0;
+      @include clearfix();
+  
+      .dropdown-menu {
+        position: relative;
+
+        &.active .sub-link{
+          display: block;
+          width: 100%;
+          margin: 0;
+          border: none;
+          top: unset;
+          left: unset;
+          visibility: unset;
+          opacity: 1;
+          z-index: 1;
+          height: unset;
+        }
+      }
+  
+      & > li {
+        padding: 0;
+        float: none;
+        display: block;
+        border-bottom: 1px dashed $gray-300;
+        position: relative;
+        
+        .hero-icon{
+          top: 23px;
+          right: 5px;
+          width: 25px;
+          border: 1px solid $gray-300;
+        }
+
+        & > a {
+          padding: 15px 0;
+          margin: 0;
+          width: 90%;
+          min-width: 300px;
+          position: unset;
+
+          
+        }
+        
+
+        &.dropdown-menu{
+          .sub-link{
+            display: none;
+            position: unset;
+            background-color: transparent;
+
+            @include render-transform(translateX(0%));
+          }
+        }
+      }
+  
+    }
+  }
+  
+}

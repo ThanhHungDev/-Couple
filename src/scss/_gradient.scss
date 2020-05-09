@@ -1,17 +1,7 @@
+@import "./mixin";
 
-// Make gradient
-@mixin make-gradient($name, $value) {
-  .#{$name}-gradient {
-    background: linear-gradient(40deg, map-get($value, start), map-get($value, end)) !important;
-  }
-}
 
-// Make gradient
-@mixin make-gradient-rgba($name, $value) {
-  .#{$name}-gradient-rgba {
-    background: linear-gradient(40deg, map-get($value, start), map-get($value, end)) !important;
-  }
-}
+
 
 // Gradients
 $gradients: () !default;
@@ -33,9 +23,14 @@ $gradients: map-merge(
       "start": #45cafc,
       "end": #303f9f
     ),
+    "home-page": (
+      "start": #e1fefa,
+      "end": #fcf7f4
+    )
   ),
   $gradients
 );
+
 
 // Gradients RGBA Version
 $gradients-rgba: () !default;
@@ -69,3 +64,8 @@ $gradients-rgba: map-merge(
 @each $name, $val in $gradients-rgba {
   @include make-gradient-rgba($name, $val);
 }
+// Basic gradients
+@each $name, $val in $gradients {
+  @include make-bg-gradient($name, $val);
+}
+

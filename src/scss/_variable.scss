@@ -5,6 +5,8 @@
 
 // Color system
 
+@import "./mixin";
+
 $white: #fff !default;
 $black: #000 !default;
 
@@ -90,36 +92,6 @@ $LG : 1199px;   /// 992px ----> 1199px
 $XL : 1320px ;  /// 1200px - 1320px 
 $XXL: 1500px;   /// > 1320px
 // media queries
-
-@mixin Responsive($canvas) {
-  @if $canvas == XXL {
-    @media only screen and (max-width: $XXL) { @content; } 
-  } @else if $canvas == XL {
-    @media only screen and (max-width: $XL) { @content; } 
-  }@else if $canvas == LG {
-    @media only screen and (max-width: $LG) { @content; } 
-  }@else if $canvas == MD {
-    @media only screen and (max-width: $MD) { @content; } 
-  }@else if $canvas == SM {
-    @media only screen and (max-width: $SM) { @content; } 
-  }@else if $canvas == XS {
-    @media only screen and (max-width: $XS) { @content; } 
-  }
-}
-
-
-
-@mixin clearfix {
-  &:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    line-height: 0;
-    visibility: hidden;
-    overflow: hidden;
-  }
-}
 
 
 

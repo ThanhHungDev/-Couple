@@ -56,7 +56,7 @@
 
 ///// render data font
 @each $key, $value in $awe-icons{
-  .#{$fa-css-prefix}-#{$key}:before { content: fa-content($value); }
+  .#{$fa-css-prefix}-#{'' + $key}:before { content: fa-content($value); }
 }
 
 

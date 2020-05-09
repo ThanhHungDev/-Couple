@@ -410,3 +410,23 @@ img{
   }
 }
 
+
+////// icon font awesome
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+
+  &.fa-w-16 {
+    width: 1em;
+  }
+  &.fa-w-10 {
+    width: 0.8em;
+  }
+}
+
+body.neo-scroll {
+  overflow: hidden;
+}

@@ -8,6 +8,7 @@ import Logo from './Logo.jsx'
 import MenuFull from './MenuFull.jsx'
 
 import ButtonHambeger from './ButtonHambeger.jsx'
+import '../../../../scss/react/client/header/header.scss'
 
 
 class Header extends Component {

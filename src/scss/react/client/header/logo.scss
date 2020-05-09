@@ -1,0 +1,25 @@
+@import "../../../../scss/variable.scss";
+
+
+.component-logo {
+  .svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1.5em;
+    overflow: visible;
+
+    &.fa-w-16 {
+      width: 1em;
+    }
+    &.fa-w-10 {
+      width: 0.8em;
+    }
+
+    .fa-secondary {
+      fill: $pink;
+    }
+    .fa-primary {
+      fill: $orange;
+    }
+  }
+}

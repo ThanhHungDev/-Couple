@@ -1,0 +1,135 @@
+@import "../../../../scss/variable.scss";
+
+
+.component-header {
+  padding: 0;
+  width: 100%;
+  position: relative;
+
+  &.wrapper-header {
+    padding: 0;
+    @include clearfix();
+
+    .component-logo{
+      display: block;
+      float: left;
+    }
+  }
+
+  &.wrapper-header-home-page {
+    padding: 30px 30px 15px 30px;
+
+    @include Responsive(SM){
+
+      padding: 30px 0 15px 0;
+    }
+
+    .button-click-interactive{
+      text-align: left;
+      margin-bottom: 30px;
+
+      @include Responsive(SM){
+
+        text-align: center;
+      }
+    }
+    .des-create-explore {
+      animation-delay: 0.8s;
+      animation-name: fadeIn;
+      margin-top: 70px;
+      font-size: 75px;
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      color: #020549;
+      margin-bottom: 30px;
+
+      @include Responsive(LG){
+        font-size: 45px;
+      }
+      @include Responsive(SM){
+        text-align: center;
+        padding: 0 20%;
+      }
+      @include Responsive(XS){
+        padding: 0 5%;
+        font-size: 35px;
+        margin-top: 60px;
+      }
+
+      .decor-element {
+        position: absolute;
+        top: 10%;
+        right: 20%;
+
+        .polygon-svg-rotate{
+          width: 176px;
+  
+          @include Responsive(LG){
+
+            width: 100px;
+          }
+          @include Responsive(XS){
+
+            width: 70px;
+          }
+        }
+        @include Responsive(XL){
+          right: 15%;
+        }
+        @include Responsive(XS){
+          right: 5%;
+        }
+      }
+
+      
+    }
+    .btn-create-service {
+      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+      color: #ffffff;
+      background-color: $green;
+      border-color: $green;
+      padding: 14px 40px;
+      border-radius: 60px;
+      font-size: 18px;
+      text-transform: capitalize;
+      font-family: $font-logo;
+
+      @include Responsive(XS){
+        padding: 12px 30px;
+        font-size: 16px;
+      }
+    }
+    .link-create-explore {
+
+      padding: 14px 20px;
+      color: $orange;
+      font-family: $font-logo;
+
+      &:hover {
+        color: $green;
+        text-decoration: underline;
+      }
+
+      @include Responsive(XS){
+
+        font-size: 16px;
+      }
+    }
+    
+  }
+
+  @include clearfix();
+
+  .logo {
+    font-family: $font-logo;
+    font-size: 20px;
+    vertical-align: middle;
+    padding: 15px;
+
+    a {
+      font-weight: 900;
+      color: $gray-900;
+      display: block;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 @import "../../../variable";
+@import "../../../mixin";
 
 .component-home {
   overflow: hidden;
@@ -323,8 +324,7 @@
         }
 
         .box-modern-title {
-          position: absolute;
-          background: $custom-stylish-color;
+          position: absolute; 
           color: $custom-secondary;
           overflow: hidden;
           height: 0;
@@ -336,6 +336,7 @@
           -o-transition: all .2s ease-in-out 0s;
           -ms-transition: all .2s ease-in-out 0s;
           transition: all .2s ease-in-out 0s;
+          @include render-gradient(130deg, $purple, $pink);
 
           @include Responsive(MD){
             height: 60px;

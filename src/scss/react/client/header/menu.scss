@@ -1,453 +1,103 @@
 @import "../../../../scss/variable.scss";
 
-.svg-inline--fa {
-  display: inline-block;
-  font-size: inherit;
-  height: 1em;
-  overflow: visible;
-  vertical-align: -0.125em;
 
-  &.fa-w-16 {
-    width: 1em;
-  }
-  &.fa-w-10 {
-    width: 0.8em;
-  }
-}
 
-.component-logo {
-  .svg-inline--fa {
-    display: inline-block;
-    font-size: inherit;
-    height: 1.5em;
-    overflow: visible;
 
-    &.fa-w-16 {
-      width: 1em;
-    }
-    &.fa-w-10 {
-      width: 0.8em;
-    }
 
-    .fa-secondary {
-      fill: $pink;
-    }
-    .fa-primary {
-      fill: $orange;
-    }
-  }
-}
 
-.component-header {
-  padding: 0;
-  width: 100%;
-
-  &.wrapper-header-page {
-    padding: 30px 30px 15px 30px;
+.component-menu.menu-home-page{
+  position: absolute;
+    top: 30px;
+    right: 10%;
+    z-index: 999;
+    background-color: $white;
+    box-shadow: -4px 20px 40px rgba(0, 0, 0, 0.15);
 
     @include Responsive(SM){
-
-      padding: 30px 0 15px 0;
+      top: 90px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      margin: 0 auto;
+      box-shadow: none;
+      background-color: transparent;
     }
 
-    .button-click-interactive{
-      text-align: left;
-      margin-bottom: 30px;
+  .wrapper-link{
+    margin: 0;
+    padding: 0 10px 8px;
+    @include clearfix();
+    @include Responsive(SM){
+      text-align: center;
+      margin: 0 auto;
+    }
 
+    li{
+      padding: 0 15px;
+      float: left;
       @include Responsive(SM){
-
-        text-align: center;
-      }
-    }
-    .des-create-explore {
-      animation-delay: 0.8s;
-      animation-name: fadeIn;
-      margin-top: 70px;
-      font-size: 75px;
-      line-height: 1.04;
-      letter-spacing: -0.01em;
-      color: #020549;
-      margin-bottom: 30px;
-
-      @include Responsive(LG){
-        font-size: 45px;
-      }
-      @include Responsive(SM){
-        text-align: center;
-        padding: 0 20%;
-      }
-      @include Responsive(XS){
-        padding: 0 5%;
-        font-size: 35px;
-        margin-top: 60px;
-      }
-
-      .decor-element {
-        position: absolute;
-        top: 10%;
-        right: 20%;
-
-        .polygon-svg-rotate{
-          width: 176px;
-  
-          @include Responsive(LG){
-
-            width: 100px;
-          }
-          @include Responsive(XS){
-
-            width: 70px;
-          }
-        }
-        @include Responsive(XL){
-          right: 15%;
-        }
-        @include Responsive(XS){
-          right: 5%;
-        }
-      }
-
-      
-    }
-    .btn-create-service {
-      box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
-      color: #ffffff;
-      background-color: $green;
-      border-color: $green;
-      padding: 14px 40px;
-      border-radius: 60px;
-      font-size: 18px;
-      text-transform: capitalize;
-      font-family: $font-logo;
-
-      @include Responsive(XS){
-        padding: 12px 30px;
-        font-size: 16px;
-      }
-    }
-    .link-create-explore {
-
-      padding: 14px 20px;
-      color: $orange;
-      font-family: $font-logo;
-
-      &:hover {
-        color: $green;
-        text-decoration: underline;
-      }
-
-      @include Responsive(XS){
-
-        font-size: 16px;
-      }
-    }
-    .component-menu{
-      position: absolute;
-        top: 30px;
-        right: 10%;
-        z-index: 999;
-        background-color: $white;
-        box-shadow: -4px 20px 40px rgba(0, 0, 0, 0.15);
-    
-        @include Responsive(SM){
-          top: 90px;
-          left: 0;
-          right: 0;
-          text-align: center;
-          margin: 0 auto;
-          box-shadow: none;
-          background-color: transparent;
-        }
-    
-      .wrapper-link{
-        margin: 0;
-        padding: 0 10px 8px;
-        @include clearfix();
-        @include Responsive(SM){
-          text-align: center;
-          margin: 0 auto;
-        }
-    
-        li{
-          padding: 0 15px;
-          float: left;
-          @include Responsive(SM){
-            float: none;
-            display: inline-block;
-            text-align: center;
-            margin: 0 auto;
-          }
-          @include Responsive(XS){
-            padding: 0 4px;
-          }
-    
-          a{
-            display: block;
-            padding: 10px 5px 5px;
-            font-size: 19px;
-            margin-left: 3px;
-            color: $custom-primary-color-dark;
-            font-weight: 900;
-            position: relative;
-            @include Responsive(XS){
-              font-size: 14px;
-              &:after{
-                border-bottom: 2px solid $custom-primary-color-dark;
-              }
-            }
-    
-            &:after{
-              content: '.';
-              color: transparent;
-              position: absolute;
-              left: 50%;
-              right: 50%;
-              bottom: 0;
-              border-bottom: 3px solid $custom-primary-color-dark;
-              -webkit-transition: all 0.5s;
-              -moz-transition: all 0.5s;
-              -o-transition: all 0.5s;
-              -ms-transition: all 0.5s;
-              transition: all 0.5s;
-            }
-            &:hover, &.active{
-              color: $link-color;
-    
-              &:after{
-                left: 0;
-                right: 0;
-    
-              }
-            }
-          }
-        }
-
-      }
-    }
-  }
-
-  @include clearfix();
-
-  .logo {
-    font-family: $font-logo;
-    font-size: 20px;
-    vertical-align: middle;
-    padding: 15px;
-
-    a {
-      font-weight: 900;
-      color: $gray-900;
-      display: block;
-    }
-  }
-}
-
-.component-slider {
-  @include clearfix();
-  .content-text {
-    position: absolute;
-    top: 50%;
-    left: 45px;
-    right: 45px;
-    text-align: center;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-
-    @include Responsive(MD) {
-      top: 30%;
-    }
-
-    .caption {
-      font-size: 30px;
-      color: $gray-500;
-
-      .couple-text {
-        width: 100%;
-        display: block;
+        float: none;
+        display: inline-block;
         text-align: center;
         margin: 0 auto;
+      }
+      @include Responsive(XS){
+        padding: 0 4px;
+      }
 
-        #curve-text {
-          font-size: 24px;
-          font-weight: 100;
-          color: #fff;
-          padding-bottom: 2.5rem;
-          text-shadow: 0px 3px 0px rgba(0, 0, 0, 0.35);
-
-          @include Responsive(MD) {
-            padding-bottom: 1.7rem;
-            font-size: 22px;
-          }
-          @include Responsive(SM) {
-            padding-bottom: 1.5rem;
-            font-size: 20px;
-          }
-          @include Responsive(XS) {
-            padding-bottom: 1rem;
-            font-size: 18px;
+      a{
+        display: block;
+        padding: 10px 5px 5px;
+        font-size: 19px;
+        margin-left: 3px;
+        color: $custom-primary-color-dark;
+        font-weight: 900;
+        position: relative;
+        @include Responsive(XS){
+          font-size: 14px;
+          &:after{
+            border-bottom: 2px solid $custom-primary-color-dark;
           }
         }
-      }
-    }
 
-    .description {
-      text-align: center;
-      font-size: 30px;
-      color: $gray-500;
-
-      .couple-name {
-        font-family: "Great Vibes", cursive;
-        font-size: 90px;
-        font-size: 5.625rem;
-        color: #fff;
-        text-shadow: 0px 4px 0px rgba(0, 0, 0, 0.35);
-        font-weight: 100;
-
-        @include Responsive(MD) {
-          font-size: 50px;
+        &:after{
+          content: '.';
+          color: transparent;
+          position: absolute;
+          left: 50%;
+          right: 50%;
+          bottom: 0;
+          border-bottom: 3px solid $custom-primary-color-dark;
+          -webkit-transition: all 0.5s;
+          -moz-transition: all 0.5s;
+          -o-transition: all 0.5s;
+          -ms-transition: all 0.5s;
+          transition: all 0.5s;
         }
-        @include Responsive(SM) {
-          font-size: 40px;
-        }
-        @include Responsive(XS) {
-          font-size: 32px;
-        }
-      }
-    }
-  }
+        &:hover, &.active{
+          color: $link-color;
 
-  .slider {
-    max-width: 100%;
-    margin: 0 auto;
-    position: relative;
+          &:after{
+            left: 0;
+            right: 0;
 
-    .slick-arrow {
-      padding: 5px;
-      background: rgba(255, 255, 255, 0.3);
-      width: 35px;
-      height: 55px;
-      line-height: 55px;
-      text-align: center;
-      border-radius: 0;
-      border: 1px solid #fff;
-      z-index: 10;
-      opacity: 0.5;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      -o-transition: all 0.3s;
-      -ms-transition: all 0.3s;
-      transition: all 0.3s;
-
-      &:before {
-        color: $gray-100;
-        opacity: 1;
-      }
-
-      @include Responsive(XS) {
-        width: 25px;
-        height: 35px;
-        padding: 0;
-        line-height: 0;
-
-        &:before {
-          font-size: 10px;
-        }
-      }
-    }
-    .slick-next {
-      right: 20px;
-    }
-    .slick-prev {
-      left: 20px;
-    }
-
-    &:before,
-    &:after {
-      content: "";
-      width: 140px;
-      height: 140px;
-      position: absolute;
-
-      z-index: 10;
-
-      @include Responsive(XS) {
-        width: 80px;
-        height: 80px;
-      }
-    }
-    &:before {
-      background: url(/image/general/slide-top-arrow.png) center center/cover
-        no-repeat local;
-      left: 30px;
-      top: 30px;
-      @include Responsive(MD) {
-        left: 15px;
-        top: 15px;
-      }
-      @include Responsive(XS) {
-        left: 0px;
-        top: 0px;
-      }
-    }
-    &:after {
-      background: url(/image/general/slide-bottom-arrow.png) center center/cover
-        no-repeat local;
-      right: 30px;
-      bottom: 30px;
-      @include Responsive(MD) {
-        right: 15px;
-        bottom: 15px;
-      }
-      @include Responsive(XS) {
-        right: 0px;
-        bottom: 0px;
-      }
-    }
-  }
-  .slick-dots {
-    position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
-    text-align: right;
-    padding: 0 15%;
-
-    @include Responsive(MD) {
-      text-align: center;
-      bottom: 5px;
-    }
-
-    li {
-      font-size: 100px;
-      padding: 5px;
-      button {
-        background-color: $white;
-        color: $white;
-        border-radius: 50%;
-        width: 12px;
-        height: 12px;
-        border: 1px solid $white;
-
-        &:before {
-          color: $white !important;
-        }
-      }
-
-      &.slick-active {
-        button {
-          background-color: $gray-700;
-
-          &:before {
-            color: $gray-700 !important;
           }
         }
       }
     }
+
   }
 }
+
+
+
+
+
+
+
+
+
+
 .service-description {
   margin-top: 40px;
   max-width: 370px;
@@ -547,258 +197,12 @@
   }
 }
 
-.bg-gradient-home-page {
-  background: linear-gradient(131.93deg, #e1fefa 0%, #fcf7f4 77.11%);
-}
 
 
 
 
 
 
-.component-header {
-  padding: 0;
-  width: 100%;
-  position: relative;
-
-  &.wrapper-header {
-    padding: 0;
-    @include clearfix();
-
-    .component-logo{
-      display: block;
-      float: left;
-    }
-    .component-menu{
-      float: right;
-
-      ul.wrapper-link{
-        margin: 0;
-        padding: 15px 20px 0;
-        @include clearfix();
-
-        .dropdown-menu{
-          position: relative;
-
-          /// a text head of dropdown
-          a:after{
-            content: unset;
-          }
-
-          .sub-link{
-            display: block;
-            padding: 0;
-            background: $gray-100 none repeat scroll 0 0;
-            width: 230px;
-            margin: -6px 2px 0;
-            border: 1px solid $gray-200;
-            position: absolute;
-            top: 70px;
-            left: 80%;
-            visibility: hidden;
-            opacity: 0;
-            z-index: -1;
-            overflow: hidden;
-            height: 0;
-            -webkit-transform: translateX(-50%);
-            -moz-transform: translateX(-50%);
-            -o-transform: translateX(-50%);
-            -ms-transform: translateX(-50%);
-            transform: translateX(-50%);
-            -webkit-transition: all .15s ease-in-out;
-            -moz-transition: all .15s ease-in-out;
-            -o-transition: all .15s ease-in-out;
-            -ms-transition: all .15s ease-in-out;
-            transition: all .15s ease-in-out;
-
-            @include clearfix();
-            
-            li{
-              display: block;
-              float: none;
-              
-              &:last-child{
-                
-                a{
-                  border-bottom: none;
-                }
-              }
-
-              a{
-                display: block;
-                color: $custom-primary-color-dark;
-                border-bottom: 1px solid $gray-200;
-                box-shadow: none;
-                font-size: 14px;
-                font-weight: normal;
-                line-height: 16px;
-                padding: 10px 14px 10px 20px;
-                text-transform: none;
-                position: relative;
-                transition: all 0.3s ease-out 0s;
-                -webkit-transition: all 0.3s ease-out 0s;
-
-                &:hover{
-                  padding-left: 14px;
-                  padding-right: 20px;
-                  color: $link-color;
-                }
-              }
-              
-            }
-          }
-
-          &:hover{
-            .sub-link{
-              top: 120%;
-              height: unset;
-              opacity: 1;
-              z-index: 100;
-              visibility: unset;
-            }
-          }
-        }
-    
-        & > li{
-          padding: 0 10px;
-          float: left;
-
-          @include Responsive(MD){
-            padding: 0 5px;
-          }
-    
-          & > a{
-            display: block;
-            padding: 10px 5px 5px;
-            font-size: 17px;
-            margin-left: 3px;
-            font-weight: 900;
-            color: $custom-primary-color-dark;
-            font-family: $font-sawarabi-mincho-regular;
-
-            position: relative;
-
-            @include Responsive(MD){
-              font-size: 15px;
-            }
-    
-            &:after{
-              content: '.';
-              color: transparent;
-              position: absolute;
-              left: 50%;
-              right: 50%;
-              bottom: 0;
-              border-bottom: 3px solid $custom-primary-color-dark;
-              -webkit-transition: all 0.5s;
-              -moz-transition: all 0.5s;
-              -o-transition: all 0.5s;
-              -ms-transition: all 0.5s;
-              transition: all 0.5s;
-            }
-            &:hover, &.active{
-              color: $link-color;
-
-              .hero-icon{
-                color: $link-color;
-                -webkit-transform: scale(1) rotate(270deg);
-                -moz-transform: scale(1) rotate(270deg);
-                -o-transform: scale(1) rotate(270deg);
-                -ms-transform: scale(1) rotate(270deg);
-                transform: scale(1) rotate(270deg);
-              }
-    
-              &:after{
-                left: 0;
-                right: 0;
-    
-              }
-            }
-
-            .hero-icon{
-              position: absolute;
-              right: -10px;
-              color: $custom-primary-color-dark;
-              width: 16px;
-              font-size: 14px;
-              -webkit-transition: all 0.35s linear 0s;
-              -moz-transition: all 0.35s linear 0s;
-              -o-transition: all 0.35s linear 0s;
-              -ms-transition: all 0.35s linear 0s;
-              transition: all 0.35s linear 0s;
-            }
-          }
-        }
-
-        /// responsive ul.wrapper-link
-        @include Responsive(MD){
-          padding: 15px 10px 0;
-        }
-        
-      }
 
 
-      //// mobile for .component-menu
-      @include Responsive(SM){
-        display: none;
-        -webkit-transition: 0.2s 0s;
-        -o-transition: 0.2s 0s;
-        transition: 0.2s 0s;
-
-        &.open{
-          display: block;
-          position: fixed;
-          overflow: scroll;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          background: #333145;
-          background: -moz-linear-gradient(top, #333145 0%, #b8333e 100%);
-          background: -webkit-gradient(left top, left bottom, color-stop(0%, #333145), color-stop(100%, #b8333e));
-          background: -webkit-linear-gradient(top, #333145 0%, #b8333e 100%);
-          background: -o-linear-gradient(top, #333145 0%, #b8333e 100%);
-          background: -ms-linear-gradient(top, #333145 0%, #b8333e 100%);
-          background: linear-gradient(to bottom, #333145 0%, #b8333e 100%);
-          z-index: 2;
-          top: 0;
-          // left: -767px;
-          // right: 767px;
-          bottom: 0;
-          overflow-y: scroll;
-          padding: 15px;
-        }
-      }
-    }
-
-  }
-
-  .component-button-hambeger{
-    position: absolute;
-    top: 30%;
-    right: 15px;
-    
-    
-    svg{
-      width: 25px;
-      height: auto;
-
-      path{
-
-        &:first-child{
-          fill: #0542a2;
-          opacity: 0.4;
-        }
-        &:last-child{
-          fill: #0542a2;
-          opacity: 1;
-        }
-      }
-    }
-  }
-}
-
-body.neo-scroll{
-  overflow: hidden;
-}
 

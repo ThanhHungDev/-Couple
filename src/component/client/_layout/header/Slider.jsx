@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick-theme.scss";
 
 import curve from "../../../../library/artc.js";
 
+import '../../../../scss/react/client/header/slider.scss'
+
 var jQuery = $;
 curve(jQuery);
 

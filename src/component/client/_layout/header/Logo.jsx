@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import LayerGroup from "../../../svg/layer-group.jsx";
 
-
+import '../../../../scss/react/client/header/logo.scss'
 
 class Logo extends Component {
   

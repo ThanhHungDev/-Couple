@@ -5,36 +5,7 @@
 
 
 
-@mixin progress-loading($color) {
-  .progress-loadding{
-    background-color:$color;
-    &:before{
-      content:'';
-      position:absolute;
-      background-color:inherit;
-      top:0;
-      left:0;
-      bottom:0;
-      will-change:left, right;
-      -webkit-animation:indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-      animation:indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite
-    }
-
-    &:after{
-      content:'';
-      position:absolute;
-      background-color:inherit;
-      top:0;
-      left:0;
-      bottom:0;
-      will-change:left, right;
-      -webkit-animation:indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-      animation:indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-      -webkit-animation-delay:1.15s;
-      animation-delay:1.15s
-    }
-  }
-}
+@import "./mixin";
 
 
 
@@ -51,7 +22,7 @@
   // Generate contextual modifier classes for colorizing the progress.
 
   @each $color, $value in $theme-colors {
-    &.progress-#{$color} {
+    &.progress-#{$color} { 
 
       background-color:color-level($value, -8);
       @include progress-loading(color-level($value, 4))

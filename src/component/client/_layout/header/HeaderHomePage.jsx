@@ -7,6 +7,7 @@ import Logo from './Logo.jsx'
 import LstWebDesignImg from "./LstWebDesignImg.jsx"
 
 import Menu from './Menu.jsx'
+import '../../../../scss/react/client/header/header.scss'
 
 
 class Header extends Component {
@@ -33,7 +34,7 @@ class Header extends Component {
   render() {
     
     return (
-      <div className="component-header wrapper-header-page bg-gradient-home-page position-relative">
+      <div className="component-header wrapper-header-home-page bg-gradient-home-page position-relative">
         <Menu />
         <div className="container-fluid">
 
