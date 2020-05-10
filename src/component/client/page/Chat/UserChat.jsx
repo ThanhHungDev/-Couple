@@ -13,6 +13,8 @@ class UserChat extends Component{
     var { user } = this.props
     var classActiveOnline = user.isOnline ? ' active ' : ''
     var classActiveMessage = user.isActive ? ' active-message ' : ''
+
+    var [lastItem] = user.message.slice(-1);
     return (
       <div className="component-user-chat-sidebar" >
         <div className={ classActiveOnline + classActiveMessage + "user-chat"} 
@@ -22,7 +24,7 @@ class UserChat extends Component{
           </figure>
           <div className="text-info">
             <span className="name">{user.name}</span>
-            <span className="last-message">{user.message[0].content}</span>
+            <span className="last-message">{ lastItem.content}</span>
           </div>
         </div>
       </div>

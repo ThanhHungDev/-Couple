@@ -13,8 +13,11 @@
       .avatar{
         display: none!important;
       }
-      .text{
-        background-color: $gray-100;
+      .message-content{
+        
+        .text{
+          @include render-gradient(210deg, $gray-100, $gray-500)
+        }
       }
     }
 
@@ -37,7 +40,7 @@
       .text{
         padding: 10px;
         border-radius: 15px;
-        background-color: $gray-200;
+        @include render-gradient(135deg, $gray-100, $purple)
       }
     }
   }

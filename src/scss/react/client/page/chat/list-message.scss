@@ -4,10 +4,13 @@
 .component-list-message{
   float: left;
   width: 70%;
+  border-left: 1px solid $gray-200;
+  
 
   .wrapper-list-message{
-
     padding: 15px;
+    height: 400px;
+    overflow-y: scroll;
     @include clearfix();
   }
 }

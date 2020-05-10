@@ -2,10 +2,18 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import HeadInfo from "./HeadInfo.jsx"
 import MessageChat from "./MessageChat.jsx"
+import InputSendChat from "./InputSendChat.jsx"
 import "../../../../scss/react/client/page/chat/list-message.scss"
 
 class ListMessage extends Component {
 
+  componentDidMount(){
+    document.getElementById('js-scroll-to-bottom').scrollTo(0,document.getElementById('js-scroll-to-bottom').scrollHeight)
+  }
+
+  componentDidUpdate(){
+    document.getElementById('js-scroll-to-bottom').scrollTo(0,document.getElementById('js-scroll-to-bottom').scrollHeight)
+  }
   render() {
     
     console.log("render lại ListMessage")
@@ -17,11 +25,12 @@ class ListMessage extends Component {
     return (
       <div className="component-list-message">
         <HeadInfo />
-        <div className="wrapper-list-message">
+        <div className="wrapper-list-message" id="js-scroll-to-bottom">
           { messages && messages.map( 
             (message , key) => <MessageChat key={"message-chat" + key + userActiveChat.id} myinfo={myinfo} message={message} toUser={userActiveChat} /> 
           )}
         </div>
+        <InputSendChat />
       </div>
     );
   }

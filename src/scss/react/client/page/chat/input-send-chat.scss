@@ -1,0 +1,67 @@
+@import "../../../../variable";
+@import "../../../../mixin";
+
+.component-input-send-chat{
+  border: 1px solid $gray-200;
+  border-left: none;
+  position: relative;
+  padding: 5px 50px 0 70px;
+  
+  textarea{
+    width: 100%!important;
+    min-height: 30px;
+    max-height: 150px;
+    overflow-y: scroll;
+    resize: none;
+    padding: 10px 15px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    border: 1px solid $gray-200;
+    font-size: 14px;
+    scrollbar-width: none;
+    margin: 0;
+
+    &:focus{
+      border-color: $custom-primary-color-dark;
+      color: $custom-primary-color-dark;
+
+      & ~ .hero-icon{
+
+        &.send{
+          display: inline-block;
+        }
+        &.react{
+          display: none;
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+
+  .hero-icon{
+    position: absolute;
+    z-index: 11;
+    bottom: 20px;
+    font-size: 20px;
+    color: $blue;
+
+    &.emoticon{
+      left: 10px;
+    }
+
+    &.file{
+      left: 35px;
+    }
+    &.send{
+      display: none;
+      right: 10px;
+    }
+    &.react{
+      display: inline-block;
+      right: 10px;
+    }
+  }
+}

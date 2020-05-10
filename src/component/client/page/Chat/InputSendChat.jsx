@@ -1,18 +1,18 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import TYPE from "../../../../action/type.js"
+import "../../../../scss/react/client/page/chat/input-send-chat.scss"
 
 class InputSendChat extends Component{
-
-  changeActiveUser = ( id) => {
-
-  }
 
   render(){
     
     return (
       <div className="component-input-send-chat" >
-        <textarea>viết gì ddos vào đây</textarea>
+        <i className="hero-icon hero-emoticon emoticon"></i>
+        <i className="hero-icon hero-file file"></i>
+        <textarea placeholder="メッセージを書く..."></textarea>
+        <i className="hero-icon hero-send-outline send"></i>
+        <i className="hero-icon hero-heart-multiple-outline react"></i>
       </div>
     );
   }
