@@ -1,0 +1,44 @@
+@import "../../../../variable";
+@import "../../../../mixin";
+
+.component-message-chat{
+  padding-top: 5px;
+  @include clearfix();
+
+  .chat-group{
+    @include clearfix();
+
+    &.by-me{
+        
+      .avatar{
+        display: none!important;
+      }
+      .text{
+        background-color: $gray-100;
+      }
+    }
+
+    .avatar{
+      max-width: 40px;
+      max-height: 40px;
+      margin: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      float: left;
+
+
+      img{
+        width: 100%;
+      }
+    }
+    .message-content{
+      padding-left: 50px;
+
+      .text{
+        padding: 10px;
+        border-radius: 15px;
+        background-color: $gray-200;
+      }
+    }
+  }
+}

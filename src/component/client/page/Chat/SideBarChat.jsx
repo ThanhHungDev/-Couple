@@ -7,12 +7,9 @@ import "../../../../scss/react/client/page/chat/sidebar.scss"
 class SideBarChat extends Component {
 
   render() {
+    console.log("render sidebar")
     var { myinfo } = this.props;
-    if(!myinfo || !myinfo.avatar || !myinfo.name){
-      myinfo = {};
-      myinfo.avatar = '/image/avatar-hero.jpg'
-      myinfo.name = 'チュオン タン フン';
-    }
+    
     return (
       <div className="component-sidebar-chat">
         <div className="myinfo">

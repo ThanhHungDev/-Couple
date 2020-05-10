@@ -4,4 +4,10 @@
 .component-list-message{
   float: left;
   width: 70%;
+
+  .wrapper-list-message{
+
+    padding: 15px;
+    @include clearfix();
+  }
 }

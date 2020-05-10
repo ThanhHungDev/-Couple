@@ -4,12 +4,17 @@
   float: left;
   width: 30%;
   border-right: 1px solid $gray-200;
+
+  *{
+    box-sizing: border-box;
+  }
 }
 
 .myinfo{
   padding: 10px 20px;
   box-sizing: border-box;
   border-bottom: 1px solid $gray-200;
+  min-height: 75px;
 
   .avatar{
 
