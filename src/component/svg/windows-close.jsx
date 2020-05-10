@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class windowsClose extends Component {
+export default class WindowsClose extends Component {
   render() {
     return (
       <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="window-close" role="img" xmlns="http://www.w3.org/2000/svg"

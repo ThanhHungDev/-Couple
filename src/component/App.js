@@ -6,7 +6,7 @@ import Register from './client/Register.jsx';
 import Home from './client/page/Home.jsx'
 
 import DetailTheme from "./client/page/DetailTheme.jsx"
-import Chat from './client/page/Chat.jsx';
+import Chat from './client/page/Chat/Chat.jsx';
 
 class App extends Component {
   constructor(props) {

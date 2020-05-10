@@ -279,6 +279,17 @@
       }
   
     }
+
+    .head-line-close-menu{
+      display: block;
+      text-align: right;
+      border-bottom: 1px solid $gray-500;
+      padding-bottom: 15px;
+
+      path{
+        color: $gray-600
+      }
+    }
   }
   
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { NavLink, Link } from "react-router-dom"
 import '../../../../scss/react/client/header/menu-full.scss'
+import NavLinkCustom from '../partial/General/NavLinkCustom.jsx'
+import WindowsClose from '../../../svg/windows-close.jsx'
 
 class MenuFull extends Component {
   constructor(props) {
@@ -39,11 +40,18 @@ class MenuFull extends Component {
       }
     }
   }
+  closeMenuToggle = event => {
+    if(window.innerWidth > 767){
+      return;
+    }
+    document.getElementById('js-toggle-menu-mobile').classList.toggle('open');
+    document.body.classList.remove('neo-scroll')
+  }
   render() {
     
     return (
       <div id='js-toggle-menu-mobile' className="component-menu menu-full">
-
+        <span className="mobile head-line-close-menu" onClick={this.closeMenuToggle}><WindowsClose /></span>
         <ul className="wrapper-link">
           <li>
             <NavLinkCustom exact={true} to="/" text='ホームページ' />
@@ -77,20 +85,3 @@ class MenuFull extends Component {
 
 export default MenuFull;
 
-
-
-class NavLinkCustom extends Component{
-
-  closeMenuToggle = event => {
-    if(window.innerWidth > 767){
-      return;
-    }
-    document.getElementById('js-toggle-menu-mobile').classList.toggle('open');
-    document.body.classList.remove('neo-scroll')
-  }
-  render(){
-    return(
-      <NavLink onClick={this.closeMenuToggle} activeClassName="active" exact = {this.props.exact} to={this.props.to}>{this.props.text}</NavLink>
-    )
-  }
-}

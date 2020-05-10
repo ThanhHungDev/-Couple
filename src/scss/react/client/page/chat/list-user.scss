@@ -1,0 +1,80 @@
+
+
+@import "../../../../variable";
+@import "../../../../mixin";
+
+.component-user-chat-sidebar{
+
+  .user-chat{
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+
+    &.active-message {
+      
+      background-color: #f1ffff;
+    }
+    &.active{
+
+      .state-avatar{
+        border-color: $green;
+
+        &:after{
+          background-color: $green
+        }
+      }
+    }
+
+    .state-avatar{
+      position: absolute;
+      top: 50%;
+      display: block;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 1px solid $gray-600;
+      @include render-transform(translateY(-50%));
+
+      &:after{
+        content: '.';
+        color: transparent;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        z-index: 5;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: $gray-500;
+        @include render-transform(translateX(-50%));
+      }
+      
+
+      img{
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .text-info{
+      display: block;
+      padding: 7px 7px 7px 55px;
+      color: $custom-primary-color-dark;
+
+      .name{
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .last-message{
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

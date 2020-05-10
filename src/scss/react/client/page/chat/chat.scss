@@ -1,0 +1,11 @@
+@import "../../../../variable";
+@import "../../../../mixin";
+.bg-chat-temalate{
+  @include render-gradient(135deg,  #e1fefa, #fcf7f4);
+}
+.wrapper-page-chat{
+  max-width: 1100px;
+  margin: 0 auto;
+  @include clearfix();
+  
+}
