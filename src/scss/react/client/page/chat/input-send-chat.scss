@@ -65,4 +65,44 @@
       right: 10px;
     }
   }
+
+  .image-block{
+
+    .remove-image{
+      display: inline-block;
+      position: relative;
+
+      &:after{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        content: "\F0157";
+        width: 32px;
+        height: 24px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        line-height: 24px;
+        font: normal normal normal 24px/1 "HERO Icons";
+        text-rendering: auto;
+        line-height: inherit;
+        -webkit-font-smoothing: antialiased;
+      }
+      &:hover{
+        img{
+          opacity: 0.4;
+        }
+        &:after{
+          animation-duration: 1s;
+          animation-fill-mode: both;
+          animation-name: tada;
+        }
+      }
+    }
+    img{
+      padding: 5px;
+      opacity: .9;
+    }
+  }
 }
