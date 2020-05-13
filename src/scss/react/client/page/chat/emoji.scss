@@ -1,0 +1,43 @@
+@import "../../../../variable";
+@import "../../../../mixin";
+
+
+.component-list-emoji{
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  right: 50%;
+  padding: 10px;
+  border: 1px solid $gray-200;
+  border-radius: 10px;
+  background-color: $white;
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+
+  &.show{
+    visibility: unset;
+    height: unset;
+    top: -105%;
+    left: 20px;
+    right: 20px;
+    opacity: 1;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-name: tada;
+  }
+}
+.component-emoji{
+  width: 32px;
+  height: 24px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  line-height: 24px;
+  font: normal normal normal 24px/1 "HERO Icons";
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  color: $custom-primary-color-dark;
+}

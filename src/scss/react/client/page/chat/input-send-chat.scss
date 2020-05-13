@@ -5,7 +5,7 @@
   border: 1px solid $gray-200;
   border-left: none;
   position: relative;
-  padding: 5px 50px 0 70px;
+  padding: 5px 50px 0;
   
   textarea{
     width: 100%!important;
@@ -42,20 +42,22 @@
     }
   }
 
-  .hero-icon{
+  & > i {
     position: absolute;
     z-index: 11;
     bottom: 20px;
-    font-size: 20px;
+    font-size: 28px;
     color: $blue;
+  }
+  .hero-icon{
 
     &.emoticon{
       left: 10px;
     }
 
-    &.file{
-      left: 35px;
-    }
+    // &.file{
+    //   left: 35px;
+    // }
     &.send{
       display: none;
       right: 10px;
