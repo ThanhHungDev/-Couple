@@ -67,8 +67,11 @@
   }
 
   .image-block{
+    
 
     .remove-image{
+      max-height: 100px;
+      overflow: hidden;
       display: inline-block;
       position: relative;
 

@@ -76,7 +76,9 @@ class InputSendChat extends Component{
       var URLObj = window.URL || window.webkitURL;
       // Creates a DOMString containing a URL representing the object given in the parameter
       // namely the original Blob
-      img.src = URLObj.createObjectURL(blob);
+      try {
+        img.src = URLObj.createObjectURL(blob);
+      } catch (error) { console.log(error) }
     }
   }
 
