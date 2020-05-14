@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ListEmoji from "./ListEmoji.jsx";
 import "../../../../scss/react/client/page/chat/input-send-chat.scss";
+import config from "../../../../config/index.js"
 
 class InputSendChat extends Component {
   constructor(props) {
@@ -51,6 +52,24 @@ class InputSendChat extends Component {
       this.setState({ sendChat: true });
       document.getElementById("js-input-chat").value = "";
       return false;
+    }
+    if( event.keyCode == 32 ){
+      var input = document.getElementById("js-input-chat")
+      if(input){
+        var content = input.value;
+        /// get word last
+        var words = content.split(" ");
+        var wordLastest = words[words.length - 1];
+        console.log(wordLastest)
+        //// check have sysbol 
+        var emojisCall = config.EMOJIS.filter(item => item.sign == wordLastest)
+        console.log(emojisCall)
+        if(emojisCall.length){
+          /// add icon 
+          var lastIndex = content.lastIndexOf(" ")
+          input.value = content.substring(0, lastIndex) +  " " +emojisCall[0].symbol
+        }
+      }
     }
   };
 
