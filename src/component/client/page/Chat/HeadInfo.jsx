@@ -6,21 +6,23 @@ class HeadInfo extends Component {
 
   renderTextEndTimeonline = time => {
 
-    var endTime = new Date( time );
-    var timeNow = new Date;
+    var endTime = new Date( time.replace(/-/g, "/") )
+    var timeNow = new Date
 
-    var diffTime = Math.abs(timeNow - endTime);
-    var diffTimeMinute = Math.round(diffTime / (1000 * 60 ));
+    var diffTime = Math.abs(timeNow - endTime)
+    diffTime = parseInt(diffTime)
+
+    var diffTimeMinute = Math.round(diffTime / (1000 * 60 ))
 
     if( diffTimeMinute >= 60 ){
 
-      var diffTimeHour = Math.round(diffTimeMinute / 60);
+      var diffTimeHour = Math.round(diffTimeMinute / 60)
       if( ( diffTimeHour / 24 ) < 1 ){
-        return "active " + diffTimeHour + " giờ trước";
+        return diffTimeHour + "時間前にアクティブ"
       }
-      return "active " + Math.round(diffTimeHour / 24) + " ngày trước";
+      return Math.round(diffTimeHour / 24) + "日前にアクティブ"
     }else {
-      return "active " + diffTimeMinute + " phút trước";
+      return "アクティブ" + diffTimeMinute + "分前"
     }
   }
 
@@ -33,7 +35,7 @@ class HeadInfo extends Component {
     var timeOnline = ''
     if( userActiveChat.isOnline ){
 
-      var timeOnline = "đang online"
+      var timeOnline = "オンライン"
     }else{
 
       var timeOnline = this.renderTextEndTimeonline(userActiveChat.timeEndOnline)

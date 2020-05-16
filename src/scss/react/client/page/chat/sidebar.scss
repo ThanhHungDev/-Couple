@@ -58,3 +58,34 @@
     }
   }
 }
+
+
+@include Responsive(MD){
+  .component-sidebar-chat{
+    width: 40%;
+  }
+}
+@include Responsive(SM){
+  .component-sidebar-chat{
+    width: 60px;
+
+    .user-chat .state-avatar{
+      left: 10px;
+    }
+  }
+
+  .myinfo{
+    padding: 10px;
+    .avatar{ 
+      .state-avatar{
+        img{
+          max-width: 35px;
+          max-height: 35px;
+        }
+      }
+      .name{
+        display: none;
+      }
+    }
+  }
+}

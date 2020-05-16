@@ -34,3 +34,11 @@
     @include render-transform(translateY(-50%));
   }
 }
+
+
+@include Responsive(SM){
+
+  .component-search-user{
+    display: none;
+  }
+}

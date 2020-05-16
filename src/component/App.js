@@ -6,6 +6,7 @@ import Register from './client/Register.jsx';
 import Home from './client/page/Home.jsx'
 
 import DetailTheme from "./client/page/DetailTheme.jsx"
+import ListTheme from "./client/page/Theme/ListTheme.jsx"
 import Chat from './client/page/Chat/Chat.jsx';
 
 class App extends Component {
@@ -21,8 +22,12 @@ class App extends Component {
             <Route exact path='/chat' render={({ match }) => <Chat match={match}/>}/>
             <Route path='/chat/:id' render={({ match }) => <Chat match={match}/>}/>
           </Switch>
-          <Route path="/theme-detail" render={() => <DetailTheme />} />
+          <Switch>
+            <Route exact path='/theme' render={({ match }) => <ListTheme match={match}/>}/>
+            <Route path='/theme/:id' render={({ match }) => <DetailTheme match={match}/>}/>
+          </Switch>
           <Route path="/register" render={() => <Register />} />
+          <Route path="/login" render={() => <Register />} />
 
         </BrowserRouter>
       </div>

@@ -1,16 +1,83 @@
-
 @import "../../../../variable";
 @import "../../../../mixin";
-.component-list-message{
+.component-list-message {
   float: left;
   width: 70%;
   border-left: 1px solid $gray-200;
-  
 
-  .wrapper-list-message{
+  .wrapper-list-message {
     padding: 15px;
     height: 400px;
     overflow-y: scroll;
     @include clearfix();
+  }
+}
+
+.ticontainer{
+  display: inline-block;
+  min-width: 30px;
+
+  .tiblock {
+    align-items: center;
+    display: flex;
+    height: 17px;
+
+    .tidot {
+      background-color: $gray-500;
+
+      -webkit-animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
+      animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
+      border-radius: 50%;
+      display: inline-block;
+      height: 6px;
+      margin-right: 4px;
+      width: 6px;
+
+      &:nth-child(1) {
+        -webkit-animation-delay: 150ms;
+        animation-delay: 200ms;
+      }
+      &:nth-child(2) {
+        -webkit-animation-delay: 300ms;
+        animation-delay: 300ms;
+      }
+      &:nth-child(3) {
+        -webkit-animation-delay: 450ms;
+        animation-delay: 400ms;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes mercuryTypingAnimation {
+  0% {
+    -webkit-transform: translateY(0px);
+  }
+  28% {
+    -webkit-transform: translateY(-5px);
+  }
+  44% {
+    -webkit-transform: translateY(0px);
+  }
+}
+
+
+
+
+
+
+@include Responsive(MD){
+  .component-list-message {
+    width: 60%;
+
+  }
+}
+@include Responsive(SM){
+  .component-list-message {
+    width: calc(100% - 60px);
+
+    .wrapper-list-message {
+      height: 300px;
+    }
   }
 }

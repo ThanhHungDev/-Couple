@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "../../../../../scss/react/client/page/home.scss";
 
-import ItemTheme from './ItemTheme.jsx'
+import ItemTheme from '../../../page/Theme/ItemTheme.jsx'
 class HomePage extends Component {
 
   render() {

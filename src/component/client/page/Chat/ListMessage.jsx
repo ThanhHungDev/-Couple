@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import HeadInfo from "./HeadInfo.jsx"
 import MessageChat from "./MessageChat.jsx"
 import InputSendChat from "./InputSendChat.jsx"
+import MessageChatTyping from "./MessageChatTyping.jsx"
 import "../../../../scss/react/client/page/chat/list-message.scss"
 
 class ListMessage extends Component {
@@ -29,6 +30,7 @@ class ListMessage extends Component {
           { messages && messages.map( 
             (message , key) => <MessageChat key={"message-chat" + key + userActiveChat.id} myinfo={myinfo} message={message} toUser={userActiveChat} /> 
           )}
+          <MessageChatTyping toUser={userActiveChat} />
         </div>
         <InputSendChat />
       </div>

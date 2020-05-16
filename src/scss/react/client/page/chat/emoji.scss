@@ -4,7 +4,6 @@
 
 .component-list-emoji{
   position: absolute;
-  top: 0%;
   left: 50%;
   right: 50%;
   padding: 10px;
@@ -14,17 +13,19 @@
   opacity: 0;
   visibility: hidden;
   height: 0;
-
-  &.show{
-    visibility: unset;
-    height: unset;
-    top: -160%;
-    left: 20px;
-    right: 20px;
-    opacity: 1;
+  &.first-show{
     animation-duration: 1s;
     animation-fill-mode: both;
     animation-name: tada;
+  }
+  &.show{
+    visibility: unset;
+    height: unset;
+    bottom: 100%;
+    left: 20px;
+    right: 20px;
+    opacity: 1;
+    
   }
 }
 .component-emoji{

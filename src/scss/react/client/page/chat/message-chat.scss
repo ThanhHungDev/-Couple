@@ -43,5 +43,13 @@
         @include render-gradient(135deg, $gray-100, $purple)
       }
     }
+    .typing-message{
+      .text{
+        background: transparent!important;
+      }
+      .typing-text{
+        font-size: 10px;
+      }
+    }
   }
 }

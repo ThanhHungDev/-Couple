@@ -16,7 +16,7 @@ class Chat extends Component {
     return (
       <div className="component-search-user">
         <input type="text" className="search-user" name="search-user" placeholder='入力して誰かを見つける' />
-        <i className="hero-icon hero-share-all-outline"></i>
+        <i className="hero-icon hero-account-search-outline"></i>
       </div>
     );
   }

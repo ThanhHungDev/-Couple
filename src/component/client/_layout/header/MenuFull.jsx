@@ -76,7 +76,7 @@ class MenuFull extends Component {
           </li>
           <li><NavLinkCustom to="/theme" text='意匠' /></li>
           <li><NavLinkCustom to="/contact" text='お問い合わせ' /></li>
-          <li><NavLinkCustom to="/register-trial" text='登録トライアル' /></li>
+          <li><NavLinkCustom to="/login" text='ログイン' /></li>
         </ul>
       </div>
     )

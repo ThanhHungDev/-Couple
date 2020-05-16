@@ -31,7 +31,10 @@ export default class StandardContract extends Component {
   }
 
   componentDidMount() {
-    $(window).on("load resize", function () {
+    $(".component-standard-contract").each(function () {
+      formatHeight($(this).get(0), "component-item-standard-contract");
+    });
+    $(window).on("resize", function () {
       $(".component-standard-contract").each(function () {
         formatHeight($(this).get(0), "component-item-standard-contract");
       });

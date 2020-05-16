@@ -16,8 +16,8 @@ const path = require('path');
 var CONFIG     = require('./config.js');
 /// https
 var options = {
-    key: fs.readFileSync('/Users/hero/Code/SERVER-CHAT/create-ssl/server.key'),
-    cert: fs.readFileSync('/Users/hero/Code/SERVER-CHAT/create-ssl/server.crt')
+    key: fs.readFileSync(path.join(__dirname, 'create-ssl/server.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'create-ssl/server.crt'))
 };
 /**
  * setting directeries asset root 

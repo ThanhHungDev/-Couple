@@ -78,3 +78,24 @@
     }
   }
 }
+
+
+
+@include Responsive(SM){
+
+
+  .component-user-chat-sidebar{
+
+    .user-chat{
+
+      &.active-message {
+        
+        background-color: $gray-500;
+      }
+      .text-info{
+        width: 10px;
+        overflow: hidden;
+      }
+    }
+  }
+}

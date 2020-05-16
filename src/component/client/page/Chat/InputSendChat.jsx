@@ -32,7 +32,12 @@ class InputSendChat extends Component {
       },
       false
     );
-    window.onclick = function () {
+    window.onclick = function (event) {
+      if(event.target){
+        if(event.target.classList.contains('component-emoji')){
+          return;
+        }
+      }
       var emojis = document.getElementById("js-emojis");
       if (emojis) {
         emojis.classList.remove("show");
@@ -120,7 +125,6 @@ class InputSendChat extends Component {
     var emojis = document.getElementById("js-emojis");
     if (emojis) {
       emojis.classList.add("show-temp");
-      console.log("ssdfds");
     }
   };
 
