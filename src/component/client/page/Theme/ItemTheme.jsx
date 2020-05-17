@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "../../../../scss/react/client/page/home.scss";
+import "../../../../scss/react/client/page/item-theme.scss";
 
 export default class ItemTheme extends Component {
   constructor(props) {

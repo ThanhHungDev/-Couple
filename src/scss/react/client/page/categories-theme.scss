@@ -1,0 +1,73 @@
+@import "../../../variable";
+@import "../../../mixin";
+
+.component-categories-theme{
+    max-width: 1180px;
+    display: flex;
+    margin: 0 auto;
+    .component-category-theme{
+        text-align: center;
+        justify-content: center;
+        flex: 1;
+        padding: 10px;
+        .link-icon-theme{
+            display: block;
+            font-size: 40px;
+            color: $custom-secondary-color-dark;
+        }
+        .link-name-theme{
+            display: block;
+            font-size: 16px;
+            color: $custom-primary-color-dark;
+            padding: 0 15px;
+        }
+        &:hover{
+            .link-icon-theme{
+                color: $link-hover-color;
+                opacity: 0.7;
+            }
+            .link-name-theme{
+                color: $custom-secondary-color;
+                opacity: 0.7;
+            }
+            
+        }
+    }
+}
+
+@include Responsive(SM){
+    .component-categories-theme{
+
+        .component-category-theme{
+            padding: 10px;
+
+            .link-icon-theme{
+                font-size: 30px;
+            }
+            .link-name-theme{
+                font-size: 14px;
+                padding: 0;
+            }
+        }
+    }
+}
+@include Responsive(XS){
+    .component-categories-theme{
+        flex-wrap: wrap;
+        justify-content: center;
+        .component-category-theme{
+            padding: 0 5px;
+            width: 33.33%;
+            flex: unset;
+
+
+            .link-icon-theme{
+                font-size: 20px;
+            }
+            .link-name-theme{
+                font-size: 12px;
+                padding: 0;
+            }
+        }
+    }
+}
