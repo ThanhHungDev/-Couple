@@ -3,6 +3,7 @@
 const applicationServerPublicKey = 'BIUnprvdEEntYAgrOBaI_MAaWK8qtRtgfM_RKnSGglsI1NAZUcycI7yJ6YL2ZEoqmKG9dSQ3AtX0-2mS6j_7epE';
 var swRegistration;
 var isSubscribed = false;
+var LOCAL_SUBSCRIPTION = null;
 
 if ('serviceWorker' in navigator && 'PushManager' in window) {
     console.log('Service Worker and Push is supported')
@@ -30,6 +31,8 @@ function initialiseUI() {
 
         if (isSubscribed) {
             console.log('User IS subscribed.');
+            //// save data to local
+            LOCAL_SUBSCRIPTION = subscription
         } else {
             console.log('User is NOT subscribed.');
         }
