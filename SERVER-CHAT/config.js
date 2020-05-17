@@ -3,7 +3,7 @@
 const local = "localhost";
 const local_ip = "127.0.0.1";
 const local_protocol = "http://";
-const local_port = 443;
+const local_port = 7000;
 const CONFIG = {
     SERVER : {
         PORT : local_port,
