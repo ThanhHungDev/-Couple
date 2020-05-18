@@ -25,19 +25,19 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 function initialiseUI() {
     // Set the initial subscription value
     swRegistration.pushManager.getSubscription()
-    .then(function (subscription) {
+        .then(function (subscription) {
 
-        isSubscribed = !(subscription === null)
+            isSubscribed = !(subscription === null)
 
-        if (isSubscribed) {
-            console.log('User IS subscribed.');
-            //// save data to local
-            LOCAL_SUBSCRIPTION = subscription
-        } else {
-            console.log('User is NOT subscribed.');
-        }
-    });
-    setTimeout(function(){
+            if (isSubscribed) {
+                console.log('User IS subscribed.');
+                //// save data to local
+                LOCAL_SUBSCRIPTION = subscription
+            } else {
+                console.log('User is NOT subscribed.');
+            }
+        });
+    setTimeout(function () {
         if (isSubscribed) {
             // TODO: Unsubscribe user
         } else {
@@ -45,26 +45,45 @@ function initialiseUI() {
         }
     }, 5000)
 }
+function requestPermission() {
+    return new Promise(function (resolve, reject) {
+        const permissionResult = Notification.requestPermission(function (result) {
+            // Xử lý phiên bản cũ với callback.
+            resolve(result);
+        });
 
+        if (permissionResult) {
+            permissionResult.then(resolve, reject);
+        }
+    })
+        .then(function (permissionResult) {
+            if (permissionResult !== 'granted') {
+                console.log('Permission not granted.')
+            }
+        });
+}
 function subscribeUser() {
     console.log('begin subscribeUser')
-
-    const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
-    const options = { applicationServerKey, userVisibleOnly: true }
-    swRegistration.pushManager.subscribe(options)
-    .then(function (subscription) {
-        console.log('User is subscribed.')
-
-        updateSubscriptionOnServer(subscription)
+    requestPermission()
+    .then(function(){
+        const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey)
+        const options = { applicationServerKey, userVisibleOnly: true }
+        swRegistration.pushManager.subscribe(options)
+            .then(function (subscription) {
+                console.log('User is subscribed.')
+    
+                updateSubscriptionOnServer(subscription)
+            })
+            .catch(function (err) {
+                console.log('Failed to subscribe the user: ', err)
+            })
     })
-    .catch(function (err) {
-        console.log('Failed to subscribe the user: ', err)
-    })
+    
 }
 
 function updateSubscriptionOnServer(subscription) {
     // TODO: Send subscription to application server
-    console.log("fetch subscription to sẻver " )
+    console.log("fetch subscription to sẻver ")
 
     const SERVER_URL = "http://localhost:7000/save-subscription";
     console.log(subscription, "saveSubscription")
@@ -75,10 +94,10 @@ function updateSubscriptionOnServer(subscription) {
         },
         body: JSON.stringify(subscription)
     })
-    .then(function(response){
-        console.log("fetched subscription" )
-        return response.json();
-    })
+        .then(function (response) {
+            console.log("fetched subscription")
+            return response.json();
+        })
 }
 
 function urlB64ToUint8Array(base64String) {

@@ -34,10 +34,10 @@ webpush.setVapidDetails(
 /// config system
 var CONFIG     = require('./config.js');
 /// https
-// var options = {
-//     key: fs.readFileSync(path.join(__dirname, 'create-ssl/server.key')),
-//     cert: fs.readFileSync(path.join(__dirname, 'create-ssl/server.crt'))
-// };
+var options = {
+    key: fs.readFileSync(path.join(__dirname, 'create-ssl/server.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'create-ssl/server.crt'))
+};
 /**
  * setting directeries asset root 
  */
@@ -67,7 +67,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * listener server with socket
  */
-var server = require('http').createServer(app);
+var server = require('http').createServer( app );
 var io = require('socket.io')(server);
 server.listen(CONFIG.SERVER.PORT,  () => {
     console.log(`server listen: ${server.address().address}:${ server.address().port}`);
@@ -103,7 +103,7 @@ app.get("/show-noti", async (req, res) => {
     dummyDb.map(function(subscription){
         webpush.sendNotification(subscription, payload, pushOptions)
         .catch(error => {
-            console.error(error.stack);
+            console.log( "have error for : ", subscription);
         });
     })
     res.json({ message: "success" });
