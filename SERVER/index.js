@@ -1,104 +1,82 @@
-/**
- * library
- */
-var express = require('express');
-var app     = express();
-var ejs     = require('ejs');
-var fs      = require('fs');
-const cors = require("cors");
-const path = require('path');
-var bodyParser = require('body-parser');
+const fs   = require('fs')
+const path = require('path')
 
-/**** webpussh config */
-const dummyDb = []; //dummy in memory store subscricer 
-const webpush = require('web-push');
-// VAPID keys should only be generated only once.
-// const vapidKeys = webpush.generateVAPIDKeys();
-const vapidKeys = {
-    publicKey : 'BIUnprvdEEntYAgrOBaI_MAaWK8qtRtgfM_RKnSGglsI1NAZUcycI7yJ6YL2ZEoqmKG9dSQ3AtX0-2mS6j_7epE',
-    privateKey : 'OAGhOjAuZ5WqNOm7hdqNeo-SSJqGApaXivfY5ps0Eiw'
-}
- 
-webpush.setGCMAPIKey('<Your GCM API Key Here>');
-webpush.setVapidDetails(
-  'mailto:thanhhung.code@gmail.com',
-  vapidKeys.publicKey,
-  vapidKeys.privateKey
-);
+/// library
+var http       = require('http'),
+    express    = require('express'),
+    bodyParser = require('body-parser'),
+    session    = require('express-session'),
+    cors       = require('cors'),
+    mongoose   = require('mongoose'),
+    ejs        = require('ejs')
 
-/**
- * my define
- */
-/// config system
-var CONFIG     = require('./config.js');
-/**
- * setting directeries asset root 
- */
-app.use("", express.static(path.join(__dirname, 'public')));
-/***
- * nodejs set view engine *
- */
-app.set('view engine', 'ejs');
-app.set('views', './view')
-/////////////////////////////////////////////////////////////////////////
-// for parsing application/x-www-form-urlencoded/////////////////////////
-/////////////////////////////////////////////////////////////////////////
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-/////////////////////////////////////////////////////////////////////////
-/**
- * listener server with socket
- */
-var port = process.env.PORT || parseInt(CONFIG.SERVER.PORT)
+// Create global app object
+var app = express()
+
+
+
+/// my define
+const CONFIG     = require('./config')
+const PORT   = process.env.PORT || parseInt(CONFIG.SERVER.PORT)
 const DOMAIN = CONFIG.SERVER.ASSET()
+const IS_PRODUCTION = CONFIG.IS_ENVIROMENT_PRODUCT
 
-var server = require('http').createServer( app );
-server.listen(port,  () => {
-    console.log(`server listen ${DOMAIN}`);
+//// ============== begin config app ===================
+IS_PRODUCTION && app.use(cors())
+// Normal express config defaults
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(express.static(__dirname + '/public'));
+app.use(session({
+            secret: 'hungtt',
+            cookie: {
+                maxAge: 60000
+            },
+            resave: false,
+            saveUninitialized: false
+        }));
+//// ============== end config app ===================
+
+/// setting directeries asset root 
+app.use(cors());
+app.use("", express.static(path.join(__dirname, 'public')))
+/// view engine
+app.set('view engine', 'ejs')
+app.set('views', './view')
+/// for parsing application/x-www-form-urlencoded/
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+/// listener server
+const server = http.createServer(app)
+server.listen(PORT,  () => {
+
+    console.log(`server run: ${DOMAIN}`)
+    require("./library/connect-mongo")
 });
-/////////////////////////////////////////////////////////////////////////
 
-// The new /save-subscription endpoint
-app.post("/save-subscription", async (req, res) => {
-    const subscription = req.body;
-    console.log(subscription, "save subscription")
-    /// không cần chờ
-    dummyDb.push(subscription) //Method to save the subscription to Database
-    
-    return res.json({ message: "success" });
-})
-// The new /save-subscription endpoint
-app.get("/show-noti", async (req, res) => {
-    const payload = JSON.stringify({
-        title: 'hùng tt test noti',
-        body: 'HEY! xin chào anh hùng cực kì đẹp trai',
-        imageUrl : 'image/logo.png',
-        redirectUrl : DOMAIN + '/theme'
-    });
-    const pushOptions = {
-        vapidDetails: {
-            subject: DOMAIN,
-            privateKey: vapidKeys.privateKey,
-            publicKey: vapidKeys.publicKey
-        }
-    };
-    console.log(dummyDb, "send noti")
-    dummyDb.map(function(subscription){
-        webpush.sendNotification(subscription, payload, pushOptions)
-        .catch(error => {
-            console.log( "have error for : ", subscription);
+
+//// handle error 
+if (!IS_PRODUCTION) {
+    app.use(function (err, req, res, next) {
+        console.log(err.stack);
+        res.status(err.status || 500);
+        res.json({
+            'errors': {
+                message: err.message,
+                error: err
+            }
         });
-    })
-    return res.json({ message: "success" });
-});
-app.get('/*', (req, res) => { 
-    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-
-    console.log("vào root" + fullUrl)
-    var data = {
-        DOMAIN : DOMAIN,
-        PUSH_PUBLIC_KEY : vapidKeys.publicKey
-    }
-    return res.render('index', data);
+    });
+}
+// production error handler
+// no stacktraces leaked to user
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500)
+    res.json({
+        'errors': {
+            message: err.message,
+            error: {}
+        }
+    });
 });

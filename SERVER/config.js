@@ -18,12 +18,15 @@ const CONFIG = {
         }
     }, 
     database : {
-        username: 'root',
-        password: '',
-        database_name: 'ebudezain',
-        host: local_ip,
-        dialect: 'mysql',
-        logging : false
+        mysql : {
+            username: 'root',
+            password: '',
+            database_name: 'ebudezain',
+            host: local_ip,
+            dialect: 'mysql',
+            logging : false
+        },
+        mongodb : 'mongodb://127.0.0.1:27017/realtime'
     },
     REDIS : {
         DOMAIN : local,
@@ -42,6 +45,7 @@ const CONFIG = {
         CHANNEL_MESSAGE_RESPONSE           : "CHANNEL_MESSAGE_RESPONSE",
         SOCKET_LISTEN_GET_LIST_NOTIFICATION: "SOCKET_LISTEN_GET_LIST_NOTIFICATION",
         NOTIFICATION_RESPONSE              : "NOTIFICATION_RESPONSE",
-    }
+    },
+    IS_ENVIROMENT_PRODUCT : true
 };
 module.exports = CONFIG;
