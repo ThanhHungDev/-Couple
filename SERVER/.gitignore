@@ -1,0 +1,10 @@
+.vscode
+Source/log
+Source/vendor
+#mobile/hospital_mobile
+Source/public/storage
+
+### config ###
+Source/config/config.php
+
+node_modules/
