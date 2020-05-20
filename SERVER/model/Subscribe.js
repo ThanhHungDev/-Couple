@@ -1,26 +1,47 @@
-var mongoose = require("mongoose");
+var mongoose = require("mongoose"),
+    Schema   = mongoose.Schema
 
-var SubcribeSchema = new mongoose.Schema(
+var SubcribeKeysSchema =  new Schema(
     {
-        author: { type: mongoose.Schema.Types.ObjectId, ref: 'user_account', default: null },
+        p256dh: { type: String, default: null },
+        auth : {
+            type: String,
+            required: [true, "can't be blank"],
+        }
+    }
+)
+//// fomat 
+// keys: {
+//       p256dh: 'BG1uuOXabIuswPdgJI95UqCZ8T7Z5c6Kfk33Zm89R5v85OFIgOviY0oEY4_mDY5chwy_xl4fabeoMhy9ZS7gevs',
+//       auth: 'ox77C03ckWhbujr1PMrHog'
+//     }
+const SubcribeSchema = new mongoose.Schema(
+    {
+        author: { 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'user_account', 
+            default: null 
+        },
         endpoint : {
             type: String,
             required: [true, "can't be blank"],
         },
         keys: {
-            type : Object , 
-            "default" : []
+            type : SubcribeKeysSchema, 
+            "default" : null
         }
     },
-    { timestamps: true }
-);
+    { 
+        timestamps: true
+    }
+)
 
 SubcribeSchema.methods.toJSONFor = function () {
     return {
-        author: this.author,
+        author  : this.author,
         endpoint: this.endpoint,
-        keys: this.keys
-    };
-};
+        keys    : this.keys
+    }
+}
 
-module.exports = mongoose.model("subcribers", SubcribeSchema);
+module.exports = mongoose.model("subcriber", SubcribeSchema)

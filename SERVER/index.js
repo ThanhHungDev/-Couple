@@ -16,9 +16,9 @@ var app = express()
 
 
 /// my define
-const CONFIG     = require('./config')
-const PORT   = process.env.PORT || parseInt(CONFIG.SERVER.PORT)
-const DOMAIN = CONFIG.SERVER.ASSET()
+const CONFIG        = require('./config')
+const PORT          = process.env.PORT || parseInt(CONFIG.SERVER.PORT)
+const DOMAIN        = CONFIG.SERVER.ASSET()
 const IS_PRODUCTION = CONFIG.IS_ENVIROMENT_PRODUCT
 
 //// ============== begin config app ===================
@@ -53,6 +53,20 @@ server.listen(PORT,  () => {
 
     console.log(`server run: ${DOMAIN}`)
     require("./library/connect-mongo")
+    var User = require("./model/User")
+    var userTest = new User ({
+        name    : "hùng đẹp trai thanh lịch vô địch vũ trụ",
+        email   : "thanhhung.code@gmail.com",
+        password: "123456",
+        userType: "User"
+    })
+     
+    userTest.save(function(err) {
+        if (err){
+            console.log(err.message)
+        }
+        console.log('successfully saved.');
+    })
 });
 
 

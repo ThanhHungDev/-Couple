@@ -1,6 +1,6 @@
 var mongoose = require("mongoose"),
     CONFIG = require("../config")
-var subscribe = require("../model/Subscribe")
+// var subscribe = require("../model/Subscribe")
 
 var IS_PRODUCTION = CONFIG.IS_ENVIROMENT_PRODUCT
 
@@ -28,15 +28,15 @@ mongoose.connection.on('disconnected', function () {
 mongoose.connection.on('open', function () {
     console.log('Mongoose default connection is open');
     console.log('===================================');
-    // Thêm mới một phần tử của mô hình SomeModel
-    var subscribe_instance = new subscribe({ endpoint: 'hùng handsome', keys: {hung : "đẹp trai" , ability : "cute hạt me"} })
+    // // Thêm mới một phần tử của mô hình SomeModel
+    // var subscribe_instance = new subscribe({ endpoint: 'hùng handsome', keys: {hung : "đẹp trai" , ability : "cute hạt me"} })
     
-    // Lưu phần tử vừa thêm mới lại, thông qua việc truyền vào một hàm callback
-    subscribe_instance.save(function (err) {
-        if (err){
-            console.log("have error save subscriber! ")
-        }
-        // saved!
-        console.log("have success save subscriber! ")
-    });
+    // // Lưu phần tử vừa thêm mới lại, thông qua việc truyền vào một hàm callback
+    // subscribe_instance.save(function (err) {
+    //     if (err){
+    //         console.log("have error save subscriber! ")
+    //     }
+    //     // saved!
+    //     console.log("have success save subscriber! ")
+    // });
 });
