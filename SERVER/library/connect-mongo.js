@@ -1,11 +1,20 @@
 var mongoose = require("mongoose"),
-    CONFIG = require("../config")
+    CONFIG = require("../config"),
+    User = require("../model/User"),
+    Subcribe = require("../model/Subscribe")
 // var subscribe = require("../model/Subscribe")
 
 var IS_PRODUCTION = CONFIG.IS_ENVIROMENT_PRODUCT
 
 /// connect mongodb
-mongoose.connect(CONFIG.database.mongodb, {useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(CONFIG.database.mongodb, 
+    {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useNewUrlParser: true
+    }
+)
 IS_PRODUCTION && mongoose.set('debug', true)
 
 // CONNECTION EVENTS
@@ -39,4 +48,19 @@ mongoose.connection.on('open', function () {
     //     // saved!
     //     console.log("have success save subscriber! ")
     // });
+    // Subcribe.find({email : "thanhhung.tud.testing@gmail.com"}, {
+    //     $lookup:
+    //     {
+    //         from: 'users',
+    //         localField: 'author',
+    //         foreignField: '_id',
+    //         as: 'orderdetails'
+    //     }
+    // })
+    // .then((data)=>{
+    //     console.log(data)
+    // })
+    // .catch(err => {
+    //     console.error(err.message, " error hero")
+    // })
 });

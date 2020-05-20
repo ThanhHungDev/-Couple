@@ -11,7 +11,7 @@ var PhoneSchema =  new Schema(
             type: Schema.Types.String, 
             default: "+00" 
         },
-        name : {
+        number : {
             type: String,
             required: [ true, "can't be blank" ],
             // custom validation for phone number
@@ -45,9 +45,7 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         // email cannot be duplicated
-        index: {
-            unique: [true, 'Email is existed'],
-        },
+        unique: [true, 'Email is existed'],
         lowercase: true,
         validate: {
             validator: function (value) {
@@ -103,7 +101,6 @@ UserSchema.methods.validPassword = async function (password) {
         return result
     })
     .catch(err => {
-        console.log(err)
         return false
     })
 }
@@ -111,7 +108,6 @@ UserSchema.methods.hashPassword = async function (password) {
     
     var saltHash = bcrypt.genSaltSync(salt)
     var hash = bcrypt.hashSync(password, saltHash)
-    console.log(hash)
     return hash
 }
 UserSchema.pre('save', async function(next) {

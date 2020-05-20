@@ -19,7 +19,7 @@ const SubcribeSchema = new mongoose.Schema(
     {
         author: { 
             type: mongoose.Schema.Types.ObjectId, 
-            ref: 'user_account', 
+            ref: 'users', 
             default: null 
         },
         endpoint : {

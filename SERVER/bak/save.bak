@@ -1,0 +1,48 @@
+var User = require("../model/User")
+    var userTest = new User ({
+        name    : "hùng đẹp trai thanh lịch vô địch vũ trụ",
+        email   : "thanhhung.tud.testing@gmail.com",
+        password: "123456",
+        userType: "User",
+        phones  : {
+            headPhoneNumber : '+84',
+            number : "797581480"
+        }
+    })
+     
+    userTest.save()
+    .then(() => {
+        console.log(userTest.toJSONFor())
+        var Subcribe = require("../model/Subscribe")
+        var subscribe = new Subcribe({
+            author: userTest.id,
+            endpoint : "hùng đẹp trai",
+            keys: {
+                p256dh: 'BG1uuOXabIuswPdgJI95UqCZ8T7Z5c6Kfk33Zm89R5v85OFIgOviY0oEY4_mDY5chwy_xl4fabeoMhy9ZS7gevs',
+                auth: 'ox77C03ckWhbujr1PMrHog'
+            }
+        })
+        var subscribe2 = new Subcribe({
+            author: userTest.id,
+            endpoint : "hùng đẹp trai 2",
+            keys: {
+                p256dh: 'BG1uuOXabIuswPdgJI95UqCZ8T7Z5c6Kfk33Zm89R5v85OFIgOviY0oEY4_mDY5chwy_xl4fabeoMhy9ZS7gevs',
+                auth: 'ox77C03ckWhbujr1PMrHog'
+            }
+        })
+        var subscribe3 = new Subcribe({
+            author: userTest.id,
+            endpoint : "hùng đẹp trai 3",
+            keys: {
+                p256dh: 'BG1uuOXabIuswPdgJI95UqCZ8T7Z5c6Kfk33Zm89R5v85OFIgOviY0oEY4_mDY5chwy_xl4fabeoMhy9ZS7gevs',
+                auth: 'ox77C03ckWhbujr1PMrHog'
+            }
+        })
+        return Promise.all([subscribe.save(), subscribe2.save(), subscribe3.save()])
+    })
+    .then(() => {
+        console.log(subscribe.toJSONFor())
+    })
+    .catch(err => {
+        console.error(err.message, " error hero save")
+    })

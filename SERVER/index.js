@@ -8,7 +8,10 @@ var http       = require('http'),
     session    = require('express-session'),
     cors       = require('cors'),
     mongoose   = require('mongoose'),
-    ejs        = require('ejs')
+    ejs        = require('ejs'),
+    rateLimit  = require("express-rate-limit"),
+    helmet     = require("helmet"),
+    connection = require("./library/connect-mongo")
 
 // Create global app object
 var app = express()
@@ -35,6 +38,15 @@ app.use(session({
             resave: false,
             saveUninitialized: false
         }));
+
+const limiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour window
+    max: 20, // start blocking after 5 requests
+    message: "Too many accounts created from this IP, please try again after an hour"
+})
+    
+app.use(limiter)
+app.use(helmet())
 //// ============== end config app ===================
 
 /// setting directeries asset root 
@@ -52,45 +64,4 @@ const server = http.createServer(app)
 server.listen(PORT,  () => {
 
     console.log(`server run: ${DOMAIN}`)
-    require("./library/connect-mongo")
-    var User = require("./model/User")
-    var userTest = new User ({
-        name    : "hùng đẹp trai thanh lịch vô địch vũ trụ",
-        email   : "thanhhung.code@gmail.com",
-        password: "123456",
-        userType: "User"
-    })
-     
-    userTest.save(function(err) {
-        if (err){
-            console.log(err.message)
-        }
-        console.log('successfully saved.');
-    })
-});
-
-
-//// handle error 
-if (!IS_PRODUCTION) {
-    app.use(function (err, req, res, next) {
-        console.log(err.stack);
-        res.status(err.status || 500);
-        res.json({
-            'errors': {
-                message: err.message,
-                error: err
-            }
-        });
-    });
-}
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500)
-    res.json({
-        'errors': {
-            message: err.message,
-            error: {}
-        }
-    });
-});
+})
