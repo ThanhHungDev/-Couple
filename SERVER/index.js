@@ -11,7 +11,8 @@ var http       = require('http'),
     ejs        = require('ejs'),
     rateLimit  = require("express-rate-limit"),
     helmet     = require("helmet"),
-    connection = require("./library/connect-mongo")
+    connection = require("./library/connect-mongo"),
+    socket     = require('socket.io')
 
 // Create global app object
 var app = express()
@@ -62,7 +63,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 /// listener server
 const server = http.createServer(app)
+const io     = socket(server)
 server.listen(PORT,  () => {
 
     console.log(`server run: ${DOMAIN}`)
+    require("./library/socket-event")(io)
+    // io.sockets.on("connection",function(socket){
+    //     console.log("connected");
+        
+    // });
 })
