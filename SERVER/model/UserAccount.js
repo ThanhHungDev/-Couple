@@ -1,8 +1,8 @@
 
-var bcrypt = require('bcrypt-nodejs');
-CONFIG = require("../config"),
+var bcrypt   = require('bcrypt-nodejs');
+    CONFIG   = require("../config"),
     mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+    Schema   = mongoose.Schema
 
 var salt = CONFIG.salt
 
@@ -94,14 +94,23 @@ const UserAccountSchema = new Schema(
             token: {
                 type: String
             },
-            detect: {
-
-                browser: String,
-                browser_major_version: String,
-                browser_version: String,
-                os: String,
-                os_version: String
-            },
+            detect : {
+                browser : {
+                    type    : String
+                },
+                browser_major_version: {
+                    type    : String
+                },
+                browser_version : {
+                    type    : String
+                },
+                os : {
+                    type    : String
+                },
+                os_version : {
+                    type    : String
+                }
+            }
         }
     },{
         timestamps: true

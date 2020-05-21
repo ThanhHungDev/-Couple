@@ -1,26 +1,36 @@
 
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+    Schema   = mongoose.Schema
 
 const PostSchema = new Schema(
     {
 
         title: {
             type: String,
-            required: [true, 'Title Post is required']
+            required: [true, 'Title is required']
         },
         slug: {
             type: String,
-            required: [true, 'Body message is required']
+            required: [true, 'Slug is required']
         },
-        excerpt: String,
+        excerpt: {
+            type: String,
+            required: [true, 'Excerpt is required']
+        },
 
         content: {
-            type: String
+            type: String,
+            required: [true, 'Content is required']
         },
-        thumbnail: String,
-        publish: String,
+        thumbnail: {
+            type: String,
+            required: [true, 'Thumbnail is required']
+        },
+        publish: {
+            type: Number,
+            default : 0
+        },
         categories: [
             {
                 type: Schema.Types.ObjectId,
@@ -38,11 +48,22 @@ const PostSchema = new Schema(
         links: {
             type: String
         },
+        rating : {
+            type : Schema.Types.ObjectId
+        },
         seo: {
-            sitename: String,
-            image: String,
-            keyword: String,
-            description: String
+            sitename: {
+                type: String
+            },
+            image: {
+                type: String
+            },
+            keyword: {
+                type: String
+            },
+            description: {
+                type: String
+            }
         }
     }, {
         timestamps: true

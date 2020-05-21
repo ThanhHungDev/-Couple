@@ -1,8 +1,7 @@
 
 
-var CONFIG = require("../config"),
-    mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+var mongoose = require('mongoose'),
+    Schema   = mongoose.Schema
 
 const MessageSchema = new Schema(
     {

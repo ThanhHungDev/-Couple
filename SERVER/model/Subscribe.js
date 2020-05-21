@@ -6,7 +6,7 @@ var SubcribeKeysSchema =  new Schema(
         p256dh: { type: String, default: null },
         auth : {
             type: String,
-            required: [true, "can't be blank"],
+            required: [true, "Auth can't be blank"],
         }
     }
 )
@@ -24,7 +24,7 @@ const SubcribeSchema = new mongoose.Schema(
         },
         endpoint : {
             type    : String,
-            required: [true, "can't be blank"],
+            required: [true, "Endpoint can't be blank"],
         },
         keys: {
             type   : SubcribeKeysSchema,
