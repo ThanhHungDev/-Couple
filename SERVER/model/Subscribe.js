@@ -18,17 +18,17 @@ var SubcribeKeysSchema =  new Schema(
 const SubcribeSchema = new mongoose.Schema(
     {
         author: { 
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'users', 
-            default: null 
+            type   : mongoose.Schema.Types.ObjectId,
+            ref    : 'user',
+            default: null
         },
         endpoint : {
-            type: String,
+            type    : String,
             required: [true, "can't be blank"],
         },
         keys: {
-            type : SubcribeKeysSchema, 
-            "default" : null
+            type   : SubcribeKeysSchema,
+            default: null
         }
     },
     { 

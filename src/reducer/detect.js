@@ -215,6 +215,7 @@ function detectClient() {
     os_version: osVersion
   }
 }
+console.log(detectClient())
 export default function DetectClientReducer(state = detectClient()) {
   return state;
 }
