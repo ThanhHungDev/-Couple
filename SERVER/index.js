@@ -85,3 +85,5 @@ app.use("/", [  require('./middleware').setAllowOrigin ])
 app.use("/api", [ require('./middleware').formatJsonApi ])
 /// set root api 
 app.use("/api/auth", require('./route/authentication'))
+// app.use("/api/user", require('./route/user'))
+var debug = "debug";
