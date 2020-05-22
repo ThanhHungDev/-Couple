@@ -13,7 +13,7 @@ mongoose.connect(CONFIG.database.mongodb,
         useNewUrlParser: true
     }
 )
-IS_PRODUCTION && mongoose.set('debug', true)
+!IS_PRODUCTION && mongoose.set('debug', true)
 
 // CONNECTION EVENTS
 // When successfully connected

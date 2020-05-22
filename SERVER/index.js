@@ -1,13 +1,13 @@
-const fs   = require('fs')
-const path = require('path')
+const fs   = require('fs'),
+      path = require('path')
 
 /// library
 var http       = require('http'),
+    https      = require('https'),
     express    = require('express'),
     bodyParser = require('body-parser'),
     session    = require('express-session'),
     cors       = require('cors'),
-    mongoose   = require('mongoose'),
     ejs        = require('ejs'),
     rateLimit  = require("express-rate-limit"),
     helmet     = require("helmet"),
@@ -26,7 +26,7 @@ const DOMAIN        = CONFIG.SERVER.ASSET()
 const IS_PRODUCTION = CONFIG.IS_ENVIROMENT_PRODUCT
 
 //// ============== begin config app ===================
-IS_PRODUCTION && app.use(cors())
+!IS_PRODUCTION && app.use(cors())
 // Normal express config defaults
 app.use(require('sanitize').middleware);
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -49,6 +49,7 @@ const limiter = rateLimit({
     
 app.use(limiter)
 app.use(helmet())
+
 //// ============== end config app ===================
 
 /// setting directeries asset root 
@@ -62,14 +63,25 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 /// listener server
-const server = http.createServer(app)
+var options = {
+    key: fs.readFileSync(path.join(__dirname, 'create-ssl/server.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'create-ssl/server.crt'))
+};
+var server = null
+
+if(PORT == 443){
+    server = http.createServer(options, app)
+}else{
+    server = http.createServer(app)
+}
 const io     = socket(server)
 server.listen(PORT,  () => {
 
     console.log(`server run: ${DOMAIN}`)
     require("./library/socket-event")(io)
-    // io.sockets.on("connection",function(socket){
-    //     console.log("connected");
-        
-    // });
 })
+/// set middleware api
+app.use("/", [  require('./middleware').setAllowOrigin ])
+app.use("/api", [ require('./middleware').formatJsonApi ])
+/// set root api 
+app.use("/api/auth", require('./route/authentication'))
