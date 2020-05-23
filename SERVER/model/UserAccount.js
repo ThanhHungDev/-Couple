@@ -84,7 +84,7 @@ const UserAccountSchema = new Schema(
             },
             default: 'User'
         },
-        flag_active: {
+        flagActive: {
 
             type: Number,
             default: 1
@@ -98,16 +98,16 @@ const UserAccountSchema = new Schema(
                 browser : {
                     type    : String
                 },
-                browser_major_version: {
+                browserMajorVersion: {
                     type    : String
                 },
-                browser_version : {
+                browserVersion : {
                     type    : String
                 },
                 os : {
                     type    : String
                 },
-                os_version : {
+                osVersion : {
                     type    : String
                 }
             }

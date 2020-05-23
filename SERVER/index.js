@@ -12,7 +12,8 @@ var http       = require('http'),
     rateLimit  = require("express-rate-limit"),
     helmet     = require("helmet"),
     connection = require("./library/connect-mongo"),
-    socket     = require('socket.io')
+    socket     = require('socket.io'),
+    i18n       = require("i18n")
 
 // Create global app object
 var app = express()
@@ -28,10 +29,12 @@ const IS_PRODUCTION = CONFIG.IS_ENVIROMENT_PRODUCT
 //// ============== begin config app ===================
 !IS_PRODUCTION && app.use(cors())
 // Normal express config defaults
-app.use(require('sanitize').middleware);
+app.use(require('sanitize').middleware)
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(express.static(__dirname + '/public'));
+
+app.use(express.static(__dirname + '/public'))
 app.use(session({
             secret: 'hungtt',
             cookie: {
@@ -49,7 +52,12 @@ const limiter = rateLimit({
     
 app.use(limiter)
 app.use(helmet())
-
+app.use(i18n.init)
+i18n.configure({
+    locales:['jp', 'vi'],
+    directory: __dirname + '/locale',
+    cookie: 'language',
+})
 //// ============== end config app ===================
 
 /// setting directeries asset root 
@@ -58,9 +66,6 @@ app.use("", express.static(path.join(__dirname, 'public')))
 /// view engine
 app.set('view engine', 'ejs')
 app.set('views', './view')
-/// for parsing application/x-www-form-urlencoded/
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 
 /// listener server
 var options = {
@@ -85,5 +90,6 @@ app.use("/", [  require('./middleware').setAllowOrigin ])
 app.use("/api", [ require('./middleware').formatJsonApi ])
 /// set root api 
 app.use("/api/auth", require('./route/authentication'))
+app.use("/api/user", require('./route/user'))
 // app.use("/api/user", require('./route/user'))
 var debug = "debug";

@@ -35,4 +35,37 @@ mongoose.connection.on('disconnected', function () {
 mongoose.connection.on('open', function () {
     console.log('Mongoose default connection is open');
     console.log('===================================');
+
+    // var Location = require("../model/Location")
+    // var newLocationJapan = new Location({
+    //     name : "Nhật bản",
+    //     subname: "jp",
+    //     headPhone : "+81"
+    // })
+    // newLocationJapan.save()
+    // .then(jp => {
+    //     console.log(jp)
+    //     console.log(jp._id.toString())
+    // })
+    // .catch(err => {
+    //     console.log( err )
+    // })
+    /// gỉa sử headphome = +81 = 5ec8940a4a7c080966d9e911
+    ///search location 
+    // Location = require("../model/Location")
+    // Location.findOne({ headPhone : '+81'})
+    // .then(location => {
+    //     console.log(location)
+    //     var newUser = new User({
+    //         name, 
+    //         email, 
+    //         password, 
+    //         phones : {
+    //             locationPhone,
+    //             phoneNumber : phone
+    //         },
+    //         avatar: "image/avatar.jpg"
+    //     })
+    // })
+
 });
