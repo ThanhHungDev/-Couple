@@ -7,30 +7,28 @@ const TokenAccessSchema = new Schema({
     
     token: {
         type: String,
-        required: [true, 'Token is required']
+        required: [ true, 'Token is required' ]
     },
     user: { 
         type   : mongoose.Schema.Types.ObjectId,
         ref    : 'user_account'
     },
-    detect : {
-        browser : {
-            type    : String
-        },
-        browserMajorVersion: {
-            type    : String
-        },
-        browserVersion : {
-            type    : String
-        },
-        os : {
-            type    : String
-        },
-        osVersion : {
-            type    : String
-        }
+    period: {
+        type : Date,
+        default : new Date
+    },
+    detect : { 
+        type    : String
     }
 })
 
 
 module.exports = mongoose.model("token_access", TokenAccessSchema)
+
+
+
+// browser: "Chrome"
+// browserMajorVersion: 81
+// browserVersion: "81.0.4044.138"
+// os: "Mac OS X"
+// osVersion: "10_15_4"

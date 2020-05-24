@@ -208,11 +208,11 @@ function detectClient() {
   }
 
   return {
-    browser: browser,
-    browser_version: version,
-    browser_major_version: majorVersion,
-    os: os,
-    os_version: osVersion
+    browser: browser.toString(),
+    browserVersion: version.toString(),
+    browserMajorVersion: majorVersion.toString(),
+    os: os.toString(),
+    osVersion: osVersion.toString()
   }
 }
 console.log(detectClient())

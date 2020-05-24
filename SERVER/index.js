@@ -89,7 +89,10 @@ server.listen(PORT,  () => {
 app.use("/", [  require('./middleware').setAllowOrigin ])
 app.use("/api", [ require('./middleware').formatJsonApi ])
 /// set root api 
-app.use("/api/auth", require('./route/authentication'))
+app.use("/api", require('./route/authentication'))
 app.use("/api/user", require('./route/user'))
+app.get('/*', (req, res) => { 
+    return res.render("index", {  DOMAIN , PUSH_PUBLIC_KEY: CONFIG.WEBPUSH.PUBLIC_KEY })    
+});
 // app.use("/api/user", require('./route/user'))
 var debug = "debug";

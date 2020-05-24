@@ -41,6 +41,10 @@ var CONFIG = {
     },
     TimeExpireAccessToken : 30,
     salt : 5,
-    IS_ENVIROMENT_PRODUCT : true
+    IS_ENVIROMENT_PRODUCT : true,
+    WEBPUSH: { 
+        PUBLIC_KEY: 'BIUnprvdEEntYAgrOBaI_MAaWK8qtRtgfM_RKnSGglsI1NAZUcycI7yJ6YL2ZEoqmKG9dSQ3AtX0-2mS6j_7epE',
+        PRIVATE_KEY: 'OAGhOjAuZ5WqNOm7hdqNeo-SSJqGApaXivfY5ps0Eiw'
+    }
 }
 module.exports = CONFIG;

@@ -4,13 +4,10 @@
 var express           = require('express')
 var { VALIDATE_LOGIN } = require("../middleware/request/login")
 var router            = express.Router()
+var { login } = require("../controller/authentication")
 
 
-router.post('/login', [ VALIDATE_LOGIN ], function(req, res){
-
-    var data = { hung: "đẹp trai" }
-    return res.end(JSON.stringify(data));
-})
+router.post('/login', [ VALIDATE_LOGIN ], login)
 router.post('/logout', function(req, res){
 
     var data = { hung: "đẹp trai" }

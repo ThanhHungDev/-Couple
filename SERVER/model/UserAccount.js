@@ -1,5 +1,5 @@
 
-var bcrypt   = require('bcrypt-nodejs');
+var bcrypt   = require('bcrypt');
     CONFIG   = require("../config"),
     mongoose = require('mongoose'),
     Schema   = mongoose.Schema
@@ -89,29 +89,12 @@ const UserAccountSchema = new Schema(
             type: Number,
             default: 1
         },
-        tokenRefesh: {
-
-            token: {
-                type: String
-            },
-            detect : {
-                browser : {
-                    type    : String
-                },
-                browserMajorVersion: {
-                    type    : String
-                },
-                browserVersion : {
-                    type    : String
-                },
-                os : {
-                    type    : String
-                },
-                osVersion : {
-                    type    : String
-                }
+        tokenRefesh: [
+            { 
+                type   : mongoose.Schema.Types.ObjectId,
+                ref    : 'token_refesh'
             }
-        }
+        ]
     },{
         timestamps: true
     }
@@ -119,31 +102,36 @@ const UserAccountSchema = new Schema(
 
 
 UserAccountSchema.methods.toJSONFor = function () {
-    var { name, email, phones, avatar, userType, flag_active } = this;
-    return { name, email, phones, avatar, userType, flag_active }
+    var { _id, name, email, phones, avatar, userType, flag_active } = this;
+    return { _id, name, email, phones, avatar, userType, flag_active }
 
 }
-
-UserAccountSchema.methods.validPassword = async function (password) {
+////$2a$05$eis66j.YEPBDLR179f2lwe9s3orpDTEPq9HwSkQ.jo.NRB06Eeovm
+UserAccountSchema.methods.checkValidPassword = function (password) {
     return bcrypt.compare(password, this.password)
         .then(function (result) {
             return result
         })
         .catch(err => {
+            console.log(err, "lỗi core")
             return false
         })
 }
 
-UserAccountSchema.methods.hashPassword = async function (password) {
+UserAccountSchema.methods.hashPassword = function (password) {
 
     var saltHash = bcrypt.genSaltSync(salt)
     var hash = bcrypt.hashSync(password, saltHash)
     return hash
 }
+UserAccountSchema.methods.getPassword = function(){
+    
+    return this.password
+}
 
-UserAccountSchema.pre('save', async function (next) {
-    if (this.password) {
-        var passwordHash = await this.hashPassword(this.password)
+UserAccountSchema.pre('save', function (next) {
+    if (this.password && this.isNew) {
+        var passwordHash = this.hashPassword(this.password)
         this.password = passwordHash;
     }
     return next()

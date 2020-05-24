@@ -5,13 +5,13 @@ module.exports.register_user = function( req, res ){
     var { name, email, password, head_phone, phone } = req.body
     var response = {}
     if(req.error){
-        response = { code: 422, message: "có lỗi validate", internal_message: "have error input", 
+        response = { code: 422, message: "have error input", internal_message: "have error input", 
         errors : [ req.error ] }
         return res.end(JSON.stringify(response))
     }
 
     ///search location { _id : new ObjectId('5ec8940a4a7c080966d9e911')}
-    Location.findOne({headPhone : head_phone })
+    return Location.findOne({headPhone : head_phone })
     .then(location => {
         
         var newUser = new User({
@@ -23,14 +23,14 @@ module.exports.register_user = function( req, res ){
     })
     .then( user => {
         console.log(user, "save success")
-        response = { code: 200, message: "lưu thành công", internal_message: "save succcess", 
+        response = { code: 200, message: res.__("save succcess"), internal_message: res.__("save succcess"), 
         data : { user : user.toJSONFor() } }
         return res.end(JSON.stringify(response))
     })
     .catch( error => {
-        response = { code: 500, message: "có lỗi hệ thống", 
-        internal_message: "have error save", 
-        errors : [ { message : error.message } ] }
+        response = { code: 500, message: "have error save", 
+        internal_message: error.message, 
+        errors : [ { message : error } ] }
         return res.end(JSON.stringify(response))
     });
 }

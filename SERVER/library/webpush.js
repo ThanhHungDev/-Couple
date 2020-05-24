@@ -1,8 +1,9 @@
-const webpush = require('web-push');
+var webpush = require('web-push'),
+    CONFIG = require("../config")
 // const vapidKeys = webpush.generateVAPIDKeys();
 const vapidKeys = {
-    publicKey : 'BIUnprvdEEntYAgrOBaI_MAaWK8qtRtgfM_RKnSGglsI1NAZUcycI7yJ6YL2ZEoqmKG9dSQ3AtX0-2mS6j_7epE',
-    privateKey : 'OAGhOjAuZ5WqNOm7hdqNeo-SSJqGApaXivfY5ps0Eiw'
+    publicKey : CONFIG.WEBPUSH.PUBLIC_KEY,
+    privateKey : CONFIG.WEBPUSH.PRIVATE_KEY,
 }
 
 module.exports.getInstanceWebPush = function(){
