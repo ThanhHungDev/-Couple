@@ -5,7 +5,10 @@ var mongoose = require('mongoose'),
 
 const MessageSchema = new Schema(
     {
-
+        channel : {
+            type: Schema.Types.ObjectId,
+            ref : 'channel'
+        },
         user: {
             type: Schema.Types.ObjectId,
             required: [ true, 'User send message is required' ]

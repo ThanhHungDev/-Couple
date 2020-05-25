@@ -1,16 +1,17 @@
 var EVENT = {
-    CONNECTTION                        : 'connection',
-    AUTHENTICATION                     : 'AUTHENTICATION',
-    DISCONNECT                         : 'disconnect',
-    CHANNEL_MESSAGE                    : 'CHANNEL_MESSAGE',
-    SOCKET_LISTEN_JOIN_CHANNEL_COMMENT : "SOCKET_LISTEN_JOIN_CHANNEL_COMMENT",
-    SOCKET_RESPONSE_JOIN_CHANNEL       : "SOCKET_RESPONSE_JOIN_CHANNEL",
-    CHANNEL_MESSAGE_RESPONSE           : "CHANNEL_MESSAGE_RESPONSE",
-    SOCKET_LISTEN_GET_LIST_NOTIFICATION: "SOCKET_LISTEN_GET_LIST_NOTIFICATION",
-    NOTIFICATION_RESPONSE              : "NOTIFICATION_RESPONSE",
+    CONNECTTION     : 'connection',
+    DISCONNECT      : 'disconnect',
+    SEND_MESSAGE    : 'send-message',
+    GET_CHANNEL     : 'get-channel',
+    RESPONSE_MESSAGE: 'response-message'
 }
 
-var io;
+var io,
+CONFIG      = require("../config"),
+mongoose    = require("mongoose"),
+TokenAccess = require("../model/TokenAccess"),
+Message     = require("../model/Message"),
+Channel     = require("../model/Channel")
 
 module.exports = function(_io) {
     io = _io
@@ -19,16 +20,31 @@ module.exports = function(_io) {
 
 function socketConnecting(){
 
-    io.sockets.on("connection",function(socket){
+    io.sockets.on( EVENT.CONNECTTION ,function(socket){
         // console.log(socket.adapter.rooms); 
         console.log("have connect: " + socket.id);
+        socket.emit( 'REQUEST_GET_CHANEL' );
         // /////////////////////////////////////////////////////
         try {
-            disconnect(socket);
+            disconnect(socket)
+            getChannel(socket)
+            sendMessageChat(socket)
         } catch (err) {
             console.log( err );
         }
         ////////////////////////////////////////////////////////
+    });
+}
+
+function getChannel( socket ){
+    socket.on( EVENT.GET_CHANNEL, async data => {
+        var { userId } = data
+
+        Channel.find({user : mongoose.Types.ObjectId( userId )})
+        .then(channels => {
+            console.log(channels)
+
+        })
     });
 }
 
@@ -40,71 +56,59 @@ function disconnect(socket){
     });
 }
 
-function authentication(socket){
-    socket.on( EVENT.AUTHENTICATION, async data => {
-        console.log(`${EVENT.AUTHENTICATION} socket` + data)
+function sendMessageChat(socket){
+    socket.on( EVENT.SEND_MESSAGE, async data => {
+        console.log(`${EVENT.SEND_MESSAGE} socket` + data)
         /// variable input
-        var { id, access, client } = data,
-        { 'user-agent' : user_agent } = socket.request.headers,
-        detect = { ... client , user_agent }
+        var { id, access, message, client, channel } = data,
+        { 'user-agent' : userAgent } = socket.request.headers,
+        detect = { ... client , userAgent }
 
-        /// đăng kí tiến trình 1
-        //// check authen ở đây 
-        //....
-        /// đăng kí tiến trình 2
-        /// lấy cho user cái chanel tương ứng và nếu không có chanel nào thì tạo cho họ
-//.....
-        /// cho 2 tuyến trình chạy cùng lúc thì ta cần đợi
-        let user = await check_auth;
-        let channel = await get_channel;
-        /// lưu ý: khi auth đúng, mặc định ta luôn có channel đc trả ra
-        ///  nên sẽ join socket id vào channel
-        if( user ){
-            socket.join( channel );
-            /// set data user cho socket
-            socket.user_infor = user
-            socket.channel = channel
-            /// bây giờ mình phải lấy tất cả user trong cùng 1 room/channel?
-            var list_user_infor = []
-            /// thông qua mỗi room/channel, mình đều lấy đc list socket id đang onl
-            var list_socketid_in_room = io.sockets.adapter.rooms[channel].sockets;
-            /// mình dùng thủ thuật để giải quyết bài toán trên bằng hàm : io.sockets.connected[socketid]
-            /// loop id in list and connect to socket of id then get infor
-            for (var socketid in list_socketid_in_room ) { 
-                var client_socket = io.sockets.connected[socketid];
-                list_user_infor.push(client_socket.user_infor);
+        /// check user auth
+        Promise.all([ checkTokenAccess(id, access, detect), checkChannel(id, channel) ])
+        .then(([ isAuth, channelData ]) => {
+
+            if( isAuth && channelData ){
+                /// send-message
+                saveMessage(id, message, channelData)
+                io.in(channel).emit(EVENT.RESPONSE_MESSAGE, { user : id, message, channel: channelData.name })
             }
-            response.status = 200;
-            response.data = [{
-                online : list_user_infor,
-                channel : channel,
-                socket : socket.id
-            }];
-            io.in(channel).emit( 'authentication_response' , response );
-            /// lưu token đó gắn với channel trong 30p để khi 1 user chat 
-            /// sẽ gửi thông tin token lên server thì check điều kiện cần là 
-            /// token có đang thực sự dùng channel đó không?
-            /// điều kiện đủ là token còn thời gian sống không
-            REDIS.set( key_redis , access , 'EX', (CONFIG.TimeExpireAccessToken * 60), (err , status ) => {
-                if(err){
-                    response = { status : 204 , message : "server refesh token fail" , data : [] };
-                    io.in(channel).emit( 'server_fail' , response );
-                }
-                response = { status : 200 , message : "server refesh token ready" , data : [] };
-                io.in(channel).emit( 'ready_refesh' , response );
-            });
-            REDIS.set( access , channel , 'EX', (CONFIG.TimeExpireAccessToken * 60) , (err , status ) => {
-                if(err){
-                    response = { status : 204 , message : "server refesh token fail" , data : [] };
-                    io.in(channel).emit( 'server_fail' , response );
-                }
-                response = { status : 200 , message : "server refesh channel ready" , data : [] };
-                io.in(channel).emit( 'ready_set_channel' , response );
-            });
-        }else{
-            response.status = 403;
-            response.auth = data.authentication;
-            socket.emit( 'authentication_response' , response );
-        }
+        })
+        .catch( err => console.log("have err "))
     })
+}
+
+async function checkChannel(userId, channel ){
+    return Channel.findOne({ user : mongoose.Types.ObjectId(userId), channel })
+    .then( channelResult => {
+        if( !channelResult ){
+            return false
+        }
+        return channelResult
+    })
+    .catch( err => false)
+}
+async function checkTokenAccess(userId, token, detect ){
+    return TokenAccess.findOne({ user : mongoose.Types.ObjectId(userId), token })
+    .then( tokenResult => {
+        if( !tokenResult ){
+            return false
+        }
+        console.log(tokenResult.period)
+        var diffTime = Math.abs(new Date - tokenResult.period),
+            tim      = CONFIG.TimeExpireAccessToken
+        console.log(diffTime + " " + tim , " time")
+        return true
+    })
+    .catch( err => false)
+}
+async function saveMessage(userId, body, channel){
+    var newMessage = new Message({
+        user : userId,
+        body,
+        channel: [ channel._id ]
+    })
+    return newMessage.save()
+    .then(message => message )
+    .catch( err => { console.log(err, "err save new"); return false })
 }
