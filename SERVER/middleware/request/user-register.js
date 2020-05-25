@@ -16,18 +16,27 @@ var { Validator } = node_validator
 
 
 module.exports.VALIDATE_REGISTER = async function( req, res, next ){
-
-    console.log(req.body)
+    ///:attribute :value
     let validate = new Validator(req.body, {
-        name: "required|minLength:3|maxLength:50",
-        email: 'required|email',
-        password: 'required|minLength:6',
-        head_phone: ['required', 'formatHeadPhone'],
-        phone: 'required|minLength:8|maxLength:11'
+        name      : "required|minLength:3|maxLength:50",
+        email     : 'required|email',
+        password  : 'required|minLength:6',
+        head_phone: 'required|formatHeadPhone',
+        phone     : 'required|minLength:8|maxLength:11'
     },{
-        'email.required': "Email is required custom"
+        'name.required'     : res.__("User Id is required"),
+        'name.minLength'         : res.__("User Id is valid"),
+        'name.maxLength': res.__("Token Access is required"),
+        'email.required'               : res.__("Email is required"),
+        'email.email'                  : res.__("Email is valid"),
+        'password.required'            : res.__("Password is required"),
+        'password.minLength'         : res.__("Password is valid"),
+        'head_phone.required'            : res.__("Head Phone is required"),
+        'head_phone.formatHeadPhone'         : res.__("User Id is valid"),
+        'phone.required'            : res.__("Password is required"),
+        'phone.minLength'         : res.__("User Id is valid"),
     });
-     
+
     var matched = await validate.check()
     if (!matched) {
         req.error = validate.errors
