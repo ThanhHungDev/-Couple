@@ -24,17 +24,18 @@ module.exports.VALIDATE_REGISTER = async function( req, res, next ){
         head_phone: 'required|formatHeadPhone',
         phone     : 'required|minLength:8|maxLength:11'
     },{
-        'name.required'     : res.__("User Id is required"),
-        'name.minLength'         : res.__("User Id is valid"),
-        'name.maxLength': res.__("Token Access is required"),
-        'email.required'               : res.__("Email is required"),
-        'email.email'                  : res.__("Email is valid"),
-        'password.required'            : res.__("Password is required"),
-        'password.minLength'         : res.__("Password is valid"),
-        'head_phone.required'            : res.__("Head Phone is required"),
-        'head_phone.formatHeadPhone'         : res.__("User Id is valid"),
-        'phone.required'            : res.__("Password is required"),
-        'phone.minLength'         : res.__("User Id is valid"),
+        'name.required'             : res.__("User Id is required"),
+        'name.minLength'            : res.__("User Id is valid"),
+        'name.maxLength'            : res.__("Token Access is required"),
+        'email.required'            : res.__("Email is required"),
+        'email.email'               : res.__("Email is valid"),
+        'password.required'         : res.__("Password is required"),
+        'password.minLength'        : res.__("Password is valid"),
+        'head_phone.required'       : res.__("Head Phone is required"),
+        'head_phone.formatHeadPhone': res.__("Head Phone is valid"),
+        'phone.required'            : res.__("Phone is required"),
+        'phone.minLength'           : res.__("Phone is valid"),
+        'phone.maxLength'           : res.__("Phone is valid")
     });
 
     var matched = await validate.check()
