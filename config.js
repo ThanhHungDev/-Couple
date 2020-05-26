@@ -45,6 +45,15 @@ var CONFIG = {
     WEBPUSH: { 
         PUBLIC_KEY: 'BIUnprvdEEntYAgrOBaI_MAaWK8qtRtgfM_RKnSGglsI1NAZUcycI7yJ6YL2ZEoqmKG9dSQ3AtX0-2mS6j_7epE',
         PRIVATE_KEY: 'OAGhOjAuZ5WqNOm7hdqNeo-SSJqGApaXivfY5ps0Eiw'
+    },
+    EVENT : {
+        CONNECTTION      : 'connection',
+        DISCONNECT       : 'disconnect',
+        SEND_MESSAGE     : 'send-message',
+        GET_CHANNEL      : 'get-channel',
+        RESPONSE_MESSAGE : 'response-message',
+        RESPONSE_CHANNELS: 'response-channel',
+        REQUEST_GET_CHANEL: "request-get-channel"
     }
 }
 module.exports = CONFIG;

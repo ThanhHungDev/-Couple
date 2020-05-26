@@ -1,8 +1,35 @@
+var local = "localhost",
+  local_ip = "127.0.0.1",
+  local_port = 3000
+
 export default {
-  SITE : {
-    NAME : 'hùng đẹp trai'
+  SERVER: {
+    PORT: local_port,
+    DOMAIN: local,
+    IP: local_ip,
+    PROTOCOL: function () {
+      if (local_port == 443) {
+        return "https://"
+      }
+      return "http://"
+    },
+    ASSET: () => {
+      let port_url = ''
+      let protocol = ''
+      if (local_port == 443) {
+        protocol = "https://"
+      } else {
+        protocol = "http://"
+        port_url = ':' + local_port
+      }
+
+      return protocol + local + port_url;
+    }
   },
-  EMOJIS : [
+  SITE: {
+    NAME: 'hùng đẹp trai'
+  },
+  EMOJIS: [
     { symbol: "🙂", sign: ":)" },
     { symbol: "🙂", sign: "=)" },
     { symbol: "😊", sign: ":^)" },

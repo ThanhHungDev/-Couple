@@ -1,18 +1,10 @@
-var EVENT = {
-    CONNECTTION      : 'connection',
-    DISCONNECT       : 'disconnect',
-    SEND_MESSAGE     : 'send-message',
-    GET_CHANNEL      : 'get-channel',
-    RESPONSE_MESSAGE : 'response-message',
-    RESPONSE_CHANNELS: 'response-channel'
-}
-
 var io,
 CONFIG      = require("../config"),
 mongoose    = require("mongoose"),
 TokenAccess = require("../model/TokenAccess"),
 Message     = require("../model/Message"),
-Channel     = require("../model/Channel")
+Channel     = require("../model/Channel"),
+EVENT       = CONFIG.EVENT
 
 module.exports = function(_io) {
     io = _io
@@ -23,8 +15,9 @@ function socketConnecting(){
 
     io.sockets.on( EVENT.CONNECTTION ,function(socket){
         // console.log(socket.adapter.rooms); 
-        console.log("have connect: " + socket.id);
-        socket.emit( 'REQUEST_GET_CHANEL' );
+        console.log("have connect: " + socket.id + " " + CONFIG.EVENT.REQUEST_GET_CHANEL);
+        
+        socket.emit( CONFIG.EVENT.REQUEST_GET_CHANEL);
         // /////////////////////////////////////////////////////
         try {
             disconnect(socket)
