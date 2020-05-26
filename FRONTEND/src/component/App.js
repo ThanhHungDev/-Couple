@@ -29,7 +29,7 @@ class App extends Component {
       instanceApp.props.dispatch(setterSocket(socket))
     });
     socket.on('disconnect', function(){
-      this.props.dispatch(setterSocket(null))
+      instanceApp.props.dispatch(setterSocket(null))
       document.getElementById("Application").classList.add("connect-socket-error")
     });
     socket.on('connect_error', function() {

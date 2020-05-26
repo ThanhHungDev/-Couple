@@ -4,11 +4,19 @@ import Header from "../../_layout/header/Header.jsx";
 import Footer from "../../_layout/footer/index.jsx"
 import SideBarChat from "./SideBarChat.jsx"
 import ListMessage from "./ListMessage.jsx"
-
+import ModalSignInUp from "./ModalSignInUp.jsx"
 import '../../../../scss/react/client/page/chat/chat.scss'
+
+import $ from "jquery"
+// import "jquery-modal"
 
 
 class Chat extends Component {
+
+  componentDidMount(){
+    console.log("vào modal")
+    // $('#component-modal-sign-in-up').modal();
+  }
 
   render() {
     console.log("render lại Chat")
@@ -32,6 +40,7 @@ class Chat extends Component {
           </div>
         </div>
         <Footer />
+        <ModalSignInUp />
       </div>
     );
   }

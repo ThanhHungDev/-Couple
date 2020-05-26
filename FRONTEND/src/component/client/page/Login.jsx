@@ -14,7 +14,7 @@ class Login extends Component {
                 <div className="component-login">
                     <div className="form-login">
                         <form action="">
-                            
+                            page login
                         </form>
                     </div>
                 </div>
