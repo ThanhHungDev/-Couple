@@ -67,5 +67,44 @@ mongoose.connection.on('open', function () {
     //         avatar: "image/avatar.jpg"
     //     })
     // })
+    // var newLocationJapan = new Location({
+    //     name : "Nhật bản",
+    //     subname: "jp",
+    //     headPhone : "+81"
+    // })
+    // newLocationJapan.save()
+    // .then(jp => {
+    //     console.log(jp)
+    //     console.log(jp._id.toString())
+    // })
+    // .catch(err => {
+    //     console.log( err )
+    // })
+    // var newLocationVietNam = new Location({
+    //     name : "Việt Nam",
+    //     subname: "vi",
+    //     headPhone : "+84"
+    // })
+    // newLocationVietNam.save()
+    // .then(jp => {
+    //     console.log(jp)
+    //     console.log(jp._id.toString())
+    // })
+    // .catch(err => {
+    //     console.log( err )
+    // })
+    // var newLocationUs = new Location({
+    //     name : "Mỹ",
+    //     subname: "us",
+    //     headPhone : "+1"
+    // })
+    // newLocationUs.save()
+    // .then(jp => {
+    //     console.log(jp)
+    //     console.log(jp._id.toString())
+    // })
+    // .catch(err => {
+    //     console.log( err )
+    // })
 
 });

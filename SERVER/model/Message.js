@@ -25,13 +25,6 @@ const MessageSchema = new Schema(
     }
 )
 
-UserAccountSchema.pre('save', async function(next) {
-    if(this.password){
-        var passwordHash = await this.hashPassword(this.password)
-        this.password = passwordHash;
-    }
-    return next()
-})
 
 module.exports = mongoose.model("message", MessageSchema)
 

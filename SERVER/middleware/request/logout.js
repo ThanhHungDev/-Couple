@@ -1,6 +1,6 @@
 const { Validator } = require('node-input-validator')
 
-module.exports.VALIDATE_LOGIN = async function( req, res, next ){
+module.exports.VALIDATE_LOGOUT = async function( req, res, next ){
     
     let validate = new Validator(req.body, {
         tokenAccess: 'required|hash:md5',

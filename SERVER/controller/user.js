@@ -14,6 +14,9 @@ module.exports.register_user = function( req, res ){
     ///search location { _id : new ObjectId('5ec8940a4a7c080966d9e911')}
     return Location.findOne({headPhone : head_phone })
     .then(location => {
+        if(!location){
+            throw new Error("không có location trong hệ thống")
+        }
         
         var newUser = new User({
             name, email, password, 
@@ -40,21 +43,21 @@ module.exports.register_user = function( req, res ){
 function createChannelDefault(user){
     
     var dfChannelConsulting = new Channel({
-        name : "consulting-web-design" + user._id.toString(),
+        name : "consulting-web-design-" + user._id.toString(),
         user : [
             user._id
         ]
     })
     dfChannelConsulting.save()
     var dfChannelTechnical = new Channel({
-        name : "technical-support" + user._id.toString(),
+        name : "technical-support-" + user._id.toString(),
         user : [
             user._id
         ]
     })
     dfChannelTechnical.save()
     var dfChannelWeb = new Channel({
-        name : "submit-web-request" + user._id.toString(),
+        name : "submit-web-request-" + user._id.toString(),
         user : [
             user._id
         ]
