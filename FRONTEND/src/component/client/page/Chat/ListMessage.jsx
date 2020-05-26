@@ -9,11 +9,11 @@ import "../../../../scss/react/client/page/chat/list-message.scss"
 class ListMessage extends Component {
 
   componentDidMount(){
-    document.getElementById('js-scroll-to-bottom').scrollTo(0,document.getElementById('js-scroll-to-bottom').scrollHeight)
+    document.getElementById('js-scroll-to-bottom').scrollTop  = document.getElementById('js-scroll-to-bottom').scrollHeight
   }
 
   componentDidUpdate(){
-    document.getElementById('js-scroll-to-bottom').scrollTo(0,document.getElementById('js-scroll-to-bottom').scrollHeight)
+    document.getElementById('js-scroll-to-bottom').scrollTop  = document.getElementById('js-scroll-to-bottom').scrollHeight
   }
   render() {
     

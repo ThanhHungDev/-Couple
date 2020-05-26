@@ -1,4 +1,9 @@
-import 'core-js';
+// import 'core-js';
+
+/* polyfills.js */
+import 'babel-polyfill'
+import 'react-app-polyfill/ie11'
+import 'core-js'
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -10,7 +15,7 @@ import Reducer from './reducer';
 import './scss/index.scss'
 
 const store = createStore(Reducer);
-store.subscribe(() => {
+store.subscribe(function(){
     console.log('có thay đổi trong Redux!!')
     console.log(store.getState());
 });

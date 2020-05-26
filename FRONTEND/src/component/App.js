@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux';
 import Register from './client/Register.jsx';
-
+import Login from "./client/page/Login.jsx"
 import Home from './client/page/Home.jsx'
 
 import DetailTheme from "./client/page/DetailTheme.jsx"
@@ -29,7 +29,7 @@ class App extends Component {
       instanceApp.props.dispatch(setterSocket(socket))
     });
     socket.on('disconnect', function(){
-      // this.props.dispatch(setterSocket(null))
+      this.props.dispatch(setterSocket(null))
       document.getElementById("Application").classList.add("connect-socket-error")
     });
     socket.on('connect_error', function() {
@@ -52,7 +52,7 @@ class App extends Component {
             <Route path='/theme/:id' render={({ match }) => <DetailTheme match={match}/>}/>
           </Switch>
           <Route path="/register" render={() => <Register />} />
-          <Route path="/login" render={() => <Register />} />
+          <Route path="/login" render={() => <Login />} />
 
         </BrowserRouter>
       </div>
