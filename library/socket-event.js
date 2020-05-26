@@ -1,9 +1,10 @@
 var EVENT = {
-    CONNECTTION     : 'connection',
-    DISCONNECT      : 'disconnect',
-    SEND_MESSAGE    : 'send-message',
-    GET_CHANNEL     : 'get-channel',
-    RESPONSE_MESSAGE: 'response-message'
+    CONNECTTION      : 'connection',
+    DISCONNECT       : 'disconnect',
+    SEND_MESSAGE     : 'send-message',
+    GET_CHANNEL      : 'get-channel',
+    RESPONSE_MESSAGE : 'response-message',
+    RESPONSE_CHANNELS: 'response-channel'
 }
 
 var io,
@@ -38,13 +39,24 @@ function socketConnecting(){
 
 function getChannel( socket ){
     socket.on( EVENT.GET_CHANNEL, async data => {
-        var { userId } = data
+        /// variable input
+        var { id, access, client } = data,
+        { 'user-agent' : userAgent } = socket.request.headers,
+        detect = { ... client , userAgent }
 
-        Channel.find({user : mongoose.Types.ObjectId( userId )})
-        .then(channels => {
-            console.log(channels)
+        /// check user auth
+        Promise.all([ 
+            checkTokenAccess(userId, access, detect), 
+            Channel.find({user : mongoose.Types.ObjectId( userId )}) 
+        ])
+        .then(([ isAuth, channels ]) => {
 
+            if( isAuth && channels ){
+                /// send-message
+                socket.emit(EVENT.RESPONSE_CHANNELS, { channels })
+            }
         })
+        .catch( err => console.log("have err "))
     });
 }
 

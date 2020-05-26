@@ -1,6 +1,6 @@
 var User     = require("../model/UserAccount"),
     Location = require("../model/Location"),
-    Channel = require("../model/Channel")
+    Channel  = require("../model/Channel")
 
 module.exports.register_user = function( req, res ){
     var { name, email, password, head_phone, phone } = req.body
