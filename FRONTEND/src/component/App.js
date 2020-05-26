@@ -21,19 +21,20 @@ class App extends Component {
     super(props);
     var instanceApp = this
     const socket = socketIOClient(CONFIG.SERVER.ASSET());
+    var ApplicationDom = document.getElementById("Application")
     socket.on('connect', function () {
       
-      document.getElementById("Application").classList.remove("connect-socket-error")
+      ApplicationDom && ApplicationDom.classList.remove("connect-socket-error")
       //// set config
       socketListenner(socket, instanceApp.props.dispatch)
       instanceApp.props.dispatch(setterSocket(socket))
     });
     socket.on('disconnect', function(){
       instanceApp.props.dispatch(setterSocket(null))
-      document.getElementById("Application").classList.add("connect-socket-error")
+      ApplicationDom && ApplicationDom.classList.add("connect-socket-error")
     });
     socket.on('connect_error', function() {
-      document.getElementById("Application").classList.add("connect-socket-error")
+      ApplicationDom && ApplicationDom.classList.add("connect-socket-error")
     });
     
   }

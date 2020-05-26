@@ -4,18 +4,48 @@ import Header from "../../_layout/header/Header.jsx";
 import Footer from "../../_layout/footer/index.jsx"
 import SideBarChat from "./SideBarChat.jsx"
 import ListMessage from "./ListMessage.jsx"
-import ModalSignInUp from "./ModalSignInUp.jsx"
+import ModalLogin from "./ModalLogin.jsx"
+import ModalRegister from "./ModalRegister.jsx"
 import '../../../../scss/react/client/page/chat/chat.scss'
 
 import $ from "jquery"
-// import "jquery-modal"
+import "jquery-modal"
+import "../../../../scss/_modal.jquery.scss"
 
 
 class Chat extends Component {
 
   componentDidMount(){
-    console.log("vào modal")
-    // $('#component-modal-sign-in-up').modal();
+    ///check authentication
+    if (typeof(Storage) !== 'undefined') {
+      var user = JSON.parse(localStorage.getItem('user'));
+      if( !user || !user.id ){
+        $('#component-modal-login').modal({
+          fadeDuration: 0,
+          escapeClose: false,
+          clickClose: false,
+          closeExisting: true
+        });
+        $('a[href="#js-modal-register"]').click(function(event) {
+          $(this).modal({
+              fadeDuration: 0,
+              escapeClose: false,
+              clickClose: false,
+              closeExisting: true
+          });
+          event.preventDefault();
+        });
+        $('a[href="#component-modal-login"]').click(function(event) {
+          $(this).modal({
+              fadeDuration: 0,
+              escapeClose: false,
+              clickClose: false,
+              closeExisting: true
+          });
+          event.preventDefault();
+        });
+      }
+    }
   }
 
   render() {
@@ -40,7 +70,8 @@ class Chat extends Component {
           </div>
         </div>
         <Footer />
-        <ModalSignInUp />
+        <ModalLogin />
+        <ModalRegister />
       </div>
     );
   }
