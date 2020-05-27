@@ -20,13 +20,7 @@ class ModalRegister extends Component {
             phone: "",
             alertError : '',
             progress : false
-          };
-    
-    this.name      = React.createRef()
-    this.email     = React.createRef()
-    this.password  = React.createRef()
-    this.headPhone = React.createRef()
-    this.phone     = React.createRef()
+          }
   }
 
   componentDidMount(){
