@@ -24,7 +24,7 @@
         padding: 0.7rem 1rem;
         border-top: 1px solid #dee2e6;
 
-        .btn-cancel-login{
+        .btn-anonymously{
             color: #fff;
             background-color: $custom-danger;
 
@@ -70,6 +70,23 @@
             }
         }
     }
+    .group-input-mobile{
+        .select-location{
+            padding: 0
+        }
+        .select2-container 
+        .select2-selection--single{
+            height: unset;
+            border-radius: 0;
+            padding: 10px 5px 5px;
+            border: 1px solid #ccc;
+
+            .select2-selection__arrow{
+                top: 50%;
+                @include render-transform(translateY(-50%))
+            }
+        }
+    } 
     .svg-icon{
         position: absolute;
         top: 50%;
@@ -95,6 +112,14 @@
         &:hover{
             color: #f04236;
         }
+    }
+    .note-none-login{
+        display: block;
+        color: #f35a4f;
+        text-align: center;
+        max-width: 320px;
+        margin: 0 auto;
+        padding-bottom: 10px;
     }
 }
 

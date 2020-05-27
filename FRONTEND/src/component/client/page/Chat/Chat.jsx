@@ -20,8 +20,9 @@ class Chat extends Component {
     if (typeof(Storage) !== 'undefined') {
       var user = JSON.parse(localStorage.getItem('user'));
       if( !user || !user.id ){
-        $('#component-modal-login').modal({
+        $('#js-modal-login').modal({
           fadeDuration: 0,
+          showClose: false,
           escapeClose: false,
           clickClose: false,
           closeExisting: true
@@ -29,15 +30,17 @@ class Chat extends Component {
         $('a[href="#js-modal-register"]').click(function(event) {
           $(this).modal({
               fadeDuration: 0,
+              showClose: false,
               escapeClose: false,
               clickClose: false,
               closeExisting: true
           });
           event.preventDefault();
         });
-        $('a[href="#component-modal-login"]').click(function(event) {
+        $('a[href="#js-modal-login"]').click(function(event) {
           $(this).modal({
               fadeDuration: 0,
+              showClose: false,
               escapeClose: false,
               clickClose: false,
               closeExisting: true
