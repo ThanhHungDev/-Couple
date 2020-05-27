@@ -84,6 +84,10 @@ const UserAccountSchema = new Schema(
             },
             default: 'User'
         },
+        anonymous : {
+            type: Boolean,
+            default: false
+        },
         flagActive: {
 
             type: Number,

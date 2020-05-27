@@ -19,7 +19,9 @@ class ModalRegister extends Component {
             email: "",
             password: "",
             headPhone : "",
-            phone: ""
+            phone: "",
+            alertError : '',
+            progress : false
           };
     
     this.name      = React.createRef()
@@ -36,6 +38,7 @@ class ModalRegister extends Component {
     });
   }
   register = () => {
+    this.setState({ progress : true })
     var name      = this.name.value,
         email     = this.email.value,
         password  = this.password.value,
@@ -56,7 +59,16 @@ class ModalRegister extends Component {
       }
     })
     .then(res => res.json())
-    .then(response => console.log('Success:', JSON.stringify(response)))
+    .then(response => {
+      this.setState({ progress : false })
+      if( response.code == 200 ){
+        /// open model login
+        this.setState({ alertError : '' })
+        $('a[href="#js-modal-login"]').click()
+      }else{
+        this.setState({ alertError : response.message })
+      }
+    })
     .catch(error => console.error('Error:', error))
   }
 
@@ -65,9 +77,10 @@ class ModalRegister extends Component {
   }
   render() {
     return (
-      <div className="model-wrapper-form-control modal animated tada" id="js-modal-register">
+      <div className="model-wrapper-form-control modal animated fadeIn" id="js-modal-register">
         <div className="modal-header">登録</div>
         <div className="modal-body">
+          { this.state.alertError && <div className="alert alert-danger">{ this.state.alertError }</div> }
           <div className="input-group">
             <span className="svg-icon"> <Name /> </span>
             <input name="name" className="input-control" 
@@ -75,8 +88,7 @@ class ModalRegister extends Component {
           </div>
           <div className="input-group">
             <span className="svg-icon"> <Email /> </span>
-            <input name="email" autoCorrect="off" autoComplete="off"
-            autoCapitalize="none" className="input-control" 
+            <input name="email" autoCorrect="off" autoComplete="off" autoCapitalize="none" className="input-control" 
             ref={(input) => this.email = input} placeholder="メールアドレスを入力して"/>
           </div>
           <div className="input-group">
@@ -96,8 +108,7 @@ class ModalRegister extends Component {
             <div className="col-9">
               <div className="input-group">
                 <span className="svg-icon"><Phone /></span>
-                <input name="phone" autoCorrect="off" autoComplete="off"
-                  autoCapitalize="none" className="input-control" 
+                <input name="phone" autoCorrect="off" autoComplete="off" autoCapitalize="none" className="input-control" 
                   ref={(input) => this.phone = input} placeholder="パスワードを入力してください" />
               </div>
             </div>
@@ -116,6 +127,10 @@ class ModalRegister extends Component {
           ログインする
           </button>
         </div>
+        {
+          this.state.progress && 
+          <div className="progress progress-success"><div className="progress-loadding"></div></div>
+        }
       </div>
     );
   }

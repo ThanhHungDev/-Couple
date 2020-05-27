@@ -3,7 +3,7 @@ var User     = require("../model/UserAccount"),
     Channel  = require("../model/Channel")
 
 module.exports.register_user = function( req, res ){
-    var { name, email, password, head_phone, phone } = req.body
+    var { name, email, password, head_phone, phone, anonymous } = req.body
     var response = {}
     if(req.error){
         response = { code: 422, message: "have error input", internal_message: "have error input", 
@@ -11,8 +11,13 @@ module.exports.register_user = function( req, res ){
         return res.end(JSON.stringify(response))
     }
 
-    ///search location { _id : new ObjectId('5ec8940a4a7c080966d9e911')}
-    return Location.findOne({headPhone : head_phone })
+    User.findOne({ email })
+    .then( userUnique => {
+        if(userUnique){
+            throw new Error("user đã tồn tại")
+        }
+        return  Location.findOne({headPhone : head_phone })
+    })
     .then(location => {
         if(!location){
             throw new Error("không có location trong hệ thống")
@@ -21,7 +26,8 @@ module.exports.register_user = function( req, res ){
         var newUser = new User({
             name, email, password, 
             phones : [{ locationPhone: location._id, phoneNumber: phone }], 
-            avatar: "image/avatar.jpg"
+            avatar: "image/avatar.jpg",
+            anonymous
         })
         return newUser.save()
     })
@@ -33,7 +39,7 @@ module.exports.register_user = function( req, res ){
         return res.end(JSON.stringify(response))
     })
     .catch( error => {
-        response = { code: 500, message: "have error save", 
+        response = { code: 500, message: error.message, 
         internal_message: error.message, 
         errors : [ { message : error } ] }
         return res.end(JSON.stringify(response))
