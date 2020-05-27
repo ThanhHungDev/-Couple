@@ -36,7 +36,7 @@ module.exports.login = function( req, res ){
     })
     .then( tokens => {
         response = { code: 200, message: "có tồn tại 1 user", 
-        internal_message: res.__("login success"), data : { tokens, user : userLogin.toJSONFor() } }
+        internal_message: res.__("login success"), data : { ... userLogin.toJSONFor(), tokens } }
         return res.end(JSON.stringify(response))
     })
     .catch( error => {

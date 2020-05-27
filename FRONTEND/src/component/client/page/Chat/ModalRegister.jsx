@@ -1,14 +1,12 @@
 import React, { Component } from "react"
-import { connect } from "react-redux"
 import Name from "../../../svg/name.jsx"
 import Email from "../../../svg/email.jsx"
 import Password from "../../../svg/password.jsx"
 import Phone from "../../../svg/phone.jsx"
-
+import { connect } from "react-redux"
 import $ from "jquery"
 import "select2"
-import CONFIG from "../../../../config"
-
+import { fetchRegister, fetchRegisterAnonymous } from "../../../../library/helper.js"
 
 class ModalRegister extends Component {
 
@@ -51,29 +49,14 @@ class ModalRegister extends Component {
       head_phone : headPhone, 
       phone
     }
-    fetch( CONFIG.SERVER.ASSET()  + '/api/user/register',{
-      method: 'POST', 
-      body: JSON.stringify(data), 
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(response => {
-      this.setState({ progress : false })
-      if( response.code == 200 ){
-        /// open model login
-        this.setState({ alertError : '' })
-        $('a[href="#js-modal-login"]').click()
-      }else{
-        this.setState({ alertError : response.message })
-      }
-    })
-    .catch(error => console.error('Error:', error))
+    var instanceComponentRegister = this
+    fetchRegister( data , instanceComponentRegister)
   }
 
-  createUserAnonymously = () => {
-    alert("đã click")
+  createUserAnonymous = () => {
+    this.setState({ progress : true })
+    var instanceComponentRegister = this
+    fetchRegisterAnonymous(instanceComponentRegister, this.props.client)
   }
   render() {
     return (
@@ -120,7 +103,7 @@ class ModalRegister extends Component {
         </div>
         <div className="modal-footer">
           <button className="d-inline-block btn btn-anonymously bg-red text-white" 
-          onClick={ this.createUserAnonymously }> 匿名でチャット </button>
+          onClick={ this.createUserAnonymous }> 匿名でチャット </button>
           <button id="js-btn-login-submit-form" 
           className="d-inline-block btn btn-login bg-primary-color-dark text-white" 
           onClick={ this.register }>

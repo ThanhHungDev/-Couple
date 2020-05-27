@@ -19,7 +19,8 @@ class Chat extends Component {
     ///check authentication
     if (typeof(Storage) !== 'undefined') {
       var user = JSON.parse(localStorage.getItem('user'));
-      if( !user || !user.id ){
+      console.log(user)
+      if( !user || !user._id ){
         $('#js-modal-login').modal({
           fadeDuration: 0,
           showClose: false,

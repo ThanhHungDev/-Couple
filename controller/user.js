@@ -14,13 +14,13 @@ module.exports.register_user = function( req, res ){
     User.findOne({ email })
     .then( userUnique => {
         if(userUnique){
-            throw new Error("user đã tồn tại")
+            throw new Error("このユーザーは既に存在します")
         }
         return  Location.findOne({headPhone : head_phone })
     })
     .then(location => {
         if(!location){
-            throw new Error("không có location trong hệ thống")
+            throw new Error("システムに場所がありません")
         }
         
         var newUser = new User({
