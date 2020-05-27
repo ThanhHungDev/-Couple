@@ -2,6 +2,7 @@ import CONFIG from "../config"
 import { generateName } from "./generate-name.js"
 import $ from "jquery"
 import "jquery-modal"
+import { setterUser } from "../action"
 
 export function fetchRegister (data, instance) {
     var valid = validateRegister( data , instance)
@@ -34,11 +35,12 @@ export function fetchRegister (data, instance) {
 export function fetchRegisterAnonymous ( instance, detect ) {
     var nameGen = generateName()
     var data = {
-        name      : nameGen,
+        name      : nameGen + "👨🏿‍💻" + "[anonymous]",
         email     : nameGen.toLowerCase().replace(/\s/g, '.') + (new Date).getTime() + "@ebudezain.com",
         password  : "123456",
         head_phone: "+84",
-        phone     : "12345674"
+        phone     : "12345674",
+        anonymous: true
     }
     var valid = validateRegister( data , instance)
     if( !valid ){
@@ -90,10 +92,10 @@ export function fetchLoginAnonymous ( data, instance ){
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
             localStorage.setItem('user', JSON.stringify(response.data));
-            // this.props.dispatch( actionInitialUser(response.data) )
+            instance.props.dispatch( setterUser(response.data) )
         } else {
             alert('ứng dụng không chạy tốt trên trình duyệt này, vui lòng nâng cấp trình duyệt');
-            this.setState({ alert : response.user_message , progress : false });
+            instance.setState({ alert : response.user_message , progress : false });
         }
     })
     .catch(error => {
@@ -122,6 +124,37 @@ export function fetchLogin ( data, instance ){
         $('a[href="#js-modal-login"]').click()
         instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })
+}
+
+
+export function listenLoginEvent(){
+    $('#js-modal-login').modal({
+        fadeDuration: 0,
+        showClose: false,
+        escapeClose: false,
+        clickClose: false,
+        closeExisting: true
+      });
+      $('a[href="#js-modal-register"]').click(function(event) {
+        $(this).modal({
+            fadeDuration: 0,
+            showClose: false,
+            escapeClose: false,
+            clickClose: false,
+            closeExisting: true
+        });
+        event.preventDefault();
+      });
+      $('a[href="#js-modal-login"]').click(function(event) {
+        $(this).modal({
+            fadeDuration: 0,
+            showClose: false,
+            escapeClose: false,
+            clickClose: false,
+            closeExisting: true
+        });
+        event.preventDefault();
+      });
 }
 function validateLogin( data, instance ){
     try {

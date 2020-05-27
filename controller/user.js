@@ -22,11 +22,11 @@ module.exports.register_user = function( req, res ){
         if(!location){
             throw new Error("システムに場所がありません")
         }
-        
+        var avatarUrl = anonymous ? "/image/avatar-anonymous.png" : "/image/avatar.jpg"
         var newUser = new User({
             name, email, password, 
             phones : [{ locationPhone: location._id, phoneNumber: phone }], 
-            avatar: "image/avatar.jpg",
+            avatar: avatarUrl,
             anonymous
         })
         return newUser.save()

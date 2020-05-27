@@ -51,6 +51,10 @@
       }
     }
     .name{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 27ch;
       display: inline-block;
       vertical-align: middle;
       padding: 10px;

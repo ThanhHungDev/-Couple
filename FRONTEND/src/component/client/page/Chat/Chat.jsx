@@ -7,48 +7,20 @@ import ListMessage from "./ListMessage.jsx"
 import ModalLogin from "./ModalLogin.jsx"
 import ModalRegister from "./ModalRegister.jsx"
 import '../../../../scss/react/client/page/chat/chat.scss'
+import { connect } from "react-redux"
 
-import $ from "jquery"
-import "jquery-modal"
 import "../../../../scss/_modal.jquery.scss"
+
+import { listenLoginEvent } from "../../../../library/helper.js"
 
 
 class Chat extends Component {
 
   componentDidMount(){
-    ///check authentication
-    if (typeof(Storage) !== 'undefined') {
-      var user = JSON.parse(localStorage.getItem('user'));
-      console.log(user)
-      if( !user || !user._id ){
-        $('#js-modal-login').modal({
-          fadeDuration: 0,
-          showClose: false,
-          escapeClose: false,
-          clickClose: false,
-          closeExisting: true
-        });
-        $('a[href="#js-modal-register"]').click(function(event) {
-          $(this).modal({
-              fadeDuration: 0,
-              showClose: false,
-              escapeClose: false,
-              clickClose: false,
-              closeExisting: true
-          });
-          event.preventDefault();
-        });
-        $('a[href="#js-modal-login"]').click(function(event) {
-          $(this).modal({
-              fadeDuration: 0,
-              showClose: false,
-              escapeClose: false,
-              clickClose: false,
-              closeExisting: true
-          });
-          event.preventDefault();
-        });
-      }
+    var { auth } = this.props
+    console.log( auth , "authe")
+    if( !auth || !auth._id ){
+      listenLoginEvent()
     }
   }
 
@@ -57,12 +29,17 @@ class Chat extends Component {
     // console.log(data_hung);///chat {match.params.id}
     let match = this.props.match;
 
-    var { myinfo } = this.props;
-    if(!myinfo || !myinfo.avatar || !myinfo.name){
-      myinfo = {};
-      myinfo.avatar = '/image/avatar-hero.jpg'
-      myinfo.name = 'チュオン タン フン';
+    if (typeof(Storage) !== 'undefined') {
+      var user = JSON.parse(localStorage.getItem('user'))
+      if( user && user._id ){
+        var myinfo = {};
+        myinfo.avatar = user.avatar
+        myinfo.name = user.name;
+      }else{
+        var myinfo = { avatar : '', name: '' }
+      }
     }
+    
 
     return (
       <div className="component-chat">
@@ -81,4 +58,9 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+let mapStateToProps = (state) => {
+  return {
+    auth: state.users
+  }
+}
+export default connect(mapStateToProps)(Chat)

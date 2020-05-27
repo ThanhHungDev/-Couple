@@ -5,3 +5,9 @@ export function setterSocket(socket){
         payload : socket
     }
 }
+export function setterUser( user ){
+    return {
+        type : TYPE.USER.SETTER_USER,
+        payload : user
+    }
+}

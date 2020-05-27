@@ -8,6 +8,9 @@ const TYPE =  {
   },
   SOCCKET : {
     SET_SOCKET_IO: "SET_SOCKET_IO"
+  },
+  USER: {
+    SETTER_USER : "SETTER_USER"
   }
 }
 export default TYPE;

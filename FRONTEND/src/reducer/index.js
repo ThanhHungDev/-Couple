@@ -7,6 +7,7 @@ import themes from "./theme.js";
 import categoriesTheme from "./categories-theme.js";
 import userChat from './user-chat.js';
 import SocketReducer from "./socket.js"
+import Auth from "./auth.js"
 //// khởi tạo 1 biến biểu diễn REDUCER ALL 
 const Reducer = combineReducers({
     client         : DetectClientReducer,
@@ -14,6 +15,7 @@ const Reducer = combineReducers({
     themes         : themes,
     categoriesTheme: categoriesTheme,
     userChat       : userChat,
-    socket         : SocketReducer
+    socket         : SocketReducer,
+    users          : Auth
 });
 export default Reducer;
