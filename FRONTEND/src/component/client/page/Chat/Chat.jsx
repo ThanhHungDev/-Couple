@@ -17,6 +17,7 @@ import { listenLoginEvent, resfeshTokenExpire } from "../../../../library/helper
 class Chat extends Component {
 
   componentDidMount(){
+    
     var { user } = this.props,
         instance = this
     if( !user || !user._id ){
@@ -30,13 +31,12 @@ class Chat extends Component {
         /// fetch new token
         console.log("refesh token vì hết hạn")
         var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
-        resfeshTokenExpire( dataRefesh, instance )
+        resfeshTokenExpire( dataRefesh, instance, this.props.socket )
       }
     }
   }
   componentDidUpdate(){
-    var { user } = this.props,
-        instance = this
+    var { user } = this.props
     if( !user || !user._id ){
       listenLoginEvent()
     }
@@ -73,7 +73,8 @@ class Chat extends Component {
 let mapStateToProps = (state) => {
   return {
     user: state.users,
-    client : state.client
+    client : state.client,
+    socket : state.socket
   }
 }
 export default connect(mapStateToProps)(Chat)

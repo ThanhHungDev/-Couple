@@ -3,6 +3,7 @@ import { generateName } from "./generate-name.js"
 import $ from "jquery"
 import "jquery-modal"
 import { setterUser } from "../action"
+import { getChannelMessage } from "../action/socket.js"
 
 export function fetchRegister (data, instance) {
     var valid = validateRegister( data , instance)
@@ -32,7 +33,7 @@ export function fetchRegister (data, instance) {
     })
 }
 
-export function fetchRegisterAnonymous ( instance, detect ) {
+export function fetchRegisterAnonymous ( instance, detect, socket ) {
     var nameGen = generateName()
     var data = {
         name      : nameGen + "👨🏿‍💻" + "[anonymous]",
@@ -64,14 +65,14 @@ export function fetchRegisterAnonymous ( instance, detect ) {
         instance.setState({ progress: false, alertError: ''})
         var { email, password } = data,
             dataLogin           = { email, password, ... detect }
-        return fetchLoginAnonymous ( dataLogin, instance)
+        return fetchLoginAnonymous ( dataLogin, instance, socket)
     })
     .catch(error => {
         console.log(error)
         instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })
 }
-export function fetchLoginAnonymous ( data, instance ){
+export function fetchLoginAnonymous ( data, instance, socket){
     var valid = validateLogin( data , instance)
     if( !valid ){
         return false
@@ -88,11 +89,17 @@ export function fetchLoginAnonymous ( data, instance ){
         if( response.code != 200 ){
             throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
         }
-        console.log( JSON.stringify(response.data), "data logied ")
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
-            localStorage.setItem('user', JSON.stringify(response.data));
-            instance.props.dispatch( setterUser(response.data) )
+            var userLoginAnonymous = response.data
+            localStorage.setItem('user', JSON.stringify(userLoginAnonymous));
+            instance.props.dispatch( setterUser(userLoginAnonymous) )
+            /// call server get channel
+                data.email         = null
+                data.password      = null
+            var dataUserGetChannel = { id : userLoginAnonymous._id, 
+                access: userLoginAnonymous.tokens.tokenAccess, ...data }
+            getChannelMessage( socket, dataUserGetChannel)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください');
             instance.setState({ alert : response.user_message , progress : false });
@@ -103,7 +110,7 @@ export function fetchLoginAnonymous ( data, instance ){
         instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })
 }
-export function fetchLogin ( data, instance ){
+export function fetchLogin ( data, instance, socket ){
     var valid = validateLogin( data , instance)
     if( !valid ){
         return false
@@ -125,8 +132,14 @@ export function fetchLogin ( data, instance ){
         if (typeof(Storage) !== 'undefined') {
             /// modal close
             $.modal.close()
-            localStorage.setItem('user', JSON.stringify(response.data));
-            instance.props.dispatch( setterUser(response.data) )
+            var userLogin = response.data
+            localStorage.setItem('user', JSON.stringify(userLogin));
+            instance.props.dispatch( setterUser(userLogin) )
+            /// call server get channel
+                data.email         = null
+                data.password      = null
+            var dataUserGetChannel = { id : userLogin._id, access: userLogin.tokens.tokenAccess, ...data }
+            getChannelMessage( socket, dataUserGetChannel)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください');
             instance.setState({ alert : response.user_message , progress : false });
@@ -138,7 +151,7 @@ export function fetchLogin ( data, instance ){
     })
 }
 
-export function resfeshTokenExpire( data , instance ){
+export function resfeshTokenExpire( data , instance, socket ){
     var { userId, refesh, detect } = data
     var isValid = validateRefeshToken( data )
     if( !isValid ){
@@ -165,12 +178,18 @@ export function resfeshTokenExpire( data , instance ){
             user.tokens = response.data
             localStorage.setItem('user', JSON.stringify(user))
             instance.props.dispatch( setterUser(user) )
+
+            /// call server get channel
+            var dataUserGetChannel  = { id : user._id, access: user.tokens.tokenAccess, ...detect }
+            getChannelMessage( socket, dataUserGetChannel)
+            
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
             instance.setState({ alert : response.user_message , progress : false })
         }
     })
     .catch(error => {
+        console.log( error )
         localStorage.setItem('user', JSON.stringify(null))
         instance.props.dispatch( setterUser(null) )
         $('a[href="#js-modal-login"]').click()

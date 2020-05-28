@@ -44,13 +44,13 @@ class ModalRegister extends Component {
       phone
     }
     var instanceComponentRegister = this
-    fetchRegister( data , instanceComponentRegister)
+    fetchRegister( data , instanceComponentRegister )
   }
 
   createUserAnonymous = () => {
     this.setState({ progress : true })
     var instanceComponentRegister = this
-    fetchRegisterAnonymous(instanceComponentRegister, this.props.client)
+    fetchRegisterAnonymous(instanceComponentRegister, this.props.client, this.props.socket)
   }
   render() {
     return (
@@ -114,7 +114,8 @@ class ModalRegister extends Component {
 }
 let mapStateToProps = (state) => {
   return {
-    client: state.client
+    client: state.client,
+    socket: state.socket
   }
 }
 export default connect(mapStateToProps)(ModalRegister);
