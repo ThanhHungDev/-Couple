@@ -118,11 +118,13 @@ export function fetchLogin ( data, instance ){
     .then(res => res.json())
     .then(response => {
         if( response.code != 200 ){
-            throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
+            throw new Error(response.message)
         }
         console.log( JSON.stringify(response.data))
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
+            /// modal close
+            $.modal.close()
             localStorage.setItem('user', JSON.stringify(response.data));
             instance.props.dispatch( setterUser(response.data) )
         } else {
@@ -132,7 +134,7 @@ export function fetchLogin ( data, instance ){
     })
     .catch(error => {
         $('a[href="#js-modal-login"]').click()
-        instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
+        instance.setState({ progress: false, alertError: error.message })
     })
 }
 

@@ -42,7 +42,7 @@ module.exports.login = function( req, res ){
     })
     .catch( error => {
         console.log(error)
-        response = { code: 302, message: "have error save", internal_message: error.message }
+        response = { code: 302, message: error.message, internal_message: error.message }
         return res.end(JSON.stringify(response))
     });
 }

@@ -17,20 +17,11 @@ class ModalLogin extends Component {
   }
   login = () => {
     this.setState({ progress : true })
-    var name      = this.name.value,
-        email     = this.email.value,
-        password  = this.password.value,
-        headPhone = this.headPhone.value,
-        phone     = this.phone.value
-    var data = {
-      name, 
-      email, 
-      password, 
-      head_phone : headPhone, 
-      phone
-    }
+    var email     = this.email.value,
+        password  = this.password.value
+    var data = { email, password, ...this.props.client }
     var instanceComponentRegister = this
-    fetchRegister( data , instanceComponentRegister)
+    fetchLogin( data , instanceComponentRegister)
   }
 
   createUserAnonymous = () => {
