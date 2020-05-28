@@ -39,7 +39,7 @@ var CONFIG = {
         },
         mongodb : 'mongodb://127.0.0.1:27017/realtime'
     },
-    TimeExpireAccessToken : 30 * 60,
+    TimeExpireAccessToken : 1 * 60,
     salt : 5,
     IS_ENVIROMENT_PRODUCT : true,
     WEBPUSH: { 

@@ -88,13 +88,13 @@ export function fetchLoginAnonymous ( data, instance ){
         if( response.code != 200 ){
             throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
         }
-        console.log( JSON.stringify(response.data))
+        console.log( JSON.stringify(response.data), "data logied ")
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
             localStorage.setItem('user', JSON.stringify(response.data));
             instance.props.dispatch( setterUser(response.data) )
         } else {
-            alert('ứng dụng không chạy tốt trên trình duyệt này, vui lòng nâng cấp trình duyệt');
+            alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください');
             instance.setState({ alert : response.user_message , progress : false });
         }
     })
@@ -117,8 +117,18 @@ export function fetchLogin ( data, instance ){
     })
     .then(res => res.json())
     .then(response => {
-        instance.setState({ progress: false, alertError: ''})
-        console.log( response )
+        if( response.code != 200 ){
+            throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
+        }
+        console.log( JSON.stringify(response.data))
+        /// save user to local storage
+        if (typeof(Storage) !== 'undefined') {
+            localStorage.setItem('user', JSON.stringify(response.data));
+            instance.props.dispatch( setterUser(response.data) )
+        } else {
+            alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください');
+            instance.setState({ alert : response.user_message , progress : false });
+        }
     })
     .catch(error => {
         $('a[href="#js-modal-login"]').click()
@@ -126,6 +136,43 @@ export function fetchLogin ( data, instance ){
     })
 }
 
+export function resfeshTokenExpire( data , instance ){
+    var { userId, refesh, detect } = data
+    var isValid = validateRefeshToken( data )
+    if( !isValid ){
+        alert( "アカウントの有効期限が切れています。もう一度ログインしてください")
+        return false
+    }
+    var dataRefesh = { userId, refesh, ... detect }
+    fetch(CONFIG.SERVER.ASSET() + '/api/user/refesh', {
+        method: 'POST',
+        body: JSON.stringify(dataRefesh),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(response => {
+        if( response.code != 200 ){
+            throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
+        }
+        console.log( JSON.stringify(response.data), "data refesh token ")
+        /// save user to local storage
+        if (typeof(Storage) !== 'undefined') {
+            var user = JSON.parse(localStorage.getItem('user'))
+            user.tokens = response.data
+            localStorage.setItem('user', JSON.stringify(user))
+            instance.props.dispatch( setterUser(user) )
+        } else {
+            alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
+            instance.setState({ alert : response.user_message , progress : false })
+        }
+    })
+    .catch(error => {
+        $('a[href="#js-modal-login"]').click()
+        instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
+    })
+}
 
 export function listenLoginEvent(){
     $('#js-modal-login').modal({
@@ -155,6 +202,22 @@ export function listenLoginEvent(){
         });
         event.preventDefault();
       });
+}
+
+function validateRefeshToken( data ){
+    try {
+        var { userId, refesh, detect }                                      = data,
+            { browser, browserMajorVersion, browserVersion, os, osVersion } = detect
+        if( !userId || !refesh || !browser || !browserMajorVersion || !browserVersion || !os || !osVersion ){
+            throw new Error("遮る")
+        }
+        return true
+    } catch (error) {
+        if (typeof(Storage) !== 'undefined') {
+            localStorage.setItem('user', JSON.stringify(null))
+        }
+        return false
+    }
 }
 function validateLogin( data, instance ){
     try {

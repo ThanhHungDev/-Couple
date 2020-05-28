@@ -11,35 +11,39 @@ import { connect } from "react-redux"
 
 import "../../../../scss/_modal.jquery.scss"
 
-import { listenLoginEvent } from "../../../../library/helper.js"
+import { listenLoginEvent, resfeshTokenExpire } from "../../../../library/helper.js"
 
 
 class Chat extends Component {
 
   componentDidMount(){
-    var { auth } = this.props
-    console.log( auth , "authe")
-    if( !auth || !auth._id ){
+    var { user } = this.props,
+        instance = this
+    if( !user || !user._id ){
       listenLoginEvent()
+    }
+    if(user){
+      console.log( user, " chat " )
+      var diff = ((new Date).getTime() - new Date(user.tokens.period).getTime()) / 1000
+      if( diff >= user.tokens.expire){
+        /// fetch new token
+        console.log("refesh token vì hết hạn")
+        var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
+        resfeshTokenExpire( dataRefesh, instance )
+      }
     }
   }
 
   render() {
     console.log("render lại Chat")
-    // console.log(data_hung);///chat {match.params.id}
-    let match = this.props.match;
-
-    if (typeof(Storage) !== 'undefined') {
-      var user = JSON.parse(localStorage.getItem('user'))
-      if( user && user._id ){
-        var myinfo = {};
-        myinfo.avatar = user.avatar
-        myinfo.name = user.name;
-      }else{
-        var myinfo = { avatar : '', name: '' }
-      }
-    }
     
+    var match      = this.props.match
+    var myinfo = { avatar : '', name: '' }
+    var { user } = this.props
+    if( user && user._id ){
+      myinfo.avatar = user.avatar
+      myinfo.name = user.name;
+    }
 
     return (
       <div className="component-chat">
@@ -60,7 +64,8 @@ class Chat extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    auth: state.users
+    user: state.users,
+    client : state.client
   }
 }
 export default connect(mapStateToProps)(Chat)

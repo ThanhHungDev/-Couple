@@ -2,7 +2,8 @@ var User        = require("../model/UserAccount"),
     TokenAccess = require("../model/TokenAccess"),
     TokenRefesh = require("../model/TokenRefesh"),
     crypto      = require('crypto'),
-    mongoose    = require("mongoose")
+    mongoose    = require("mongoose"),
+    CONFIG      = require("../config")
 
 module.exports.login = function( req, res ){
 
@@ -59,7 +60,7 @@ function createToken( user, detect ){
     }
     if(!refesh){
         tokenRefesh = crypto.createHash('md5').update(
-            JSON.stringify({ idUser: user._id.toString(), ...detect })
+            JSON.stringify({ idUser: user._id.toString(), ...detect, time: (new Date).getTime() })
         ).digest('hex')
         
     
@@ -76,15 +77,15 @@ function createToken( user, detect ){
     
     /// save token assess
     tokenAccess = crypto.createHash('md5').update(
-        JSON.stringify({ ... detect })
+        JSON.stringify({ ... detect, time: (new Date).getTime() })
     ).digest('hex')
     var newTokenAccess = new TokenAccess({
         token: tokenAccess,
         user: user._id,
-        detect : JSON.stringify({ ...detect, time: (new Date).getTime() } )
+        detect : JSON.stringify({ ...detect } )
     })
     newTokenAccess.save()
-    return { tokenRefesh, tokenAccess }
+    return { tokenRefesh, tokenAccess, period: new Date, expire : CONFIG.TimeExpireAccessToken }
 }
 
 

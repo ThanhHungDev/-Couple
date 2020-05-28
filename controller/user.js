@@ -1,6 +1,11 @@
-var User     = require("../model/UserAccount"),
-    Location = require("../model/Location"),
-    Channel  = require("../model/Channel")
+var User        = require("../model/UserAccount"),
+    Location    = require("../model/Location"),
+    Channel     = require("../model/Channel"),
+    TokenAccess = require("../model/TokenAccess"),
+    TokenRefesh = require("../model/TokenRefesh"),
+    crypto      = require('crypto'),
+    mongoose    = require("mongoose"),
+    CONFIG      = require("../config")
 
 module.exports.register_user = function( req, res ){
     var { name, email, password, head_phone, phone, anonymous } = req.body
@@ -69,4 +74,63 @@ function createChannelDefault(user){
         ]
     })
     dfChannelWeb.save()
+}
+
+
+module.exports.refesh = function( req, res ){
+
+    var { userId, refesh, browser, browserMajorVersion, 
+        browserVersion, os, osVersion } = req.body,
+        { 'user-agent': userAgent } = req.headers,
+        detect                      = { browser, browserMajorVersion, browserVersion, 
+                                            os, osVersion, userAgent }
+    var response = {}
+    if(req.error){
+        response = { code: 422, message: "have error input", internal_message: "have error input", 
+        errors : [ req.error ] }
+        return res.end(JSON.stringify(response))
+    }
+
+    var tokenRefesh = crypto.createHash('md5').update(
+        JSON.stringify({ idUser: userId, ...detect, time: (new Date).getTime() })
+    ).digest('hex')
+    var tokenAccess = crypto.createHash('md5').update(
+        JSON.stringify({ ... detect, time: (new Date).getTime() })
+    ).digest('hex')
+
+    User.findOne({ _id : userId })
+    .populate({
+        path: "tokenRefesh",
+        match : {
+            token: refesh, 
+            detect: JSON.stringify(detect)
+        }
+    })
+    .then( userToken => {
+        if(!userToken){
+            throw new Error("このユーザーは既に存在します")
+        }
+        console.log(userToken , "refesh user ")
+        return TokenRefesh.findOneAndUpdate({ token: refesh }, { token: tokenRefesh })
+    })
+    .then( tokenRefeshUpdate => {
+        var newTokenAccess = new TokenAccess({
+            token: tokenAccess,
+            user: userId,
+            detect : JSON.stringify({ ...detect } )
+        })
+        return newTokenAccess.save()
+    })
+    .then(tokenAccessCreate => {
+        response = { code: 200, message: res.__("refesh success"), 
+        internal_message: res.__("refesh success"), 
+        data : {  tokenRefesh, tokenAccess, period: new Date, expire : CONFIG.TimeExpireAccessToken } }
+        return res.end(JSON.stringify(response))
+    })
+    .catch( error => {
+        response = { code: 500, message: error.message, 
+        internal_message: error.message, 
+        errors : [ { message : error } ] }
+        return res.end(JSON.stringify(response))
+    });
 }
