@@ -29,6 +29,11 @@ class ModalLogin extends Component {
     var instanceComponentRegister = this
     fetchRegisterAnonymous(instanceComponentRegister, this.props.client)
   }
+  _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      this.login()
+    }
+  }
   render() {
     return (
       <div className="model-wrapper-form-control modal animated fadeIn" id="js-modal-login">
@@ -38,12 +43,14 @@ class ModalLogin extends Component {
           <div className="input-group">
             <span className="svg-icon"> <Email /> </span>
             <input name="email" ref={(input) => this.email = input} autoCorrect="off" autoComplete="off"
-            autoCapitalize="none" className="input-control" placeholder="メールアドレスを入力して"/>
+            autoCapitalize="none" className="input-control" placeholder="メールアドレスを入力して"
+            onKeyDown={this._handleKeyDown} />
           </div>
           <div className="input-group">
             <span className="svg-icon"><Password /></span>
             <input name="password" ref={(input) => this.password = input} type="password" autoCorrect="off" autoComplete="off"
-              autoCapitalize="none" className="input-control" placeholder="パスワードを入力してください" />
+              autoCapitalize="none" className="input-control" placeholder="パスワードを入力してください" 
+              onKeyDown={this._handleKeyDown} />
           </div>
           <div className="link-page clear">
             <a href="#js-modal-register" className="link-register"> 登録 </a>

@@ -14,6 +14,7 @@ mongoose.connect(CONFIG.database.mongodb,
     }
 )
 !IS_PRODUCTION && mongoose.set('debug', true)
+mongoose.set('useFindAndModify', true);
 
 // CONNECTION EVENTS
 // When successfully connected

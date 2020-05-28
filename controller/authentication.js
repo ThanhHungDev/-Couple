@@ -50,15 +50,17 @@ module.exports.login = function( req, res ){
 function createToken( user, detect ){
     /// check tokenrefesh in user
     var tokenRefesh = null,
-        tokenAccess = null
+        tokenAccess = null,
+        refesh      = null
 
 
     if(user.tokenRefesh.length){
-        var refesh      = user.tokenRefesh.find( refesh => refesh.detect == JSON.stringify({ ...detect } ))
-            tokenRefesh = refesh.token
-            console.log("đã tồn tại sẵn" + tokenRefesh)
+        refesh = user.tokenRefesh.find( refesh => refesh.detect == JSON.stringify({ ...detect } ))
     }
-    if(!refesh){
+    if(refesh){
+        tokenRefesh = refesh.token
+        console.log("đã tồn tại sẵn" + tokenRefesh)
+    }else{
         tokenRefesh = crypto.createHash('md5').update(
             JSON.stringify({ idUser: user._id.toString(), ...detect, time: (new Date).getTime() })
         ).digest('hex')

@@ -171,6 +171,8 @@ export function resfeshTokenExpire( data , instance ){
         }
     })
     .catch(error => {
+        localStorage.setItem('user', JSON.stringify(null))
+        instance.props.dispatch( setterUser(null) )
         $('a[href="#js-modal-login"]').click()
         instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })

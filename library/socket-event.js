@@ -17,7 +17,6 @@ function socketConnecting(){
         // console.log(socket.adapter.rooms); 
         console.log("have connect: " + socket.id + " " + CONFIG.EVENT.REQUEST_GET_CHANEL);
         
-        socket.emit( CONFIG.EVENT.REQUEST_GET_CHANEL);
         // /////////////////////////////////////////////////////
         try {
             disconnect(socket)

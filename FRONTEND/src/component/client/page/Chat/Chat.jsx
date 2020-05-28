@@ -20,6 +20,7 @@ class Chat extends Component {
     var { user } = this.props,
         instance = this
     if( !user || !user._id ){
+      
       listenLoginEvent()
     }
     if(user){
@@ -31,6 +32,13 @@ class Chat extends Component {
         var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
         resfeshTokenExpire( dataRefesh, instance )
       }
+    }
+  }
+  componentDidUpdate(){
+    var { user } = this.props,
+        instance = this
+    if( !user || !user._id ){
+      listenLoginEvent()
     }
   }
 
