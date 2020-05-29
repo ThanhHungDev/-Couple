@@ -4,8 +4,8 @@ import $ from "jquery"
 import "jquery-modal"
 import { setterUser } from "../action"
 
-export function fetchRegister (data, instance) {
-    var valid = validateRegister( data , instance)
+export function fetchRegister (data, instanceComponent) {
+    var valid = validateRegister( data , instanceComponent)
     if( !valid ){
         return false
     }
@@ -18,21 +18,21 @@ export function fetchRegister (data, instance) {
     })
     .then(res => res.json())
     .then(response => {
-        instance.setState({ progress: false })
+        instanceComponent.setState({ progress: false })
         if (response.code == 200) {
             /// open model login
-            instance.setState({ alertError: '' })
+            instanceComponent.setState({ alertError: '' })
             $('a[href="#js-modal-login"]').click()
         } else {
-            instance.setState({ alertError: response.message })
+            instanceComponent.setState({ alertError: response.message })
         }
     })
     .catch(error => {
-        instance.setState({ progress: false, alertError: error.message })
+        instanceComponent.setState({ progress: false, alertError: error.message })
     })
 }
 
-export function fetchRegisterAnonymous ( instance, detect ) {
+export function fetchRegisterAnonymous ( instanceComponent, detect ) {
     var nameGen = generateName()
     var data = {
         name      : nameGen + "👨🏿‍💻" + "[anonymous]",
@@ -42,7 +42,7 @@ export function fetchRegisterAnonymous ( instance, detect ) {
         phone     : "12345674",
         anonymous: true
     }
-    var valid = validateRegister( data , instance)
+    var valid = validateRegister( data , instanceComponent)
     if( !valid ){
         return false
     }
@@ -56,23 +56,23 @@ export function fetchRegisterAnonymous ( instance, detect ) {
     .then(res => res.json())
     .then(response => {
         if (response.code != 200) { 
-            instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
+            instanceComponent.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
             return false
         }
         /// modal close
         $.modal.close()
-        instance.setState({ progress: false, alertError: ''})
+        instanceComponent.setState({ progress: false, alertError: ''})
         var { email, password } = data,
             dataLogin           = { email, password, ... detect }
-        return fetchLoginAnonymous ( dataLogin, instance)
+        return fetchLoginAnonymous ( dataLogin, instanceComponent)
     })
     .catch(error => {
         console.log(error)
-        instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
+        instanceComponent.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })
 }
-export function fetchLoginAnonymous ( data, instance ){
-    var valid = validateLogin( data , instance)
+export function fetchLoginAnonymous ( data, instanceComponent ){
+    var valid = validateLogin( data , instanceComponent)
     if( !valid ){
         return false
     }
@@ -91,20 +91,27 @@ export function fetchLoginAnonymous ( data, instance ){
         console.log( JSON.stringify(response.data), "data logied ")
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
-            localStorage.setItem('user', JSON.stringify(response.data));
-            instance.props.dispatch( setterUser(response.data) )
+            var userLogin = response.data
+            localStorage.setItem('user', JSON.stringify(userLogin));
+            instanceComponent.props.dispatch( setterUser(userLogin) )
+
+            /// fetch data message channel
+            data.email         = null
+            data.password      = null
+            var dataFetchChannel = { access: userLogin.tokens.tokenAccess, ...data }
+            fetchChannelMessage(dataFetchChannel, instanceComponent)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください');
-            instance.setState({ alert : response.user_message , progress : false });
+            instanceComponent.setState({ alert : response.user_message , progress : false });
         }
     })
     .catch(error => {
         $('a[href="#js-modal-login"]').click()
-        instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
+        instanceComponent.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })
 }
-export function fetchLogin ( data, instance ){
-    var valid = validateLogin( data , instance)
+export function fetchLogin ( data, instanceComponent ){
+    var valid = validateLogin( data , instanceComponent)
     if( !valid ){
         return false
     }
@@ -125,20 +132,26 @@ export function fetchLogin ( data, instance ){
         if (typeof(Storage) !== 'undefined') {
             /// modal close
             $.modal.close()
-            localStorage.setItem('user', JSON.stringify(response.data));
-            instance.props.dispatch( setterUser(response.data) )
+            var userLogin = response.data
+            localStorage.setItem('user', JSON.stringify(userLogin));
+            instanceComponent.props.dispatch( setterUser(userLogin) )
+            /// fetch data message channel
+            data.email         = null
+            data.password      = null
+            var dataFetchChannel = { access: userLogin.tokens.tokenAccess, ...data }
+            fetchChannelMessage(dataFetchChannel, instanceComponent)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください');
-            instance.setState({ alert : response.user_message , progress : false });
+            instanceComponent.setState({ alert : response.user_message , progress : false });
         }
     })
     .catch(error => {
         $('a[href="#js-modal-login"]').click()
-        instance.setState({ progress: false, alertError: error.message })
+        instanceComponent.setState({ progress: false, alertError: error.message })
     })
 }
 
-export function resfeshTokenExpire( data , instance ){
+export function resfeshTokenExpire( data , instanceComponent ){
     var { userId, refesh, detect } = data
     var isValid = validateRefeshToken( data )
     if( !isValid ){
@@ -164,17 +177,20 @@ export function resfeshTokenExpire( data , instance ){
             var user = JSON.parse(localStorage.getItem('user'))
             user.tokens = response.data
             localStorage.setItem('user', JSON.stringify(user))
-            instance.props.dispatch( setterUser(user) )
+            instanceComponent.props.dispatch( setterUser(user) )
+            /// fetch data channel
+            fetchChannelMessage({ access: user.tokens.tokenAccess, ...detect}, instanceComponent)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
-            instance.setState({ alert : response.user_message , progress : false })
+            instanceComponent.setState({ alert : response.user_message , progress : false })
         }
     })
     .catch(error => {
+        console.log( error, " have error ")
         localStorage.setItem('user', JSON.stringify(null))
-        instance.props.dispatch( setterUser(null) )
+        instanceComponent.props.dispatch( setterUser(null) )
         $('a[href="#js-modal-login"]').click()
-        instance.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
+        instanceComponent.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })
 }
 
@@ -223,22 +239,25 @@ function validateRefeshToken( data ){
         return false
     }
 }
-function validateLogin( data, instance ){
+function validateLogin( data, instanceComponent ){
     try {
-        var { email, password } = data
+        var { email, password, browser, browserMajorVersion, browserVersion, os, osVersion } = data
         if( !email ){
             throw Error("メールは必須フィールドです")
         }
         if( !password ){
             throw Error("パスワードは必須フィールドです")
         }
+        if( !browser || !browserMajorVersion || !browserVersion || !os || !osVersion ){
+            throw new Error("遮る")
+        }
         return true
     } catch (error) {
-        instance.setState({ progress: false, alertError: error.message })
+        instanceComponent.setState({ progress: false, alertError: error.message })
         return false
     }
 }
-function validateRegister( data , instance){
+function validateRegister( data , instanceComponent){
     try {
         var { name, email, password, head_phone, phone } = data
         if( !name ){
@@ -258,8 +277,49 @@ function validateRegister( data , instance){
         }
         return true
     } catch (error) {
-        instance.setState({ progress: false, alertError: error.message })
+        instanceComponent.setState({ progress: false, alertError: error.message })
         return false
     }
     
+}
+
+function fetchChannelMessage(data, instanceComponent){
+    var isValid = validateFetchChannelMessage( data )
+    if( !isValid ){
+        alert( "エラーが発生しました。しばらくしてからもう一度お試しください")
+        return false
+    }
+    
+    fetch(CONFIG.SERVER.ASSET() + '/api/channel-message', {
+        method: 'GET',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(response => {
+        if( response.code != 200 ){
+            throw new Error("エラーが発生しました。しばらくしてからもう一度お試しください")
+        }
+        console.log( JSON.stringify(response.data), "data fetch channel ")
+        
+    })
+    .catch(error => {
+        console.log( error, " have error ")
+        
+    })
+}
+
+function validateFetchChannelMessage( data ) {
+    try {
+        var { access, browser, browserMajorVersion, browserVersion, os, osVersion } = data
+        if( !access || !browser || !browserMajorVersion || !browserVersion || !os || !osVersion ){
+            throw new Error("遮る")
+        }
+        return true
+    } catch (error) {
+        console.log( error, "validateFetchChannelMessage")
+        return false
+    }
 }

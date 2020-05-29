@@ -52,28 +52,23 @@ module.exports.register_user = function( req, res ){
 }
 
 function createChannelDefault(user){
-    
-    var dfChannelConsulting = new Channel({
-        name : "consulting-web-design-" + user._id.toString(),
-        user : [
-            user._id
-        ]
+
+    var listAccount = CONFIG.ACCOUNT_ADMIN
+    listAccount.map( account => {
+        User.findOne( { email : account.email } )
+        .then( admin => {
+            if( !admin ){
+                console.log(" lỗi lớn : channel của 1 user không tìm thấy admin "+  account.email)
+            }
+            new Channel({
+                name : account.channel + user._id.toString(),
+                user : [
+                    user._id,
+                    admin._id
+                ]
+            }).save()
+        } )
     })
-    dfChannelConsulting.save()
-    var dfChannelTechnical = new Channel({
-        name : "technical-support-" + user._id.toString(),
-        user : [
-            user._id
-        ]
-    })
-    dfChannelTechnical.save()
-    var dfChannelWeb = new Channel({
-        name : "submit-web-request-" + user._id.toString(),
-        user : [
-            user._id
-        ]
-    })
-    dfChannelWeb.save()
 }
 
 

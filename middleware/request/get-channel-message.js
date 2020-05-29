@@ -3,11 +3,10 @@ const node_validator = require('node-input-validator')
 var { Validator } = node_validator
 
 
-module.exports.VALIDATE_REFESH = async function( req, res, next ){
+module.exports.VALIDATE_GET_CHANNEL_MESSAGE = async function( req, res, next ){
     
     let validate = new Validator(req.body, {
-        userId             : "required",
-        refesh             : "required",
+        access             : "required",
         browser            : "required",
         browserMajorVersion: "required",
         browserVersion     : "required",
@@ -15,7 +14,7 @@ module.exports.VALIDATE_REFESH = async function( req, res, next ){
         osVersion          : "required"
     },{
         'userId.required'             : res.__("userId is required"),
-        'refesh.required'                : res.__("Refesh is valid"),
+        'access.required'             : res.__("Access is valid"),
         'password.required'           : res.__("Password is required"),
         'browser.required'            : res.__("Detect format valid"),
         'browserMajorVersion.required': res.__("Detect format valid"),

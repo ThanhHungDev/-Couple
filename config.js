@@ -54,6 +54,32 @@ var CONFIG = {
         RESPONSE_MESSAGE : 'response-message',
         RESPONSE_CHANNELS: 'response-channel',
         REQUEST_GET_CHANEL: "request-get-channel"
-    }
+    },
+    ACCOUNT_ADMIN: [
+        {
+            channel: "consulting-web-design-",
+            name: "hùng đẹp trai",
+            email: "admin.thanhhung@ebudezain.com",
+            avatar: "/image/avatar-hero.jpg",
+            headPhone: "+81",
+            phone: "8033870674"
+        },
+        {
+            channel: "technical-support-",
+            name : "trương trúc ngân",
+            email: "admin.trucngan@ebudezain.com",
+            avatar: "/image/avatar-developer.jpg",
+            headPhone : "+84",
+            phone: "5674324322"
+        },
+        {
+            channel: "submit-web-request-",
+            name : "nguyễn văn tỉnh",
+            email: "admin.vantinh@ebudezain.com",
+            avatar: "/image/avatar-hero.jpg",
+            headPhone : "+84",
+            phone: "564332434"
+        }
+    ]
 }
 module.exports = CONFIG;
