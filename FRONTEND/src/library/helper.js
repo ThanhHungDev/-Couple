@@ -291,7 +291,7 @@ function fetchChannelMessage(data, instanceComponent){
     }
     
     fetch(CONFIG.SERVER.ASSET() + '/api/channel-message', {
-        method: 'GET',
+        method: 'POST',
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'

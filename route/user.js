@@ -15,5 +15,5 @@ var { register_user, refesh }        = require("../controller/user"),
 router.post('/register', [ VALIDATE_REGISTER ], register_user)
 router.post('/refesh', [ VALIDATE_REFESH ], refesh)
 // router.put('/', [ VALIDATE_UPDATE_AVATAR ], register_user)
-router.get('/channel-message', [VALIDATE_GET_CHANNEL_MESSAGE], get_channel_message )
+router.post('/channel-message', [VALIDATE_GET_CHANNEL_MESSAGE], get_channel_message )
 module.exports = router;

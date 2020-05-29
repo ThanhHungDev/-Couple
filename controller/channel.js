@@ -11,12 +11,12 @@ var User        = require("../model/UserAccount"),
 
 module.exports.get_channel_message = function( req, res ){
 
-    var { userId, refesh, browser, browserMajorVersion, 
+    var { access, browser, browserMajorVersion, 
         browserVersion, os, osVersion } = req.body,
         { 'user-agent': userAgent } = req.headers,
         detect                      = { browser, browserMajorVersion, browserVersion, 
-                                            os, osVersion, userAgent }
-    var response = {}
+                                            os, osVersion, userAgent },
+        response = {}
     if(req.error){
         response = { code: 422, message: "have error input", internal_message: "have error input", 
         errors : [ req.error ] }
