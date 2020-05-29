@@ -290,7 +290,7 @@ function fetchChannelMessage(data, instanceComponent){
         return false
     }
     
-    fetch(CONFIG.SERVER.ASSET() + '/api/channel-message', {
+    fetch(CONFIG.SERVER.ASSET() + '/api/user/channel-message', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -299,11 +299,10 @@ function fetchChannelMessage(data, instanceComponent){
     })
     .then(res => res.json())
     .then(response => {
+        console.log( JSON.stringify(response), "data fetch channel ")
         if( response.code != 200 ){
             throw new Error("エラーが発生しました。しばらくしてからもう一度お試しください")
         }
-        console.log( JSON.stringify(response.data), "data fetch channel ")
-        
     })
     .catch(error => {
         console.log( error, " have error ")

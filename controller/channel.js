@@ -22,6 +22,23 @@ module.exports.get_channel_message = function( req, res ){
         errors : [ req.error ] }
         return res.end(JSON.stringify(response))
     }
-
-    
+    var lteDate = new Date((new Date).getTime() - (CONFIG.TimeExpireAccessToken * 1000) )
+    TokenAccess.findOne({ token: access, period: { $gte: lteDate, $lte: new Date }})
+    .then( token => {
+        if( !token ){
+            throw new Error("token không tồn tại")
+        }
+        return Channel.getChannelMessage(token.user)
+    })
+    .then( channels => {
+        response = { code: 200, message: res.__("get channel succcess"), internal_message: res.__("get channel succcess"), 
+        data : channels }
+        return res.end(JSON.stringify(response))
+    })
+    .catch( error => {
+        response = { code: 500, message: error.message, 
+            internal_message: error.message, 
+            errors : [ { message : error } ] }
+        return res.end(JSON.stringify(response))
+    })
 }
