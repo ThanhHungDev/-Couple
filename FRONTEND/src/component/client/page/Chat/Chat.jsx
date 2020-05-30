@@ -10,7 +10,7 @@ import '../../../../scss/react/client/page/chat/chat.scss'
 import { connect } from "react-redux"
 
 import "../../../../scss/_modal.jquery.scss"
-
+import CONFIG from "../../../../config"
 import { listenLoginEvent, resfeshTokenExpire, fetchChannelMessage } from "../../../../library/helper.js"
 
 
@@ -28,8 +28,8 @@ class Chat extends Component {
       var diff = ((new Date).getTime() - new Date(user.tokens.period).getTime()) / 1000
       if( diff >= user.tokens.expire){
         /// fetch new token
-        console.log("refesh token vì hết hạn")
         var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
+        console.log(dataRefesh, "refesh token vì hết hạn")
         resfeshTokenExpire( dataRefesh, instance )
       }else if( this.props.userChat && !this.props.userChat.length ){
         
@@ -39,12 +39,26 @@ class Chat extends Component {
       }
       
     }
+
+    
   }
   componentDidUpdate(){
     var { user } = this.props,
         instance = this
     if( !user || !user._id ){
       listenLoginEvent()
+    }
+
+    /// join channel ( because 3 channel is admin so join all channel )
+    var EVENT = CONFIG_EVENT
+    console.log( EVENT )
+    if( user && this.props.socket && this.props.userChat && this.props.userChat.length ){
+      var idChannels = this.props.userChat.map( channel => {
+        return channel.id
+      })
+      var dataJoinChannel = { channels: idChannels, access: user.tokens.tokenAccess, ...this.props.client }
+      console.log( dataJoinChannel, "join to channel" )
+      this.props.socket.emit(EVENT.JOIN_CHANNEL, dataJoinChannel)
     }
   }
 
@@ -80,7 +94,8 @@ let mapStateToProps = (state) => {
   return {
     user    : state.users,
     client  : state.client,
-    userChat: state.userChat
+    userChat: state.userChat,
+    socket : state.socket
   }
 }
 export default connect(mapStateToProps)(Chat)

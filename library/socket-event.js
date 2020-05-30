@@ -38,7 +38,39 @@ function disconnect(socket){
 }
 function joinChannel( socket ){
     socket.on(EVENT.JOIN_CHANNEL, async data => {
-        console.log(data , " join channel")
+        
+        var { access, channels } = data
+        if(channels && channels.length ){
+            
+
+            TokenAccess.findOne({ token : access })
+            .populate("user")
+            .then( tokenAccess => {
+                if(!tokenAccess){
+                    throw new Error("not have token")
+                }
+                var lteDate = (new Date).getTime() - (new Date(tokenAccess.period)).getTime()
+                if( lteDate >= CONFIG.TimeExpireAccessToken * 1000 ){
+                    throw new Error("token period")
+                }
+                var lstMailAdmin = CONFIG.ACCOUNT_ADMIN.map( account => account.email )
+                if( lstMailAdmin.includes(tokenAccess.user.email) ){
+                    console.log("admin login can join all ")
+                    return Channel.find({})
+                }else{
+                    return Channel.find({ _id : { $in : channels }})
+                }
+            })
+            .then( channelDbs => {
+                channelDbs.map(channel => {
+                    console.log(channel.name)
+                    socket.join( channel.name );
+                })
+            })
+            .catch( error => {
+                console.log( error )
+            })
+        }
     })
 }
 

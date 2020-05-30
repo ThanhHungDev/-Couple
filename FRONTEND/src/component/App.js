@@ -15,28 +15,13 @@ import socketIOClient from "socket.io-client";
 import CONFIG from "../config";
 import { setterSocket } from "../action"
 import { socketListenner } from "../action/socket"
+import { socketInitialConnect } from "../library/helper.js"
 
 class App extends Component {
   constructor(props) {
     super(props);
     var instanceApp = this
-    const socket = socketIOClient(CONFIG.SERVER.ASSET());
-    var ApplicationDom = document.getElementById("Application")
-    socket.on('connect', function () {
-      
-      ApplicationDom && ApplicationDom.classList.remove("connect-socket-error")
-      //// set config
-      socketListenner(socket, instanceApp.props.dispatch)
-      instanceApp.props.dispatch(setterSocket(socket))
-    });
-    socket.on('disconnect', function(){
-      instanceApp.props.dispatch(setterSocket(null))
-      ApplicationDom && ApplicationDom.classList.add("connect-socket-error")
-    });
-    socket.on('connect_error', function() {
-      ApplicationDom && ApplicationDom.classList.add("connect-socket-error")
-    });
-    
+    var socket = socketInitialConnect(socketIOClient, instanceApp )
   }
   render() {
     console.log("draw app")

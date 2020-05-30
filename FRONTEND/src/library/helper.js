@@ -3,6 +3,10 @@ import { generateName } from "./generate-name.js"
 import $ from "jquery"
 import "jquery-modal"
 import { setterUser, setterChannels } from "../action"
+import { socketListenner } from "../action/socket.js"
+import { setterSocket } from "../action"
+
+var socket = null;
 
 export function fetchRegister (data, instanceComponent) {
     var valid = validateRegister( data , instanceComponent)
@@ -324,4 +328,24 @@ function validateFetchChannelMessage( data ) {
         console.log( error, "validateFetchChannelMessage")
         return false
     }
+}
+
+export function socketInitialConnect( socketIOClient, instanceApp ){
+
+    socket = socketIOClient(CONFIG.SERVER.ASSET());
+    var ApplicationDom = document.getElementById("Application")
+    socket.on('connect', function () {
+      
+      ApplicationDom && ApplicationDom.classList.remove("connect-socket-error")
+      //// set config
+      socketListenner(socket, instanceApp.props.dispatch)
+      instanceApp.props.dispatch(setterSocket(socket))
+    });
+    socket.on('disconnect', function(){
+      instanceApp.props.dispatch(setterSocket(null))
+      ApplicationDom && ApplicationDom.classList.add("connect-socket-error")
+    });
+    socket.on('connect_error', function() {
+      ApplicationDom && ApplicationDom.classList.add("connect-socket-error")
+    });
 }

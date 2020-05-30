@@ -106,7 +106,7 @@ module.exports.refesh = function( req, res ){
             throw new Error("このユーザーは既に存在します")
         }
         console.log(userToken.tokenRefesh.length , "refesh user ")
-        return TokenRefesh.findOneAndUpdate({ token: refesh })
+        return TokenRefesh.findOne({ token: refesh })
         .then(tokenUpdate => {
             tokenUpdate.token = tokenRefesh 
             return tokenUpdate.save()
