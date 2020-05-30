@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import ListEmoji from "./ListEmoji.jsx";
 import "../../../../scss/react/client/page/chat/input-send-chat.scss";
 import config from "../../../../config/index.js"
+import { sendMessageToChannel } from "../../../../library/helper.js"
 
 class InputSendChat extends Component {
   constructor(props) {
@@ -54,6 +55,30 @@ class InputSendChat extends Component {
   handleSendMessageDown = (event) => {
     if (event.keyCode == 13 && !event.shiftKey) {
       console.log(event.target.value); /// .replace(/\n/g,'<br />')
+      if( this.props.user ){
+        /// có 1 vấn đè chưa nghĩ ra cách giải quyết
+        /// là nếu token hết hạn thì phải refesh như thế nào để chạy mượt? 
+        /// giải pháp duy nhâts là tạo 1 hàm refesh token trước khi send chat
+        /// sau đó chưa dispacth ngay mà send chat đã. rồi dispatch 1 lần
+        var { user }   = this.props,
+            instance   = this,
+            dataRefesh = false
+        var diff     = ((new Date).getTime() - new Date(user.tokens.period).getTime()) / 1000
+        if( diff >= user.tokens.expire){
+          /// fetch new token
+          var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
+          console.log(dataRefesh, "refesh token trước khi send chat vì hết hạn")
+        }
+        var messageSendToChannel = event.target.value
+        var channelSend = this.props.userChat.find( channel => {
+          return channel.isActive == true
+        })
+        var channelId = channelSend.id
+        var tokenAccess = user.tokens.tokenAccess
+        var detect = this.props.client
+        sendMessageToChannel(messageSendToChannel, channelId, tokenAccess, detect, instance, dataRefesh)
+        
+      }
       this.setState({ sendChat: true });
       document.getElementById("js-input-chat").value = "";
       return false;
@@ -129,6 +154,9 @@ class InputSendChat extends Component {
   };
 
   render() {
+    if( !this.props.user || !this.props.socket || !this.props.userChat.length ){
+      return null
+    }
     return (
       <div className="component-input-send-chat">
         <div id="js-image--block" className="image-block"></div>
@@ -149,4 +177,12 @@ class InputSendChat extends Component {
     );
   }
 }
-export default connect()(InputSendChat);
+let mapStateToProps = (state) => {
+  return {
+    user    : state.users,
+    client  : state.client,
+    userChat: state.userChat,
+    socket : state.socket
+  }
+}
+export default connect(mapStateToProps)(InputSendChat);

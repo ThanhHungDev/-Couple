@@ -26,11 +26,16 @@ class HeadInfo extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    // return this.props.userChat.isActive !== nextProps.userChat.isActive
+    return true 
+  }
+
   render() {
 
     console.log("render lại head ìon")
-    var { users } = this.props
-    var userActiveChat = users.find( user => user.isActive )
+    var { userChat } = this.props
+    var userActiveChat = userChat.find( user => user.isActive )
 
     if(!userActiveChat){
       return null
@@ -65,7 +70,7 @@ class HeadInfo extends Component {
 }
 let mapStateToProps = (state) => {
   return {
-    users: state.userChat
+    userChat: state.userChat
   }
 }
 export default connect(mapStateToProps)(HeadInfo);

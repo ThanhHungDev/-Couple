@@ -21,3 +21,11 @@ export function setterChannels( channels ){
         payload : channels
     }
 }
+
+export function addMessage( message ){
+    console.log(message , " addMessage ")
+    return {
+        type : TYPE.CHANNEL.ADD_MESSAGE,
+        payload : message
+    }
+}

@@ -15,6 +15,13 @@ export default function (state = userChatDefault, action) {
       })
     case TYPE.CHANNEL.SETTER_CHANNEL:
       return action.payload
+    case TYPE.CHANNEL.ADD_MESSAGE:
+      return state.map( channel => {
+        if(channel.isActive === true) {
+          return { ...channel, message : [ ...channel.message, action.payload] }
+        }
+        return channel
+      })
     default:
       return state;
   }

@@ -14,7 +14,7 @@ module.exports = function(_io) {
 function socketConnecting(){
 
     io.sockets.on( EVENT.CONNECTTION ,function(socket){
-        // console.log(socket.adapter.rooms); 
+        console.log(socket.adapter.rooms); 
         console.log("have connect: " + socket.id + " " + CONFIG.EVENT.REQUEST_GET_CHANEL);
         
         // /////////////////////////////////////////////////////
@@ -38,25 +38,32 @@ function disconnect(socket){
 }
 function joinChannel( socket ){
     socket.on(EVENT.JOIN_CHANNEL, async data => {
-        
-        var { access, channels } = data
-        if(channels && channels.length ){
-            
 
-            TokenAccess.findOne({ token : access })
+        var { access, channels, browser, browserMajorVersion, 
+            browserVersion, os, osVersion} = data,
+            { 'user-agent' : userAgent } = socket.request.headers,
+            detectClient                        = { browser, browserMajorVersion, browserVersion, os, osVersion, userAgent }
+        if(channels && channels.length ){
+
+            var now = new Date
+            var diffTime = now.getTime() - (CONFIG.TimeExpireAccessToken * 1000)
+            // console.log( now )
+            // console.log( diffTime )
+            var gteDate = new Date( diffTime )
+            // console.log( gteDate )
+            TokenAccess.findOne({ token : access, period: { $gte: gteDate }, detect: JSON.stringify({...detectClient }) })
             .populate("user")
             .then( tokenAccess => {
                 if(!tokenAccess){
+                    console.log(access , "access join channel but not select show")
                     throw new Error("not have token")
-                }
-                var lteDate = (new Date).getTime() - (new Date(tokenAccess.period)).getTime()
-                if( lteDate >= CONFIG.TimeExpireAccessToken * 1000 ){
-                    throw new Error("token period")
                 }
                 var lstMailAdmin = CONFIG.ACCOUNT_ADMIN.map( account => account.email )
                 if( lstMailAdmin.includes(tokenAccess.user.email) ){
                     console.log("admin login can join all ")
-                    return Channel.find({})
+                    var diffTimeAccessChannel = now.getTime() - (CONFIG.TimeExpireAccessChannel * 1000)
+                    var gteDate = new Date( diffTimeAccessChannel )
+                    return Channel.find({ online : { $gte : gteDate }})
                 }else{
                     return Channel.find({ _id : { $in : channels }})
                 }
@@ -65,6 +72,8 @@ function joinChannel( socket ){
                 channelDbs.map(channel => {
                     console.log(channel.name)
                     socket.join( channel.name );
+                    channel.online = new Date
+                    channel.save()
                 })
             })
             .catch( error => {
@@ -78,53 +87,50 @@ function sendMessageChat(socket){
     socket.on( EVENT.SEND_MESSAGE, async data => {
         console.log(`${EVENT.SEND_MESSAGE} socket` + data)
         /// variable input
-        var { id, access, message, client, channel } = data,
+        var { message, channelId, access, browser, browserMajorVersion, 
+            browserVersion, os, osVersion } = data,
         { 'user-agent' : userAgent } = socket.request.headers,
-        detect = { ... client , userAgent }
+        detectClient = { browser, browserMajorVersion, 
+            browserVersion, os, osVersion , userAgent }
 
         /// check user auth
-        Promise.all([ checkTokenAccess(id, access, detect), checkChannel(id, channel) ])
-        .then(([ isAuth, channelData ]) => {
-
-            if( isAuth && channelData ){
-                /// send-message
-                saveMessage(id, message, channelData)
-                io.in(channel).emit(EVENT.RESPONSE_MESSAGE, { user : id, message, channel: channelData.name })
+        var now = new Date
+        var diffTime = now.getTime() - (CONFIG.TimeExpireAccessToken * 1000)
+        // console.log( now )
+        // console.log( diffTime )
+        var gteDate = new Date( diffTime )
+        // console.log( gteDate )
+        var userIdSendMessage = null
+        TokenAccess.findOne({ token : access, period: { $gte: gteDate }, detect: JSON.stringify({...detectClient }) })
+        .populate("user")
+        .then( tokenAccess => {
+            if(!tokenAccess){
+                console.log(access , "access send message to channel but not select show")
+                throw new Error("not have token")
             }
+            //// auth có
+            userIdSendMessage = tokenAccess.user._id
+            return Channel.findOne({ _id: channelId, user: userIdSendMessage })
         })
-        .catch( err => console.log("have err "))
+        .then( channelResult => {
+            if( !channelResult ){
+                console.log(channelId , "channel send message to channel but not select show")
+                throw new Error("not have channel")
+            }
+            saveMessage(userIdSendMessage, message, channelResult._id)
+            io.in(channelResult.name).emit(EVENT.RESPONSE_MESSAGE, { user : userIdSendMessage, message, channel: channelResult._id })
+        })
+        .catch( error => {
+            console.log( error )
+        })
     })
 }
 
-async function checkChannel(userId, channel ){
-    return Channel.findOne({ user : mongoose.Types.ObjectId(userId), channel })
-    .then( channelResult => {
-        if( !channelResult ){
-            return false
-        }
-        return channelResult
-    })
-    .catch( err => false)
-}
-async function checkTokenAccess(userId, token, detect ){
-    return TokenAccess.findOne({ user : mongoose.Types.ObjectId(userId), token })
-    .then( tokenResult => {
-        if( !tokenResult ){
-            return false
-        }
-        console.log(tokenResult.period)
-        var diffTime = Math.abs(new Date - tokenResult.period),
-            tim      = CONFIG.TimeExpireAccessToken
-        console.log(diffTime + " " + tim , " time")
-        return true
-    })
-    .catch( err => false)
-}
-async function saveMessage(userId, body, channel){
+async function saveMessage(userId, message, channelId){
     var newMessage = new Message({
         user : userId,
-        body,
-        channel: [ channel._id ]
+        body: message,
+        channel: channelId
     })
     return newMessage.save()
     .then(message => message )

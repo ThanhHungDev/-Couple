@@ -14,7 +14,10 @@ const ChannelSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref : 'user_account'
             }
-        ]
+        ],
+        online: {
+            type : Date
+        }
     }, {
     timestamps: true
 })

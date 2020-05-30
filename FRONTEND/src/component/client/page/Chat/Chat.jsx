@@ -62,6 +62,10 @@ class Chat extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.user !== nextProps.user
+  }
+
   render() {
     console.log("render lại Chat")
     

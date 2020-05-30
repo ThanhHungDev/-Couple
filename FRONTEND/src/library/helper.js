@@ -2,7 +2,7 @@ import CONFIG from "../config"
 import { generateName } from "./generate-name.js"
 import $ from "jquery"
 import "jquery-modal"
-import { setterUser, setterChannels } from "../action"
+import { setterUser, setterChannels, addMessage } from "../action"
 import { socketListenner } from "../action/socket.js"
 import { setterSocket } from "../action"
 
@@ -348,4 +348,50 @@ export function socketInitialConnect( socketIOClient, instanceApp ){
     socket.on('connect_error', function() {
       ApplicationDom && ApplicationDom.classList.add("connect-socket-error")
     });
+}
+
+export function sendMessageToChannel( message, channelId, access, detect, instanceComponent, dataRefesh ){
+    var EVENT = CONFIG_EVENT
+    console.log( {message, channelId, access, detect, instanceComponent, dataRefesh})
+    if(!dataRefesh){
+        socket.emit(EVENT.SEND_MESSAGE, { message, channelId, access, ...detect })
+        /// 
+        instanceComponent.props.dispatch( addMessage({ type: false, content: message }) )
+        return false
+    }
+    //// userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client 
+    var { userId, refesh, detect } = dataRefesh
+    var dataFetch = { userId, refesh, ... detect }
+    fetch(CONFIG.SERVER.ASSET() + '/api/user/refesh', {
+        method: 'POST',
+        body: JSON.stringify(dataFetch),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(response => {
+        if( response.code != 200 ){
+            throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
+        }
+        console.log( JSON.stringify(response.data), "data refesh token before send message chat ")
+        /// save user to local storage
+        if (typeof(Storage) !== 'undefined') {
+            var user = JSON.parse(localStorage.getItem('user'))
+            user.tokens = response.data
+            localStorage.setItem('user', JSON.stringify(user))
+            access = user.tokens.tokenAccess
+            socket.emit(EVENT.SEND_MESSAGE, { message, channelId, access, ...detect })
+            instanceComponent.props.dispatch( setterUser(user) )
+            instanceComponent.props.dispatch( addMessage({ type: false, content: message }) )
+        } else {
+            alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
+        }
+        return false
+    })
+    .catch(error => {
+        console.log( error, " have error ")
+        alert(" refesh lại trình duyệt ")
+        return false
+    })
 }

@@ -13,7 +13,8 @@ const TYPE =  {
     SETTER_USER : "SETTER_USER"
   },
   CHANNEL: {
-    SETTER_CHANNEL : "SETTER_CHANNEL"
+    SETTER_CHANNEL : "SETTER_CHANNEL",
+    ADD_MESSAGE: "ADD_MESSAGE"
   }
 }
 export default TYPE;
