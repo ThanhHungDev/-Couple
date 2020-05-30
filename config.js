@@ -47,13 +47,11 @@ var CONFIG = {
         PRIVATE_KEY: 'OAGhOjAuZ5WqNOm7hdqNeo-SSJqGApaXivfY5ps0Eiw'
     },
     EVENT : {
-        CONNECTTION      : 'connection',
-        DISCONNECT       : 'disconnect',
-        SEND_MESSAGE     : 'send-message',
-        GET_CHANNEL      : 'get-channel',
-        RESPONSE_MESSAGE : 'response-message',
-        RESPONSE_CHANNELS: 'response-channel',
-        REQUEST_GET_CHANEL: "request-get-channel"
+        CONNECTTION     : 'connection',
+        DISCONNECT      : 'disconnect',
+        SEND_MESSAGE    : 'send-message',
+        RESPONSE_MESSAGE: 'response-message',
+        JOIN_CHANNEL    : "join-channel"
     },
     ACCOUNT_ADMIN: [
         {

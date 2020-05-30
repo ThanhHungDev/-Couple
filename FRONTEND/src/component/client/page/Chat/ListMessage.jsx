@@ -20,7 +20,8 @@ class ListMessage extends Component {
     console.log("render lại ListMessage")
     var { users } = this.props
     var userActiveChat = users.find( user => user.isActive );
-    var messages = userActiveChat.message;
+
+    var messages = userActiveChat && userActiveChat.message;
 
     var { myinfo } = this.props
     return (

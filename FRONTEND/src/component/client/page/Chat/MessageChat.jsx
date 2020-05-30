@@ -10,7 +10,11 @@ class MessageChat extends Component{
     var { message } = this.props
     var { toUser } = this.props
 
-    var userInfo = toUser;
+    var userInfo = toUser
+
+    if(!toUser){
+      return null
+    }
 
     if( !message.type ){
       var typeMessage = 'float-left ';

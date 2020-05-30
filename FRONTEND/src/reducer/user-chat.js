@@ -12,7 +12,9 @@ export default function (state = userChatDefault, action) {
           return { ...item, isActive : true }
         }
         return { ...item, isActive : false }
-      });
+      })
+    case TYPE.CHANNEL.SETTER_CHANNEL:
+      return action.payload
     default:
       return state;
   }

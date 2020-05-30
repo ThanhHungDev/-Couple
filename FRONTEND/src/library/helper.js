@@ -2,7 +2,7 @@ import CONFIG from "../config"
 import { generateName } from "./generate-name.js"
 import $ from "jquery"
 import "jquery-modal"
-import { setterUser } from "../action"
+import { setterUser, setterChannels } from "../action"
 
 export function fetchRegister (data, instanceComponent) {
     var valid = validateRegister( data , instanceComponent)
@@ -299,10 +299,11 @@ function fetchChannelMessage(data, instanceComponent){
     })
     .then(res => res.json())
     .then(response => {
-        console.log( JSON.stringify(response), "data fetch channel ")
+        console.log( JSON.stringify(response.data), "data fetch channel ")
         if( response.code != 200 ){
             throw new Error("エラーが発生しました。しばらくしてからもう一度お試しください")
         }
+        instanceComponent.props.dispatch( setterChannels(response.data) )
     })
     .catch(error => {
         console.log( error, " have error ")

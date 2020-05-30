@@ -20,35 +20,12 @@ function socketConnecting(){
         // /////////////////////////////////////////////////////
         try {
             disconnect(socket)
-            getChannel(socket)
+            joinChannel(socket)
             sendMessageChat(socket)
         } catch (err) {
-            console.log( err );
+            console.log( err )
         }
         ////////////////////////////////////////////////////////
-    });
-}
-
-function getChannel( socket ){
-    socket.on( EVENT.GET_CHANNEL, async data => {
-        /// variable input
-        var { id, access, client } = data,
-        { 'user-agent' : userAgent } = socket.request.headers,
-        detect = { ... client , userAgent }
-
-        /// check user auth
-        Promise.all([ 
-            checkTokenAccess(userId, access, detect), 
-            Channel.find({user : mongoose.Types.ObjectId( userId )}) 
-        ])
-        .then(([ isAuth, channels ]) => {
-
-            if( isAuth && channels ){
-                /// send-message
-                socket.emit(EVENT.RESPONSE_CHANNELS, { channels })
-            }
-        })
-        .catch( err => console.log("have err "))
     });
 }
 
@@ -58,6 +35,11 @@ function disconnect(socket){
         socket.leaveAll();
         console.log(socket.adapter.rooms);
     });
+}
+function joinChannel( socket ){
+    socket.on(EVENT.JOIN_CHANNEL, async data => {
+        console.log(data , " join channel")
+    })
 }
 
 function sendMessageChat(socket){

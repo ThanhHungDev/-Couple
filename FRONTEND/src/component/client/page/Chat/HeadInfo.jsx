@@ -30,7 +30,11 @@ class HeadInfo extends Component {
 
     console.log("render lại head ìon")
     var { users } = this.props
-    var userActiveChat = users.find( user => user.isActive );
+    var userActiveChat = users.find( user => user.isActive )
+
+    if(!userActiveChat){
+      return null
+    }
 
     var timeOnline = ''
     if( userActiveChat.isOnline ){

@@ -3,6 +3,9 @@ import React, { Component } from "react";
 class MessageChatTyping extends Component {
   render() {
     var { toUser } = this.props
+    if(!toUser){
+      return null
+    }
     var typeMessage = 'float-left ';
     return (
       <div className="component-message-chat">

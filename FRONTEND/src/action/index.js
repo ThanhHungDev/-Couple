@@ -13,3 +13,11 @@ export function setterUser( user ){
         payload : user
     }
 }
+
+export function setterChannels( channels ){
+    console.log(channels , " set channels ")
+    return {
+        type : TYPE.CHANNEL.SETTER_CHANNEL,
+        payload : channels
+    }
+}

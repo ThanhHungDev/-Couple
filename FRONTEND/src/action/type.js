@@ -11,6 +11,9 @@ const TYPE =  {
   },
   USER: {
     SETTER_USER : "SETTER_USER"
+  },
+  CHANNEL: {
+    SETTER_CHANNEL : "SETTER_CHANNEL"
   }
 }
 export default TYPE;
