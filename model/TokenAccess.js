@@ -14,14 +14,17 @@ const TokenAccessSchema = new Schema({
         ref    : 'user_account'
     },
     period: {
-        type : Date,
-        default : new Date
+        type : Date
     },
     detect : { 
         type    : String
     }
 })
-
+TokenAccessSchema.pre('save', function (next) {
+    
+    this.period = new Date
+    return next()
+})
 
 module.exports = mongoose.model("token_access", TokenAccessSchema)
 

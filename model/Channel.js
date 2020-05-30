@@ -33,7 +33,7 @@ ChannelSchema.statics.getChannelMessage = function ( _userId ) {
             return { id: channel._id,
                 name: admin.name, avatar: admin.avatar, 
                 isOnline: true, isActive: channelActive, timeEndOnline: "2020-05-10 14:47:00", 
-                message: [{type:false,content:"Rachel Zane Rachel Zane Rachel Zane Rachel Zane"}] }
+                message: [{type:false,content:"Hello, tôi là Admin hệ thống, tôi có thể giúp gì cho bạn? "}] }
         })
     })
 }

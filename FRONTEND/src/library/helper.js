@@ -179,7 +179,9 @@ export function resfeshTokenExpire( data , instanceComponent ){
             localStorage.setItem('user', JSON.stringify(user))
             instanceComponent.props.dispatch( setterUser(user) )
             /// fetch data channel
-            fetchChannelMessage({ access: user.tokens.tokenAccess, ...detect}, instanceComponent)
+            var dataFetchChannel = { access: user.tokens.tokenAccess, ...detect}
+            console.log(dataFetchChannel, "fetchChannelMessage in resfeshTokenExpire")
+            fetchChannelMessage(dataFetchChannel, instanceComponent)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
             instanceComponent.setState({ alert : response.user_message , progress : false })
@@ -283,7 +285,7 @@ function validateRegister( data , instanceComponent){
     
 }
 
-function fetchChannelMessage(data, instanceComponent){
+export function fetchChannelMessage(data, instanceComponent){
     var isValid = validateFetchChannelMessage( data )
     if( !isValid ){
         alert( "エラーが発生しました。しばらくしてからもう一度お試しください")

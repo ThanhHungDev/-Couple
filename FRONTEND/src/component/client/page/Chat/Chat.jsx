@@ -11,7 +11,7 @@ import { connect } from "react-redux"
 
 import "../../../../scss/_modal.jquery.scss"
 
-import { listenLoginEvent, resfeshTokenExpire } from "../../../../library/helper.js"
+import { listenLoginEvent, resfeshTokenExpire, fetchChannelMessage } from "../../../../library/helper.js"
 
 
 class Chat extends Component {
@@ -31,7 +31,13 @@ class Chat extends Component {
         console.log("refesh token vì hết hạn")
         var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
         resfeshTokenExpire( dataRefesh, instance )
+      }else if( this.props.userChat && !this.props.userChat.length ){
+        
+        var dataFetchChannel = { access: user.tokens.tokenAccess, ...this.props.client }
+        console.log( dataFetchChannel, " fetch channel ahihi ")
+        fetchChannelMessage(dataFetchChannel, instance)
       }
+      
     }
   }
   componentDidUpdate(){
@@ -72,8 +78,9 @@ class Chat extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    user: state.users,
-    client : state.client
+    user    : state.users,
+    client  : state.client,
+    userChat: state.userChat
   }
 }
 export default connect(mapStateToProps)(Chat)

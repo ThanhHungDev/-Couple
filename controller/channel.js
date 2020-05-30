@@ -22,11 +22,17 @@ module.exports.get_channel_message = function( req, res ){
         errors : [ req.error ] }
         return res.end(JSON.stringify(response))
     }
-    var lteDate = new Date((new Date).getTime() - (CONFIG.TimeExpireAccessToken * 1000) )
-    TokenAccess.findOne({ token: access, period: { $gte: lteDate, $lte: new Date }})
+    // var lteDate = new Date((new Date).getTime() - (CONFIG.TimeExpireAccessToken * 1000) ) , period: { $gte: lteDate }
+    TokenAccess.findOne({ token: access })
     .then( token => {
         if( !token ){
             throw new Error("token không tồn tại")
+        }
+        var now = new Date
+        var diffe = now.getTime() - new Date(token.period).getTime()
+        if( diffe > 1000 * CONFIG.TimeExpireAccessToken ){
+            console.log(diffe + " / " + 1000 * CONFIG.TimeExpireAccessToken + " / " + now + " / " + new Date(token.period) ,"token hết hạn")
+            throw new Error("token hết hạn")
         }
         return Channel.getChannelMessage(token.user)
     })

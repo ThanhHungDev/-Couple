@@ -46,7 +46,7 @@ app.use(session({
 
 const limiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour window
-    max: 20, // start blocking after 5 requests
+    max: 2000, // start blocking after 5 requests
     message: "Too many accounts created from this IP, please try again after an hour"
 })
     
