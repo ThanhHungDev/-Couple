@@ -16,6 +16,13 @@ import { listenLoginEvent, resfeshTokenExpire, fetchChannelMessage } from "../..
 
 class Chat extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      stopUpdate : false
+    }
+  }
+
   componentDidMount(){
     var { user } = this.props,
         instance = this
@@ -49,21 +56,27 @@ class Chat extends Component {
       listenLoginEvent()
     }
 
-    /// join channel ( because 3 channel is admin so join all channel )
-    var EVENT = CONFIG_EVENT
-    console.log( EVENT )
-    if( user && this.props.socket && this.props.userChat && this.props.userChat.length ){
-      var idChannels = this.props.userChat.map( channel => {
-        return channel.id
-      })
-      var dataJoinChannel = { channels: idChannels, access: user.tokens.tokenAccess, ...this.props.client }
-      console.log( dataJoinChannel, "join to channel" )
-      this.props.socket.emit(EVENT.JOIN_CHANNEL, dataJoinChannel)
+    if( !this.state.stopUpdate ){
+      /// join channel ( because 3 channel is admin so join all channel )
+      var EVENT = CONFIG_EVENT
+      console.log( EVENT, "join channel ( because 3 channel is admin so join all channel )" )
+      if( user && this.props.socket && this.props.userChat && this.props.userChat.length ){
+        var idChannels = this.props.userChat.map( channel => {
+          return channel.id
+        })
+        var dataJoinChannel = { channels: idChannels, access: user.tokens.tokenAccess, ...this.props.client }
+        
+        this.setState({ stopUpdate : true }, function(){
+          console.log( dataJoinChannel, "---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel" )
+          this.props.socket.emit(EVENT.JOIN_CHANNEL, dataJoinChannel)
+        })
+      }
     }
+    
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.user !== nextProps.user
+    return !this.state.stopUpdate
   }
 
   render() {

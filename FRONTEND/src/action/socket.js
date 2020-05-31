@@ -6,5 +6,7 @@ exports.socketListenner = function( socket, dispatch ){
         console.log("đã vào " + EVENT.REQUEST_GET_CHANEL)
         
     });
-    
+    socket.on(EVENT.RESPONSE_MESSAGE, data => {
+        console.log("đã vào " + EVENT.RESPONSE_MESSAGE, data)
+    })
 }

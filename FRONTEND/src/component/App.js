@@ -12,9 +12,6 @@ import Chat from './client/page/Chat/Chat.jsx';
 
 /// soccket 
 import socketIOClient from "socket.io-client";
-import CONFIG from "../config";
-import { setterSocket } from "../action"
-import { socketListenner } from "../action/socket"
 import { socketInitialConnect } from "../library/helper.js"
 
 class App extends Component {

@@ -331,7 +331,8 @@ function validateFetchChannelMessage( data ) {
 }
 
 export function socketInitialConnect( socketIOClient, instanceApp ){
-
+    
+    var EVENT = CONFIG_EVENT
     socket = socketIOClient(CONFIG.SERVER.ASSET());
     var ApplicationDom = document.getElementById("Application")
     socket.on('connect', function () {

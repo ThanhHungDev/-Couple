@@ -70,7 +70,7 @@ function joinChannel( socket ){
             })
             .then( channelDbs => {
                 channelDbs.map(channel => {
-                    console.log(channel.name)
+                    console.log("join socket " +socket.id +" vào " + channel.name)
                     socket.join( channel.name );
                     channel.online = new Date
                     channel.save()
@@ -118,6 +118,7 @@ function sendMessageChat(socket){
                 throw new Error("not have channel")
             }
             saveMessage(userIdSendMessage, message, channelResult._id)
+            console.log(" emit : " + EVENT.RESPONSE_MESSAGE + " / " + channelResult.name)
             io.in(channelResult.name).emit(EVENT.RESPONSE_MESSAGE, { user : userIdSendMessage, message, channel: channelResult._id })
         })
         .catch( error => {
