@@ -35,12 +35,25 @@ ChannelSchema.statics.getChannelMessage = function ( _userId ) {
                 foreignField: "channel",
                 as: "message"
             }
-        }
+        },
+        { 
+            $unwind: "$user"
+        },
+        { 
+            $match: { user: { $ne : _userId }}
+        },
+        {
+            $lookup: {
+                from: "user_accounts",
+                localField: "user",
+                foreignField: "_id",
+                as: "user"
+            }
+        },
     ])
     .then(lstChannel => {
         return lstChannel.map((channel, index) => {
-            var Admins = CONFIG.ACCOUNT_ADMIN
-            var admin = Admins.find( admin => channel.name.includes(admin.channel))
+            var userChat = channel.user[0]
             var channelActive = index == 0
             if(!channel.message.length){
                 channel.message.push({type:false,content:"Hello, tôi là Admin hệ thống, tôi có thể giúp gì cho bạn? "})
@@ -54,7 +67,7 @@ ChannelSchema.statics.getChannelMessage = function ( _userId ) {
             }
             /// channel have field online
             return { id: channel._id,
-                name: admin.name, avatar: admin.avatar, 
+                name: userChat.name, avatar: userChat.avatar, 
                 isOnline: true, isActive: channelActive, timeEndOnline: "2020-05-10 14:47:00", 
                 message: channel.message }
         })
