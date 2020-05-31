@@ -42,6 +42,7 @@ module.exports.get_channel_message = function( req, res ){
         return res.end(JSON.stringify(response))
     })
     .catch( error => {
+        console.log( { access, ...detect }, "oject không thể chứng thực fetch channel")
         response = { code: 500, message: error.message, 
             internal_message: error.message, 
             errors : [ { message : error } ] }

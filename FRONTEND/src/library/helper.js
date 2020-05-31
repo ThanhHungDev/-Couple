@@ -356,7 +356,7 @@ export function sendMessageToChannel( message, channelId, access, detect, instan
     if(!dataRefesh){
         socket.emit(EVENT.SEND_MESSAGE, { message, channelId, access, ...detect })
         /// 
-        instanceComponent.props.dispatch( addMessage({ type: false, content: message }) )
+        instanceComponent.props.dispatch( addMessage({ type: true, content: message }) )
         return false
     }
     //// userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client 
@@ -383,7 +383,7 @@ export function sendMessageToChannel( message, channelId, access, detect, instan
             access = user.tokens.tokenAccess
             socket.emit(EVENT.SEND_MESSAGE, { message, channelId, access, ...detect })
             instanceComponent.props.dispatch( setterUser(user) )
-            instanceComponent.props.dispatch( addMessage({ type: false, content: message }) )
+            instanceComponent.props.dispatch( addMessage({ type: true, content: message }) )
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
         }
