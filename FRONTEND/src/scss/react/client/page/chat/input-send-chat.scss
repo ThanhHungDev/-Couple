@@ -5,7 +5,7 @@
   border: 1px solid $gray-200;
   border-left: none;
   position: relative;
-  padding: 5px 50px 0;
+  padding: 5px 80px 0 50px;
   
   textarea{
     width: 100%!important;
@@ -26,16 +26,6 @@
     &:focus{
       border-color: $custom-primary-color-dark;
       color: $custom-primary-color-dark;
-
-      & ~ .hero-icon{
-
-        &.send{
-          display: inline-block;
-        }
-        &.react{
-          display: none;
-        }
-      }
     }
 
     &::-webkit-scrollbar {
@@ -60,10 +50,12 @@
     //   left: 35px;
     // }
     &.send{
-      display: none;
-      right: 10px;
+      display: inline-block;
+      z-index: 1;
+      right: 45px;
     }
     &.react{
+      z-index: 1;
       display: inline-block;
       right: 10px;
     }

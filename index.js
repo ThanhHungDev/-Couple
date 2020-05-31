@@ -31,8 +31,8 @@ const IS_PRODUCTION = CONFIG.IS_ENVIROMENT_PRODUCT
 // Normal express config defaults
 app.use(require('sanitize').middleware)
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}))
+app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }))
 
 app.use(express.static(__dirname + '/public'))
 app.use(session({

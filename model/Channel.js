@@ -56,13 +56,13 @@ ChannelSchema.statics.getChannelMessage = function ( _userId ) {
             var userChat = channel.user[0]
             var channelActive = index == 0
             if(!channel.message.length){
-                channel.message.push({type:false,content:"Hello, tôi là Admin hệ thống, tôi có thể giúp gì cho bạn? "})
+                channel.message.push({type:false,content:"Hello, tôi là Admin hệ thống, tôi có thể giúp gì cho bạn? ", style: "", attachment: []})
             }else{
                 channel.message = channel.message.map( message => {
                     if(_userId == message.user.toString()){
-                        return { type: true, content: message.body }
+                        return { type: true, content: message.body, style: message.style, attachment: message.attachment }
                     } 
-                    return { type: false, content: message.body }
+                    return { type: false, content: message.body, style: message.style, attachment: message.attachment }
                 })
             }
             /// channel have field online

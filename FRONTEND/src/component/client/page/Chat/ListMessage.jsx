@@ -31,7 +31,7 @@ class ListMessage extends Component {
           { messages && messages.map( 
             (message , key) => <MessageChat key={"message-chat" + key + userActiveChat.id} myinfo={myinfo} message={message} toUser={userActiveChat} /> 
           )}
-          <MessageChatTyping toUser={userActiveChat} />
+          {/* <MessageChatTyping toUser={userActiveChat} /> */}
         </div>
         <InputSendChat />
       </div>

@@ -351,13 +351,13 @@ export function socketInitialConnect( socketIOClient, instanceApp ){
     });
 }
 
-export function sendMessageToChannel( message, channelId, access, detect, instanceComponent, dataRefesh ){
+export function sendMessageToChannel( message, style, attachment, channelId, access, detect, instanceComponent, dataRefesh ){
     var EVENT = CONFIG_EVENT
     console.log( {message, channelId, access, detect, instanceComponent, dataRefesh})
     if(!dataRefesh){
-        socket.emit(EVENT.SEND_MESSAGE, { message, channelId, access, ...detect })
+        socket.emit(EVENT.SEND_MESSAGE, { message, style, attachment, channelId, access, ...detect })
         /// 
-        instanceComponent.props.dispatch( addMessage({ type: true, content: message }) )
+        instanceComponent.props.dispatch( addMessage({ type: true, content: message, style, attachment }) )
         return false
     }
     //// userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client 
@@ -382,9 +382,9 @@ export function sendMessageToChannel( message, channelId, access, detect, instan
             user.tokens = response.data
             localStorage.setItem('user', JSON.stringify(user))
             access = user.tokens.tokenAccess
-            socket.emit(EVENT.SEND_MESSAGE, { message, channelId, access, ...detect })
+            socket.emit(EVENT.SEND_MESSAGE, { message, style, attachment, channelId, access, ...detect })
             instanceComponent.props.dispatch( setterUser(user) )
-            instanceComponent.props.dispatch( addMessage({ type: true, content: message }) )
+            instanceComponent.props.dispatch( addMessage({ type: true, content: message, style, attachment }) )
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
         }
@@ -394,5 +394,36 @@ export function sendMessageToChannel( message, channelId, access, detect, instan
         console.log( error, " have error ")
         alert(" refesh lại trình duyệt ")
         return false
+    })
+}
+
+export function saveBlobToServer( blob ){
+    console.log( blob )
+
+    let form = new FormData()
+    form.append('image', blob)
+
+    fetch(CONFIG.SERVER.ASSET() + '/api/user/save-file', {
+        method: 'POST',
+        body: form
+    })
+    .then(res => res.json())
+    .then(response => {
+        if( response.code != 200 ){
+            throw new Error("ファイルの保存中にエラーが発生しました")
+        }
+        var reWriteUrl = document.getElementById("js-image--block").getElementsByClassName("js-sign-url")
+        if( reWriteUrl.length ){
+            reWriteUrl[0].setAttribute("data-url", response.data.url )
+            reWriteUrl[0].classList.remove("js-sign-url")
+        }
+    })
+    .catch(error => {
+        console.log(error)
+        var reWriteUrl = document.getElementById("js-image--block").getElementsByClassName("js-sign-url")
+        if( reWriteUrl.length ){
+            reWriteUrl[0].setAttribute("data-url", "/image/avatar-hero.jpg" )
+            reWriteUrl[0].classList.remove("js-sign-url")
+        }
     })
 }

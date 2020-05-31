@@ -17,9 +17,12 @@ const MessageSchema = new Schema(
             type: String,
             required: [ true, 'Body message is required' ]
         },
-        attachment: {
+        style : {
             type: String
-        }
+        },
+        attachment: [
+            { type: String }
+        ]
     }, {
         timestamps: true
     }

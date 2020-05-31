@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import TYPE from "../../../../action/type.js"
 import '../../../../scss/react/client/page/chat/message-chat.scss'
+import CONFIG from "../../../../config"
 
 class MessageChat extends Component{
 
@@ -22,6 +23,7 @@ class MessageChat extends Component{
       var typeMessage = 'float-right by-me ';
       userInfo = myinfo;
     }
+    var { style } = message
     return (
       <div className="component-message-chat" >
 
@@ -30,7 +32,17 @@ class MessageChat extends Component{
             <img src={ userInfo.avatar } alt=""/>
           </figure>
           <div className="message-content">
-            <div className="text">{ message.content }</div>
+            {
+              style == "IMAGE" && 
+              <div className={ style } >
+                { message.attachment.map( (image, index) => {
+                  return <div className="wrapper-attachment">
+                    <img key={"wrapper-attachment" + index} src={ CONFIG.SERVER.ASSET() + image } /> 
+                  </div>
+                })}
+              </div>
+            }
+            <div className={ style + " text" } >{ message.content }</div>
             <div className="time">{ message.time }</div>
           </div>
         </div>

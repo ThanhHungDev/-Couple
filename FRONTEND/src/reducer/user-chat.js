@@ -22,6 +22,13 @@ export default function (state = userChatDefault, action) {
         }
         return channel
       })
+    case TYPE.CHANNEL.ADD_MESSAGE_SEND_TO_ME:
+      return state.map( channel => {
+        if(channel.id === action.payload.channel) {
+          return { ...channel, message : [ ...channel.message, action.payload] }
+        }
+        return channel
+      })
     default:
       return state;
   }

@@ -87,7 +87,7 @@ function sendMessageChat(socket){
     socket.on( EVENT.SEND_MESSAGE, async data => {
         console.log(`${EVENT.SEND_MESSAGE} socket` + data)
         /// variable input
-        var { message, channelId, access, browser, browserMajorVersion, 
+        var { message, style, attachment, channelId, access, browser, browserMajorVersion, 
             browserVersion, os, osVersion } = data,
         { 'user-agent' : userAgent } = socket.request.headers,
         detectClient = { browser, browserMajorVersion, 
@@ -117,9 +117,9 @@ function sendMessageChat(socket){
                 console.log(channelId , "channel send message to channel but not select show")
                 throw new Error("not have channel")
             }
-            saveMessage(userIdSendMessage, message, channelResult._id)
+            saveMessage(userIdSendMessage, message, style, attachment, channelResult._id)
             console.log(" emit : " + EVENT.RESPONSE_MESSAGE + " / " + channelResult.name)
-            io.in(channelResult.name).emit(EVENT.RESPONSE_MESSAGE, { user : userIdSendMessage, message, channel: channelResult._id })
+            io.in(channelResult.name).emit(EVENT.RESPONSE_MESSAGE, { user : userIdSendMessage, message, style, attachment, channel: channelResult._id })
         })
         .catch( error => {
             console.log( error )
@@ -127,11 +127,13 @@ function sendMessageChat(socket){
     })
 }
 
-async function saveMessage(userId, message, channelId){
+async function saveMessage(userId, message, style, attachment, channelId){
     var newMessage = new Message({
         user : userId,
         body: message,
-        channel: channelId
+        channel: channelId,
+        style,
+        attachment
     })
     return newMessage.save()
     .then(message => message )

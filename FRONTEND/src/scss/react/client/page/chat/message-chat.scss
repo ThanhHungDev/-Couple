@@ -37,10 +37,28 @@
     .message-content{
       padding-left: 50px;
 
+      .IMAGE{
+        text-align: center;
+        .wrapper-attachment{
+          padding: 5px;
+          display: inline-block;
+          max-width: 30%;
+        }
+      }
+      .EMOJI{
+        padding: 10px;
+        background: none!important
+      }
       .text{
         padding: 10px;
         border-radius: 15px;
-        @include render-gradient(135deg, $gray-100, $purple)
+        @include render-gradient(135deg, $gray-100, $purple);
+
+        &.EMOJI{
+          background: transparent !important;
+          font-size: 35px;
+          padding: 0 10px;
+        }
       }
     }
     .typing-message{

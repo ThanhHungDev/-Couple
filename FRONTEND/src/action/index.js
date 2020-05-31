@@ -29,3 +29,11 @@ export function addMessage( message ){
         payload : message
     }
 }
+
+export function addMessageSendToMe( message ){
+    console.log(message , " addMessageSendToMe ")
+    return {
+        type : TYPE.CHANNEL.ADD_MESSAGE_SEND_TO_ME,
+        payload : message
+    }
+}
