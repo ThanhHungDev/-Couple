@@ -34,30 +34,35 @@ class InputSendChat extends Component {
       },
       false
     );
-    // window.onclick = function (event) {
-    //   // console.log( "sdfsfsdfdsfdsfsdddsdfsfsdfdsfsf")
-    //   // if(event.target){
-    //   //   if(event.target.classList.contains('component-emoji')){
-    //   //     return;
-    //   //   }
-    //   // }
-    //   var emojis = document.getElementById("js-emojis");
-    //   if (emojis) {
-    //     emojis.classList.remove("show");
-    //     setTimeout(function () {
-    //       if (emojis.classList.contains("show-temp")) {
-    //         emojis.classList.remove("show-temp");
-    //         emojis.classList.add("show");
-    //       }
-    //     }, 100);
-    //   }
-    // };
+    window.onclick = function (event) {
+      if(event.target){
+        if(event.target.classList.contains('component-emoji')){
+          return;
+        }
+      }
+      var emojis = document.getElementById("js-emojis");
+      if (emojis) {
+        emojis.classList.remove("show");
+        setTimeout(function () {
+          if (emojis.classList.contains("show-temp")) {
+            emojis.classList.remove("show-temp");
+            emojis.classList.add("show");
+          }
+        }, 100);
+      }
+    };
   }
 
   submitMessageChat = function (message, style, attachment ){
     console.log( {message, style, attachment  } )
     if(!message){
       return false
+    }
+    if(!style){
+      var emojiChat = config.EMOJIS.filter( emoji => emoji.symbol == message.trim() )
+      if(emojiChat.length){
+        style = "EMOJI"
+      }
     }
     console.log(message); /// .replace(/\n/g,'<br />')
     if( this.props.user ){
@@ -129,7 +134,6 @@ class InputSendChat extends Component {
           urlAttachment.push(images[index_image_send].getAttribute('data-url'))
         }
       }
-      console.log( event.target.value )
       document.getElementById("js-image--block").innerHTML = ''
       this.submitMessageChat(event.target.value, style, urlAttachment)
       this.setState({ sendChat: true });

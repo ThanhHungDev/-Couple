@@ -36,8 +36,8 @@ class MessageChat extends Component{
               style == "IMAGE" && 
               <div className={ style } >
                 { message.attachment.map( (image, index) => {
-                  return <div className="wrapper-attachment">
-                    <img key={"wrapper-attachment" + index} src={ CONFIG.SERVER.ASSET() + image } /> 
+                  return <div key={"wrapper-attachment" + index + image} className="wrapper-attachment">
+                    <img src={ CONFIG.SERVER.ASSET() + image } /> 
                   </div>
                 })}
               </div>
