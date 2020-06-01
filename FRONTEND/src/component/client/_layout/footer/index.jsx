@@ -27,24 +27,24 @@ export default class Footer extends Component {
           <div className="item-advisory">
             <i className='hero-icon hero-message-cog-outline'></i>
             <div className="option-contact-content">
-              <h6 className="type"><Link to='/chat/advisory-system'>コンサルティングウェブデザイン</Link></h6>
-              <Link className="link" to='/chat/advisory-system'>クリックしてチャット</Link>
+              <h6 className="type"><Link to='/chat/consulting-web-design'>コンサルティングウェブデザイン</Link></h6>
+              <Link className="link" to='/chat/consulting-web-design'>クリックしてチャット</Link>
             </div>
           </div>
 
           <div className="item-advisory">
             <i className='hero-icon hero-certificate-outline'></i>
             <div className="option-contact-content">
-              <h6 className="type"><Link to='/chat/advisory-system'>技術サポート</Link></h6>
-              <Link className="link" to='/chat/advisory-system'>クリックしてチャット</Link>
+              <h6 className="type"><Link to='/chat/technical-support'>技術サポート</Link></h6>
+              <Link className="link" to='/chat/technical-support'>クリックしてチャット</Link>
             </div>
           </div>
 
           <div className="item-advisory">
             <i className='hero-icon hero-email-edit-outline'></i>
             <div className="option-contact-content">
-              <h6 className="type"><Link to='/chat/advisory-system'>Webリクエストを送信</Link></h6>
-              <Link className="link" to='/chat/advisory-system'>クリックしてチャット</Link>
+              <h6 className="type"><Link to='/chat/submit-web-request'>Webリクエストを送信</Link></h6>
+              <Link className="link" to='/chat/submit-web-request'>クリックしてチャット</Link>
             </div>
           </div>
 

@@ -69,7 +69,7 @@ class Chat extends Component {
         this.setState({ stopUpdate : true }, function(){
           
           this.props.socket.emit(EVENT.JOIN_CHANNEL, dataJoinChannel)
-          
+          this.props.dispatch(changeChannelActive({ channelName : this.props.match.params.id }))
         })
       }
     }
@@ -77,10 +77,12 @@ class Chat extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
+
     if(this.props.match.params.id != nextProps.match.params.id){
       this.props.dispatch(changeChannelActive({ channelName : nextProps.match.params.id }))
       return false
     }
+    
     return !this.state.stopUpdate
   }
 
