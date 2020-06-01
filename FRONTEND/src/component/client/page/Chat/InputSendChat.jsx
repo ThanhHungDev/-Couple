@@ -56,7 +56,11 @@ class InputSendChat extends Component {
   submitMessageChat = function (message, style, attachment ){
     console.log( {message, style, attachment  } )
     if(!message){
-      return false
+      if( style == "IMAGE" ){
+        message = style
+      }else{
+        return false
+      }
     }
     if(!style){
       var emojiChat = config.EMOJIS.filter( emoji => emoji.symbol == message.trim() )
