@@ -10,6 +10,10 @@ class ListMessage extends Component {
 
   componentDidMount(){
     document.getElementById('js-scroll-to-bottom').scrollTop  = document.getElementById('js-scroll-to-bottom').scrollHeight
+    document.getElementById('js-scroll-to-bottom').addEventListener('scroll', (event) => {
+      // handle the scroll event 
+      document.getElementById("js-is-write-message").classList.remove("writing")
+    });
   }
 
   componentDidUpdate(){
@@ -21,6 +25,10 @@ class ListMessage extends Component {
     var { users } = this.props
     var userActiveChat = users.find( user => user.isActive );
 
+    if( userActiveChat ){
+      var { typing } = userActiveChat
+    }
+    
     var messages = userActiveChat && userActiveChat.message;
 
     var { myinfo } = this.props
@@ -31,7 +39,7 @@ class ListMessage extends Component {
           { messages && messages.map( 
             (message , key) => <MessageChat key={"message-chat" + key + userActiveChat.id} myinfo={myinfo} message={message} toUser={userActiveChat} /> 
           )}
-          {/* <MessageChatTyping toUser={userActiveChat} /> */}
+          <MessageChatTyping toUser={userActiveChat} />
         </div>
         <InputSendChat />
       </div>

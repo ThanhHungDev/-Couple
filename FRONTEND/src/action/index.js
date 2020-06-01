@@ -37,3 +37,18 @@ export function addMessageSendToMe( message ){
         payload : message
     }
 }
+
+export function showTypingUser( userChannel ){
+    console.log(userChannel , " showTypingUser ")
+    return {
+        type : TYPE.CHANNEL.SHOW_TYPING_USER,
+        payload : userChannel
+    }
+}
+export function hiddenTypingUser( userChannel ){
+    console.log(userChannel , " hiddenTypingUser ")
+    return {
+        type : TYPE.CHANNEL.HIDDEN_TYPING_USER,
+        payload : userChannel
+    }
+}

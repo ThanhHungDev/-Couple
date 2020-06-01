@@ -22,6 +22,7 @@ function socketConnecting(){
             disconnect(socket)
             joinChannel(socket)
             sendMessageChat(socket)
+            listenTyping(socket)
         } catch (err) {
             console.log( err )
         }
@@ -120,6 +121,40 @@ function sendMessageChat(socket){
             saveMessage(userIdSendMessage, message, style, attachment, channelResult._id)
             console.log(" emit : " + EVENT.RESPONSE_MESSAGE + " / " + channelResult.name)
             io.in(channelResult.name).emit(EVENT.RESPONSE_MESSAGE, { user : userIdSendMessage, message, style, attachment, channel: channelResult._id })
+        })
+        .catch( error => {
+            console.log( error )
+        })
+    })
+}
+
+function listenTyping(socket){
+    socket.on( EVENT.SEND_TYPING, async data => {
+        console.log(`${EVENT.SEND_TYPING} socket` + data)
+        /// variable input
+        var { channelId, access, browser, browserMajorVersion, 
+            browserVersion, os, osVersion } = data,
+        { 'user-agent' : userAgent } = socket.request.headers,
+        detectClient = { browser, browserMajorVersion, 
+            browserVersion, os, osVersion , userAgent }
+
+        /// check user auth
+        var userIdSendMessage = null
+        TokenAccess.findOne({ token : access, detect: JSON.stringify({...detectClient }) })
+        .populate("user")
+        .then( tokenAccess => {
+            if(!tokenAccess){
+                throw new Error("not have token")
+            }
+            //// auth có
+            userIdSendMessage = tokenAccess.user._id
+            return Channel.findOne({ _id: channelId, user: userIdSendMessage })
+        })
+        .then( channelResult => {
+            if( !channelResult ){
+                throw new Error("not have channel")
+            }
+            io.in(channelResult.name).emit(EVENT.RESPONSE_TYPING, { user : userIdSendMessage, channel: channelResult._id })
         })
         .catch( error => {
             console.log( error )

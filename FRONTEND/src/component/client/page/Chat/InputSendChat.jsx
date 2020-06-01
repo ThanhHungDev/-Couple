@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import ListEmoji from "./ListEmoji.jsx";
 import "../../../../scss/react/client/page/chat/input-send-chat.scss";
 import config from "../../../../config/index.js"
-import { sendMessageToChannel, saveBlobToServer } from "../../../../library/helper.js"
+import { sendMessageToChannel, saveBlobToServer, sendTypingMessageToChannel } from "../../../../library/helper.js"
 
 class InputSendChat extends Component {
   constructor(props) {
@@ -210,14 +210,31 @@ class InputSendChat extends Component {
     if (emojis) {
       emojis.classList.add("show-temp");
     }
-  };
+  }
+  handleSendChatClick = ()=>{
+
+    //// send class is write message
+    document.getElementById("js-is-write-message").classList.add("writing")
+
+    ///send typing 
+    var { user }   = this.props,
+          instance   = this
+      var channelSend = this.props.userChat.find( channel => {
+        return channel.isActive == true
+      })
+      var channelId = channelSend.id
+      var tokenAccess = user.tokens.tokenAccess
+      var detect = this.props.client
+
+    sendTypingMessageToChannel( channelId, tokenAccess, detect, instance )
+  }
 
   render() {
     if( !this.props.user || !this.props.socket || !this.props.userChat.length ){
       return null
     }
     return (
-      <div className="component-input-send-chat">
+      <div id="js-is-write-message" className="component-input-send-chat ">
         <div id="js-image--block" className="image-block"></div>
         <i
           className="hero-icon hero-sticker-emoji emoticon"
@@ -227,6 +244,7 @@ class InputSendChat extends Component {
           id="js-input-chat"
           onKeyDown={this.handleSendMessageDown}
           onKeyUp={this.handleSendMessageUp}
+          onClick={ this.handleSendChatClick }
           placeholder="メッセージを書く..."
         ></textarea>
         <i className="hero-icon hero-send-outline send" onClick={ this.handleSendMessageSubmit }></i>

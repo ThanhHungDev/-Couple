@@ -29,6 +29,21 @@ export default function (state = userChatDefault, action) {
         }
         return channel
       })
+    case TYPE.CHANNEL.SHOW_TYPING_USER:
+      return state.map( channel => {
+        if(channel.id === action.payload.channel) {
+          
+          return { ...channel, message : [ ...channel.message, action.payload], typing: true }
+        }
+        return channel
+      })
+    case TYPE.CHANNEL.HIDDEN_TYPING_USER:
+      return state.map( channel => {
+        if(channel.id === action.payload.channel) {
+          return { ...channel, message : [ ...channel.message, action.payload], typing: false }
+        }
+        return channel
+      })
     default:
       return state;
   }

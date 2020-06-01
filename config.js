@@ -52,7 +52,9 @@ var CONFIG = {
         DISCONNECT      : 'disconnect',
         SEND_MESSAGE    : 'send-message',
         RESPONSE_MESSAGE: 'response-message',
-        JOIN_CHANNEL    : "join-channel"
+        JOIN_CHANNEL    : "join-channel",
+        SEND_TYPING     : "send-typing",
+        RESPONSE_TYPING : 'response-typing'
     },
     ACCOUNT_ADMIN: [
         {
