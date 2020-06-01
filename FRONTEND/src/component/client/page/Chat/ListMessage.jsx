@@ -12,7 +12,10 @@ class ListMessage extends Component {
     document.getElementById('js-scroll-to-bottom').scrollTop  = document.getElementById('js-scroll-to-bottom').scrollHeight
     document.getElementById('js-scroll-to-bottom').addEventListener('scroll', (event) => {
       // handle the scroll event 
-      document.getElementById("js-is-write-message").classList.remove("writing")
+      var domIsWriting = document.getElementById("js-is-write-message")
+      if(domIsWriting){
+        domIsWriting.classList.remove("writing")
+      }
     });
   }
 

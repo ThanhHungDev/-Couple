@@ -66,7 +66,7 @@ ChannelSchema.statics.getChannelMessage = function ( _userId ) {
                 })
             }
             /// channel have field online
-            return { id: channel._id,
+            return { id: channel._id, channelName : channel.name,
                 name: userChat.name, avatar: userChat.avatar, 
                 isOnline: true, isActive: channelActive, timeEndOnline: "2020-05-10 14:47:00", 
                 message: channel.message }

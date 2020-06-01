@@ -4,6 +4,7 @@ if(!userDefault){
 }
 var userChatDefault = JSON.parse(userDefault);
 import TYPE from "../action/type.js";
+import config from "../config"
 export default function (state = userChatDefault, action) {
   switch (action.type) {
     case TYPE.CHAT.CHANGE_USER_CHAT_DEFAULT:
@@ -29,21 +30,21 @@ export default function (state = userChatDefault, action) {
         }
         return channel
       })
-    case TYPE.CHANNEL.SHOW_TYPING_USER:
-      return state.map( channel => {
-        if(channel.id === action.payload.channel) {
-          
-          return { ...channel, message : [ ...channel.message, action.payload], typing: true }
+
+    case TYPE.CHANNEL.SET_ACTIVE:
+      var isChanged = false
+      console.log("debug")
+      var newState = state.map( channel => {
+        if( !isChanged && channel.channelName && channel.channelName.includes(action.payload.channelName)){
+          isChanged = true
+          return { ...channel, isActive : true }
         }
-        return channel
+        return { ...channel, isActive : false }
       })
-    case TYPE.CHANNEL.HIDDEN_TYPING_USER:
-      return state.map( channel => {
-        if(channel.id === action.payload.channel) {
-          return { ...channel, message : [ ...channel.message, action.payload], typing: false }
-        }
-        return channel
-      })
+      if( isChanged ){
+        return newState
+      }
+      return state
     default:
       return state;
   }

@@ -8,7 +8,7 @@ import ModalLogin from "./ModalLogin.jsx"
 import ModalRegister from "./ModalRegister.jsx"
 import '../../../../scss/react/client/page/chat/chat.scss'
 import { connect } from "react-redux"
-
+import { changeChannelActive } from "../../../../action"
 import "../../../../scss/_modal.jquery.scss"
 import CONFIG from "../../../../config"
 import { listenLoginEvent, resfeshTokenExpire, fetchChannelMessage } from "../../../../library/helper.js"
@@ -69,6 +69,7 @@ class Chat extends Component {
         this.setState({ stopUpdate : true }, function(){
           console.log( dataJoinChannel, "---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel" )
           this.props.socket.emit(EVENT.JOIN_CHANNEL, dataJoinChannel)
+          
         })
       }
     }
@@ -76,6 +77,10 @@ class Chat extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    if(this.props.match.params.id != nextProps.match.params.id){
+      this.props.dispatch(changeChannelActive({ channelName : nextProps.match.params.id }))
+      return false
+    }
     return !this.state.stopUpdate
   }
 

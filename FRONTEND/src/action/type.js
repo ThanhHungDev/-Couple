@@ -16,8 +16,7 @@ const TYPE =  {
     SETTER_CHANNEL        : "SETTER_CHANNEL",
     ADD_MESSAGE           : "ADD_MESSAGE",
     ADD_MESSAGE_SEND_TO_ME: "ADD_MESSAGE_SEND_TO_ME",
-    SHOW_TYPING_USER      : "SHOW_TYPING_USER",
-    HIDDEN_TYPING_USER    : "HIDDEN_TYPING_USER"
+    SET_ACTIVE            : "SET_ACTIVE"
   }
 }
 export default TYPE;

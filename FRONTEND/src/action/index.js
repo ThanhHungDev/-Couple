@@ -38,17 +38,11 @@ export function addMessageSendToMe( message ){
     }
 }
 
-export function showTypingUser( userChannel ){
-    console.log(userChannel , " showTypingUser ")
+
+export function changeChannelActive( channelName ){
+    console.log(channelName , " changeChannelActive ")
     return {
-        type : TYPE.CHANNEL.SHOW_TYPING_USER,
-        payload : userChannel
-    }
-}
-export function hiddenTypingUser( userChannel ){
-    console.log(userChannel , " hiddenTypingUser ")
-    return {
-        type : TYPE.CHANNEL.HIDDEN_TYPING_USER,
-        payload : userChannel
+        type : TYPE.CHANNEL.SET_ACTIVE,
+        payload : channelName
     }
 }

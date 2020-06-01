@@ -69,9 +69,9 @@ class MenuFull extends Component {
             <NavLinkCustom to="/chat" text='チャット' />
             <i className='hero-icon hero-plus-outline' onClick={this.activeMenuMobile}></i>
             <ul className="sub-link">
-              <li><NavLinkCustom to="/chat/advisory-system" text='コンサルティングウェブデザイン' /></li>
+              <li><NavLinkCustom to="/chat/consulting-web-design" text='コンサルティングウェブデザイン' /></li>
               <li><NavLinkCustom to="/chat/technical-support" text='技術サポート' /></li>
-              <li><NavLinkCustom to="/chat/website-creation-request" text='ウェブサイト作成依頼' /></li>
+              <li><NavLinkCustom to="/chat/submit-web-request" text='ウェブサイト作成依頼' /></li>
             </ul>
           </li>
           <li><NavLinkCustom to="/theme" text='意匠' /></li>
