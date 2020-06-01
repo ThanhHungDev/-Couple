@@ -33,7 +33,7 @@ class HeadInfo extends Component {
 
   render() {
 
-    console.log("render lại head ìon")
+    
     var { userChat } = this.props
     var userActiveChat = userChat.find( user => user.isActive )
 

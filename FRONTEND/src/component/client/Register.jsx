@@ -20,8 +20,8 @@ class Register extends Component {
     this.props.dispatch({ type: 'demo', payload: 'ahihi ddooff ngốc payload ' })
   }
   render() {
-    console.log("đã render state")
-    console.log(this.props.demo);
+    
+    
 
     return (
       <div className="animated fadeIn">

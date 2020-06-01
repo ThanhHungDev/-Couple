@@ -32,7 +32,7 @@ class Dropdown extends Component {
   }
 
   render() {
-    console.log(" render dropdown ");
+    
     return (
       <div className="dropdown" >
         <button className="btn btn-primary dropdown-toggle" onClick={this.handleClick}>

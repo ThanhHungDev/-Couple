@@ -54,7 +54,7 @@ class InputSendChat extends Component {
   }
 
   submitMessageChat = function (message, style, attachment ){
-    console.log( {message, style, attachment  } )
+    
     if(!message){
       return false
     }
@@ -64,7 +64,7 @@ class InputSendChat extends Component {
         style = "EMOJI"
       }
     }
-    console.log(message); /// .replace(/\n/g,'<br />')
+    
     if( this.props.user ){
       /// có 1 vấn đè chưa nghĩ ra cách giải quyết
       /// là nếu token hết hạn thì phải refesh như thế nào để chạy mượt? 
@@ -79,7 +79,7 @@ class InputSendChat extends Component {
       if( diff >= user.tokens.expire){
         /// fetch new token
         var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
-        console.log(dataRefesh, "refesh token trước khi send chat vì hết hạn")
+        
       }
       var messageSendToChannel = message
       var channelSend = this.props.userChat.find( channel => {
@@ -101,7 +101,7 @@ class InputSendChat extends Component {
   handleSendMessageSubmit = () => {
     var style = ""
     var urlAttachment = []
-    console.log( " vào click send submit ")
+    
     var message = document.getElementById("js-input-chat").value
     if(!message){
       return false
@@ -147,10 +147,10 @@ class InputSendChat extends Component {
         /// get word last
         var words = content.split(" ");
         var wordLastest = words[words.length - 1];
-        console.log(wordLastest)
+        
         //// check have sysbol 
         var emojisCall = config.EMOJIS.filter(item => item.sign == wordLastest)
-        console.log(emojisCall)
+        
         if(emojisCall.length){
           /// add icon 
           var lastIndex = content.lastIndexOf(" ")
@@ -201,7 +201,7 @@ class InputSendChat extends Component {
       try {
         img.src = URLObj.createObjectURL(blob);
       } catch (error) {
-        console.log(error);
+        
       }
     }
   }

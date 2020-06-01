@@ -7,7 +7,7 @@ import "../../../../scss/react/client/page/chat/sidebar.scss"
 class SideBarChat extends Component {
 
   render() {
-    console.log("render sidebar")
+    
     var { myinfo } = this.props;
     
     return (

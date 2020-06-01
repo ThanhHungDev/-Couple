@@ -33,7 +33,7 @@ export default function (state = userChatDefault, action) {
 
     case TYPE.CHANNEL.SET_ACTIVE:
       var isChanged = false
-      console.log("debug")
+      
       var newState = state.map( channel => {
         if( !isChanged && channel.channelName && channel.channelName.includes(action.payload.channelName)){
           isChanged = true

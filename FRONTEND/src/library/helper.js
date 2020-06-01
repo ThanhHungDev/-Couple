@@ -71,7 +71,7 @@ export function fetchRegisterAnonymous ( instanceComponent, detect ) {
         return fetchLoginAnonymous ( dataLogin, instanceComponent)
     })
     .catch(error => {
-        console.log(error)
+        
         instanceComponent.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
     })
 }
@@ -92,7 +92,7 @@ export function fetchLoginAnonymous ( data, instanceComponent ){
         if( response.code != 200 ){
             throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
         }
-        console.log( JSON.stringify(response.data), "data logied ")
+        
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
             var userLogin = response.data
@@ -131,7 +131,7 @@ export function fetchLogin ( data, instanceComponent ){
         if( response.code != 200 ){
             throw new Error(response.message)
         }
-        console.log( JSON.stringify(response.data))
+        
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
             /// modal close
@@ -175,7 +175,7 @@ export function resfeshTokenExpire( data , instanceComponent ){
         if( response.code != 200 ){
             throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
         }
-        console.log( JSON.stringify(response.data), "data refesh token ")
+        
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
             var user = JSON.parse(localStorage.getItem('user'))
@@ -184,7 +184,7 @@ export function resfeshTokenExpire( data , instanceComponent ){
             instanceComponent.props.dispatch( setterUser(user) )
             /// fetch data channel
             var dataFetchChannel = { access: user.tokens.tokenAccess, ...detect}
-            console.log(dataFetchChannel, "fetchChannelMessage in resfeshTokenExpire")
+            
             fetchChannelMessage(dataFetchChannel, instanceComponent)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
@@ -192,7 +192,7 @@ export function resfeshTokenExpire( data , instanceComponent ){
         }
     })
     .catch(error => {
-        console.log( error, " have error ")
+        
         localStorage.setItem('user', JSON.stringify(null))
         instanceComponent.props.dispatch( setterUser(null) )
         $('a[href="#js-modal-login"]').click()
@@ -305,14 +305,14 @@ export function fetchChannelMessage(data, instanceComponent){
     })
     .then(res => res.json())
     .then(response => {
-        console.log( JSON.stringify(response.data), "data fetch channel ")
+        
         if( response.code != 200 ){
             throw new Error("エラーが発生しました。しばらくしてからもう一度お試しください")
         }
         instanceComponent.props.dispatch( setterChannels(response.data) )
     })
     .catch(error => {
-        console.log( error, " have error ")
+        
         
     })
 }
@@ -325,7 +325,7 @@ function validateFetchChannelMessage( data ) {
         }
         return true
     } catch (error) {
-        console.log( error, "validateFetchChannelMessage")
+        
         return false
     }
 }
@@ -353,7 +353,7 @@ export function socketInitialConnect( socketIOClient, instanceApp ){
 
 export function sendMessageToChannel( message, style, attachment, channelId, access, detect, instanceComponent, dataRefesh ){
     var EVENT = CONFIG_EVENT
-    console.log( {message, channelId, access, detect, instanceComponent, dataRefesh})
+    
     if(!dataRefesh){
         socket.emit(EVENT.SEND_MESSAGE, { message, style, attachment, channelId, access, ...detect })
         /// 
@@ -375,7 +375,7 @@ export function sendMessageToChannel( message, style, attachment, channelId, acc
         if( response.code != 200 ){
             throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
         }
-        console.log( JSON.stringify(response.data), "data refesh token before send message chat ")
+        
         /// save user to local storage
         if (typeof(Storage) !== 'undefined') {
             var user = JSON.parse(localStorage.getItem('user'))
@@ -391,14 +391,14 @@ export function sendMessageToChannel( message, style, attachment, channelId, acc
         return false
     })
     .catch(error => {
-        console.log( error, " have error ")
+        
         alert(" refesh lại trình duyệt ")
         return false
     })
 }
 
 export function saveBlobToServer( blob ){
-    console.log( blob )
+    
 
     let form = new FormData()
     form.append('image', blob)
@@ -419,7 +419,7 @@ export function saveBlobToServer( blob ){
         }
     })
     .catch(error => {
-        console.log(error)
+        
         var reWriteUrl = document.getElementById("js-image--block").getElementsByClassName("js-sign-url")
         if( reWriteUrl.length ){
             reWriteUrl[0].setAttribute("data-url", "/image/avatar-hero.jpg" )

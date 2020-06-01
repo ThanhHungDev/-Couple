@@ -21,7 +21,7 @@ class App extends Component {
     var socket = socketInitialConnect(socketIOClient, instanceApp )
   }
   render() {
-    console.log("draw app")
+    
     return (
       <div className="AppComponent" id="Application">
         <BrowserRouter>

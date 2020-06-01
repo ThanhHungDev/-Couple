@@ -31,17 +31,17 @@ class Chat extends Component {
       listenLoginEvent()
     }
     if(user){
-      console.log( user, " chat " )
+      
       var diff = ((new Date).getTime() - new Date(user.tokens.period).getTime()) / 1000
       if( diff >= user.tokens.expire){
         /// fetch new token
         var dataRefesh = { userId : user._id, refesh : user.tokens.tokenRefesh, detect: this.props.client }
-        console.log(dataRefesh, "refesh token vì hết hạn")
+        
         resfeshTokenExpire( dataRefesh, instance )
       }else if( this.props.userChat && !this.props.userChat.length ){
         
         var dataFetchChannel = { access: user.tokens.tokenAccess, ...this.props.client }
-        console.log( dataFetchChannel, " fetch channel ahihi ")
+        
         fetchChannelMessage(dataFetchChannel, instance)
       }
       
@@ -59,7 +59,7 @@ class Chat extends Component {
     if( !this.state.stopUpdate ){
       /// join channel ( because 3 channel is admin so join all channel )
       var EVENT = CONFIG_EVENT
-      console.log( EVENT, "join channel ( because 3 channel is admin so join all channel )" )
+      
       if( user && this.props.socket && this.props.userChat && this.props.userChat.length ){
         var idChannels = this.props.userChat.map( channel => {
           return channel.id
@@ -67,7 +67,7 @@ class Chat extends Component {
         var dataJoinChannel = { channels: idChannels, access: user.tokens.tokenAccess, ...this.props.client }
         
         this.setState({ stopUpdate : true }, function(){
-          console.log( dataJoinChannel, "---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel" )
+          
           this.props.socket.emit(EVENT.JOIN_CHANNEL, dataJoinChannel)
           
         })
@@ -85,7 +85,7 @@ class Chat extends Component {
   }
 
   render() {
-    console.log("render lại Chat")
+    
     
     var match      = this.props.match
     var myinfo = { avatar : '', name: '' }

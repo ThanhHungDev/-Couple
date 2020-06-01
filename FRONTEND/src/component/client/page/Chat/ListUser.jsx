@@ -9,7 +9,7 @@ class ListUser extends Component {
 
     var { users } = this.props;
 
-    console.log("render list user")
+    
 
     return (
       <div className="component-list-user">

@@ -1,13 +1,13 @@
-var { addMessage, addMessageSendToMe, showTypingUser } = require("../action")
+var { addMessage, addMessageSendToMe } = require("../action")
 var EVENT = CONFIG_EVENT
 exports.socketListenner = function( socket, dispatch ){
 
     socket.on(EVENT.REQUEST_GET_CHANEL, () => {
-        console.log("đã vào " + EVENT.REQUEST_GET_CHANEL)
+        
         
     });
     socket.on(EVENT.RESPONSE_MESSAGE, data => {
-        console.log("đã vào " + EVENT.RESPONSE_MESSAGE, data)
+        
         var { user, message, style, attachment, channel } = data 
         if (typeof(Storage) !== 'undefined') {
             var userLocal = JSON.parse(localStorage.getItem('user'))
@@ -23,14 +23,14 @@ exports.socketListenner = function( socket, dispatch ){
         
     })
     socket.on(EVENT.RESPONSE_TYPING, data => {
-        console.log("vaof EVENT.RESPONSE_TYPING" + EVENT.RESPONSE_TYPING)
+        
         var { user, channel } = data 
         if (typeof(Storage) !== 'undefined') {
             var userLocal = JSON.parse(localStorage.getItem('user'))
             if( userLocal && userLocal._id == user ){
                 return false
             }else{
-                console.log("cos theer show typing ")
+                
                 if(timeoutTyping){
                     clearTimeout(timeoutTyping)
                 }

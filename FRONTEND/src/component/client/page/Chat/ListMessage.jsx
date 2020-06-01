@@ -24,7 +24,7 @@ class ListMessage extends Component {
   }
   render() {
     
-    console.log("render lại ListMessage")
+    
     var { users } = this.props
     var userActiveChat = users.find( user => user.isActive );
 

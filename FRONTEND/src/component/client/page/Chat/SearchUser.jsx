@@ -11,7 +11,7 @@ import '../../../../scss/react/client/page/chat/search-user.scss'
 class Chat extends Component {
 
   render() {
-    // console.log(data_hung);///chat {match.params.id}
+    // ///chat {match.params.id}
     let match = this.props.match;
     return (
       <div className="component-search-user">
