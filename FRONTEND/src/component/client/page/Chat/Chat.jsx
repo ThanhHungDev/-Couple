@@ -69,7 +69,7 @@ class Chat extends Component {
         this.setState({ stopUpdate : true }, function(){
           console.log( dataJoinChannel, "---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel---------------------------------join to channel" )
           this.props.socket.emit(EVENT.JOIN_CHANNEL, dataJoinChannel)
-          
+          this.props.dispatch(changeChannelActive({ channelName : this.props.match.params.id }))
         })
       }
     }
