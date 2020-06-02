@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import '../../../../scss/react/client/header/menu-full.scss'
 import NavLinkCustom from '../partial/General/NavLinkCustom.jsx'
 import WindowsClose from '../../../svg/windows-close.jsx'
-
+import { connect } from 'react-redux'
+import { logout } from "../../../../library/helper.js"
 class MenuFull extends Component {
   constructor(props) {
 
@@ -47,6 +48,12 @@ class MenuFull extends Component {
     document.getElementById('js-toggle-menu-mobile').classList.toggle('open');
     document.body.classList.remove('neo-scroll')
   }
+  logout = event => {
+    var { users } = this.props
+    if( users ){
+      logout(users._id, users.tokens.tokenAccess, this.props.client, this)
+    }
+  }
   render() {
     
     return (
@@ -76,12 +83,25 @@ class MenuFull extends Component {
           </li>
           <li><NavLinkCustom to="/theme" text='意匠' /></li>
           <li><NavLinkCustom to="/contact" text='お問い合わせ' /></li>
-          <li><NavLinkCustom to="/login" text='ログイン' /></li>
+          {
+            this.props.users && 
+            <li onClick={ this.logout }><a >logout</a></li>
+          }
+          {
+            !this.props.users && 
+            <li><NavLinkCustom to="/login" text='ログイン' /></li>
+          }
         </ul>
       </div>
     )
   }
 }
 
-export default MenuFull;
+let mapStateToProps = state => {
+  return {
+    users : state.users,
+    client: state.client
+  }
+}
+export default connect(mapStateToProps)(MenuFull)
 

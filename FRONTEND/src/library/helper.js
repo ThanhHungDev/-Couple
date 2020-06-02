@@ -433,3 +433,32 @@ export function sendTypingMessageToChannel( channelId, access, detect, instanceC
     socket.emit(EVENT.SEND_TYPING, { channelId, access, ...detect })
     return false
 }
+
+export function logout( userId, access, detect, instanceComponent ){
+
+    var dataLogout = { userId, access, ... detect }
+    fetch(CONFIG.SERVER.ASSET() + '/api/user/logout', {
+        method: 'POST',
+        body: JSON.stringify(dataLogout),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(response => {
+        if( response.code != 200 ){
+            throw new Error("logout fail")
+        }
+        if (typeof(Storage) !== 'undefined') {
+            localStorage.setItem('user', JSON.stringify(null))
+            instanceComponent.props.dispatch( setterUser(null) )
+        } else {
+            alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
+        }
+    })
+    .catch(error => {
+        console.log( error, " have error ")
+        alert(" logout fail ")
+        return false
+    })
+}

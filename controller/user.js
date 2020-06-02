@@ -133,3 +133,31 @@ module.exports.refesh = function( req, res ){
         return res.end(JSON.stringify(response))
     });
 }
+
+
+
+
+module.exports.logout = function( req, res ){
+    var { userId, access, browser, browserMajorVersion, 
+        browserVersion, os, osVersion } = req.body,
+        { 'user-agent': userAgent } = req.headers,
+        detect                      = { browser, browserMajorVersion, browserVersion, 
+                                            os, osVersion, userAgent }
+    var response = {}
+
+    TokenAccess.findOne({ token : access, user: userId, detect: JSON.stringify({...detect }) })
+    .then( token => {
+        if( !token ){
+            throw new Error("không tồn tại token logout")
+        }
+        token.remove()
+    })
+    .then( () => {
+        response = {code: 200, message: res.__("logout succcess"), internal_message: res.__("logout succcess")}
+        return res.end(JSON.stringify(response))
+    })
+    .catch( error => {
+        response = { code: 500, message: error.message, internal_message: error.message, errors: [{ message : error }] }
+        return res.end(JSON.stringify(response))
+    })
+}

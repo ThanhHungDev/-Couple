@@ -52,6 +52,7 @@ class Chat extends Component {
   componentDidUpdate(){
     var { user } = this.props,
         instance = this
+    console.log( user )
     if( !user || !user._id ){
       listenLoginEvent()
     }

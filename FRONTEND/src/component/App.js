@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { connect } from 'react-redux';
-import Register from './client/Register.jsx';
+import React, { Component } from "react"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
+import { connect } from 'react-redux'
+import Register from './client/Register.jsx'
 import Login from "./client/page/Login.jsx"
 import Home from './client/page/Home.jsx'
 
@@ -42,8 +42,4 @@ class App extends Component {
     );
   }
 }
-var mapStateToProps = state => {
-  var { client, authentication } = state
-  return { client, authentication }
-}
-export default connect (mapStateToProps)(App);
+export default connect ()(App);
