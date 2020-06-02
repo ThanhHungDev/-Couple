@@ -1,6 +1,7 @@
 @import "../../../variable";
 @import "../../../mixin";
 /* modal login */
+
 .model-wrapper-form-control{
     .modal-header{
         text-align: center;
@@ -123,3 +124,12 @@
     }
 }
 
+@include Responsive(SM) {
+    .jquery-modal.blocker{
+        padding: 0;
+
+        .modal{
+            padding: 10px;
+        }
+    }
+}

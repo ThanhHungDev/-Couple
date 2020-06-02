@@ -11,7 +11,7 @@ module.exports.register_user = function( req, res ){
     var { name, email, password, head_phone, phone, anonymous } = req.body
     var response = {}
     if(req.error){
-        response = { code: 422, message: "have error input", internal_message: "have error input", 
+        response = { code: 422, message: "入力エラーがありました", internal_message: "入力エラーがありました", 
         errors : [ req.error ] }
         return res.end(JSON.stringify(response))
     }
@@ -81,7 +81,7 @@ module.exports.refesh = function( req, res ){
                                             os, osVersion, userAgent }
     var response = {}
     if(req.error){
-        response = { code: 422, message: "have error input", internal_message: "have error input", 
+        response = { code: 422, message: "入力エラーがありました", internal_message: "入力エラーがありました", 
         errors : [ req.error ] }
         return res.end(JSON.stringify(response))
     }
@@ -148,6 +148,8 @@ module.exports.logout = function( req, res ){
     TokenAccess.findOne({ token : access, user: userId, detect: JSON.stringify({...detect }) })
     .then( token => {
         if( !token ){
+            var objectFindLogout = { token : access, user: userId, detect: JSON.stringify({...detect }) }
+            console.log(JSON.stringify(objectFindLogout), "objectFindLogout")
             throw new Error("không tồn tại token logout")
         }
         token.remove()

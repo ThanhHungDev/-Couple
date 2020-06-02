@@ -42,10 +42,8 @@
       .sub-link {
         display: block;
         padding: 0;
-        background: $gray-100 none repeat scroll 0 0;
         width: 230px;
         margin: -6px 2px 0;
-        border: 1px solid $gray-200;
         position: absolute;
         top: 70px;
         left: 80%;
@@ -70,17 +68,20 @@
         li {
           display: block;
           float: none;
+          background: $gray-100 none repeat scroll 0 0;
 
-          &:last-child {
+          
+          &:first-child {
             a {
-              border-bottom: none;
+              border-top: 1px solid $gray-200;
             }
           }
-
           a {
             display: block;
             color: $custom-primary-color-dark;
             border-bottom: 1px solid $gray-200;
+            border-left: 1px solid $gray-200;
+            border-right: 1px solid $gray-200;
             box-shadow: none;
             font-size: 14px;
             font-weight: normal;
@@ -188,6 +189,10 @@
 
     }
 
+    .logout-btn{
+      cursor: pointer;
+    }
+
     /// responsive ul.wrapper-link
     @include Responsive(MD) {
       padding: 15px 10px 0;
@@ -228,6 +233,21 @@
   
       .dropdown-menu {
         position: relative;
+        .sub-link {
+          width: 100%;
+          margin: 0;
+          border: none;
+          top: unset;
+          left: unset;
+          position: relative;
+          display: none
+        }
+
+        &:hover {
+          .sub-link {
+            padding-top: 0;
+          }
+        }
 
         &.active .sub-link{
           display: block;
@@ -236,6 +256,8 @@
           border: none;
           top: unset;
           left: unset;
+          position: relative;
+          overflow: hidden;
           visibility: unset;
           opacity: 1;
           z-index: 1;

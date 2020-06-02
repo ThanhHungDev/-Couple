@@ -8,6 +8,7 @@ import Home from './client/page/Home.jsx'
 import DetailTheme from "./client/page/DetailTheme.jsx"
 import ListTheme from "./client/page/Theme/ListTheme.jsx"
 import Chat from './client/page/Chat/Chat.jsx';
+import ModalLogoutSuccess from "./client/_layout/partial/General/ModalLogoutSuccess.jsx"
 
 
 /// soccket 
@@ -38,6 +39,7 @@ class App extends Component {
           <Route path="/login" render={() => <Login />} />
 
         </BrowserRouter>
+        <ModalLogoutSuccess />
       </div>
     );
   }

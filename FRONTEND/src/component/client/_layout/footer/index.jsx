@@ -10,15 +10,12 @@ export default class Footer extends Component {
       <div className="component-footer wrapper-footer-page bg-gradient-home-page">
         
         <div className="container head-footer">
-          <div className="row">
-
-            <div className="col-12">
-              <h3 className="footer-title">
-                チャットシステムでお客様を年中無休でサポート <br/>
-                <Link to='/chat' className='footer-go-to-chat'>クリックしてチャット</Link>
-              </h3>
-              <p className="des-footer">経験豊富なスタッフのチームにより、ウェブサイトから問題を導き対処するだけでなく、コンサルティングを行い、ビジネスと共に成長します。</p>
-            </div>
+          <div className="col-12">
+            <h3 className="footer-title">
+              チャットシステムでお客様を年中無休でサポート <br/>
+              <Link to='/chat' className='footer-go-to-chat'>クリックしてチャット</Link>
+            </h3>
+            <p className="des-footer">経験豊富なスタッフのチームにより、ウェブサイトから問題を導き対処するだけでなく、コンサルティングを行い、ビジネスと共に成長します。</p>
           </div>
         </div>
 

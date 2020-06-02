@@ -13,7 +13,7 @@ module.exports.login = function( req, res ){
 
     var response = {}
     if(req.error){
-        response = { code: 422, message: "có lỗi validate", internal_message: "have error input", 
+        response = { code: 422, message: "入力エラーがありました", internal_message: "入力エラーがありました", 
         errors : [ req.error ] }
         return res.end(JSON.stringify(response))
     }
@@ -24,19 +24,19 @@ module.exports.login = function( req, res ){
     .then(user => {
         if(!user){
             console.log(user, "không tìm thấy user")
-            throw new Error('không tìm thấy email user')
+            throw new Error('メールアドレスまたはパスワードが間違っています')
         }
         userLogin = user
         return user.checkValidPassword(password)
     })
     .then( equalPassword => { 
         if(!equalPassword){
-            throw new Error('email hoặc password không hợp lệ')
+            throw new Error('メールアドレスまたはパスワードが間違っています')
         }
         return createToken( userLogin, detect )
     })
     .then( tokens => {
-        response = { code: 200, message: "có tồn tại 1 user", 
+        response = { code: 200, message: res.__("login success"), 
         internal_message: res.__("login success"), data : { ... userLogin.toJSONFor(), tokens } }
         return res.end(JSON.stringify(response))
     })
@@ -97,7 +97,7 @@ module.exports.logout = function( req, res ){
 
     var response = {}
     if(req.error){
-        response = { code: 422, message: "có lỗi validate", internal_message: "have error input", 
+        response = { code: 422, message: "入力エラーがありました", internal_message: "入力エラーがありました", 
         errors : [ req.error ] }
         return res.end(JSON.stringify(response))
     }
@@ -107,14 +107,14 @@ module.exports.logout = function( req, res ){
     .then(token => {
         if(!token){
             console.log("không tìm thấy token logout")
-            throw new Error('không tìm thấy token')
+            throw new Error('不正アクセス')
         }
         ////remove 
         return token.remove()
     })
     .then( remove => {
         console.log(remove, "remove")
-        response = { code: 200, message: "có tồn tại 1 user", internal_message: res.__("logout success")}
+        response = { code: 200, message: res.__("logout success"), internal_message: res.__("logout success")}
         return res.end(JSON.stringify(response))
     })
     .catch( error => {

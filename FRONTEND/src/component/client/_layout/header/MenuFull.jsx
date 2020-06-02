@@ -4,6 +4,7 @@ import NavLinkCustom from '../partial/General/NavLinkCustom.jsx'
 import WindowsClose from '../../../svg/windows-close.jsx'
 import { connect } from 'react-redux'
 import { logout } from "../../../../library/helper.js"
+import { listenLoginEvent } from "../../../../library/helper.js"
 class MenuFull extends Component {
   constructor(props) {
 
@@ -52,6 +53,21 @@ class MenuFull extends Component {
     var { users } = this.props
     if( users ){
       logout(users._id, users.tokens.tokenAccess, this.props.client, this)
+      if(window.innerWidth <= 767){
+        document.getElementById('js-toggle-menu-mobile').classList.remove('open');
+        document.body.classList.remove('neo-scroll')
+      }
+    }
+  }
+
+  login = event => {
+    var { users } = this.props
+    if( !users ){
+      listenLoginEvent()
+      if(window.innerWidth <= 767){
+        document.getElementById('js-toggle-menu-mobile').classList.remove('open');
+        document.body.classList.remove('neo-scroll')
+      }
     }
   }
   render() {
@@ -85,11 +101,11 @@ class MenuFull extends Component {
           <li><NavLinkCustom to="/contact" text='お問い合わせ' /></li>
           {
             this.props.users && 
-            <li onClick={ this.logout }><a >logout</a></li>
+            <li className="logout-btn" onClick={ this.logout }><a >ログアウト</a></li>
           }
           {
             !this.props.users && 
-            <li><NavLinkCustom to="/login" text='ログイン' /></li>
+            <li className="logout-btn" onClick={ this.login }><a >ログイン</a></li>
           }
         </ul>
       </div>

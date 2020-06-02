@@ -59,13 +59,14 @@ export function fetchRegisterAnonymous ( instanceComponent, detect ) {
     })
     .then(res => res.json())
     .then(response => {
+        instanceComponent.setState({ progress: false })
         if (response.code != 200) { 
-            instanceComponent.setState({ progress: false, alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
+            instanceComponent.setState({ alertError: "システムエラーが発生しました。もう一度ボタンを押してください" })
             return false
         }
         /// modal close
         $.modal.close()
-        instanceComponent.setState({ progress: false, alertError: ''})
+        instanceComponent.setState({ alertError: ''})
         var { email, password } = data,
             dataLogin           = { email, password, ... detect }
         return fetchLoginAnonymous ( dataLogin, instanceComponent)
@@ -89,6 +90,7 @@ export function fetchLoginAnonymous ( data, instanceComponent ){
     })
     .then(res => res.json())
     .then(response => {
+        instanceComponent.setState({ progress : false });
         if( response.code != 200 ){
             throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
         }
@@ -98,7 +100,7 @@ export function fetchLoginAnonymous ( data, instanceComponent ){
             var userLogin = response.data
             localStorage.setItem('user', JSON.stringify(userLogin));
             instanceComponent.props.dispatch( setterUser(userLogin) )
-
+            instanceComponent.setState({ alert : '' });
             /// fetch data message channel
             data.email         = null
             data.password      = null
@@ -106,7 +108,7 @@ export function fetchLoginAnonymous ( data, instanceComponent ){
             fetchChannelMessage(dataFetchChannel, instanceComponent)
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください');
-            instanceComponent.setState({ alert : response.user_message , progress : false });
+            instanceComponent.setState({ alert : response.user_message })
         }
     })
     .catch(error => {
@@ -128,6 +130,7 @@ export function fetchLogin ( data, instanceComponent ){
     })
     .then(res => res.json())
     .then(response => {
+        instanceComponent.setState({ progress : false });
         if( response.code != 200 ){
             throw new Error(response.message)
         }
@@ -139,6 +142,7 @@ export function fetchLogin ( data, instanceComponent ){
             var userLogin = response.data
             localStorage.setItem('user', JSON.stringify(userLogin));
             instanceComponent.props.dispatch( setterUser(userLogin) )
+            instanceComponent.setState({ alert : '' , progress : false });
             /// fetch data message channel
             data.email         = null
             data.password      = null
@@ -447,7 +451,8 @@ export function logout( userId, access, detect, instanceComponent ){
     .then(res => res.json())
     .then(response => {
         if( response.code != 200 ){
-            throw new Error("logout fail")
+            console.log( response )
+            throw new Error("ログアウトに失敗")
         }
         if (typeof(Storage) !== 'undefined') {
             localStorage.setItem('user', JSON.stringify(null))
@@ -455,10 +460,14 @@ export function logout( userId, access, detect, instanceComponent ){
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
         }
+        $('#js-modal-logout-success').modal({
+            fadeDuration: 0,
+            showClose: true
+        });
     })
     .catch(error => {
         console.log( error, " have error ")
-        alert(" logout fail ")
+        alert("ログアウトに失敗")
         return false
     })
 }
