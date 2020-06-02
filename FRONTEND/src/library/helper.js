@@ -403,7 +403,7 @@ export function saveBlobToServer( blob ){
     let form = new FormData()
     form.append('image', blob)
 
-    fetch(CONFIG.SERVER.ASSET() + '/api/user/save-file', {
+    fetch(CONFIG.SERVER.ASSET() + '/api/user/image', {
         method: 'POST',
         body: form
     })
