@@ -50,6 +50,17 @@ class Chat extends Component {
     
   }
   componentDidUpdate(){
+
+    ////set height component
+    var sidebar = document.getElementsByClassName("component-sidebar-chat")
+    if(sidebar.length){
+      var messages = document.getElementsByClassName("component-list-message")
+      if(messages.length){
+        sidebar[0].style.height = messages[0].clientHeight + "px";  
+      }
+    }
+
+    ///
     var { user } = this.props,
         instance = this
     console.log( user )

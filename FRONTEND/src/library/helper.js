@@ -343,7 +343,7 @@ export function socketInitialConnect( socketIOClient, instanceApp ){
       
       ApplicationDom && ApplicationDom.classList.remove("connect-socket-error")
       //// set config
-      socketListenner(socket, instanceApp.props.dispatch)
+      socketListenner(socket, instanceApp)
       instanceApp.props.dispatch(setterSocket(socket))
     });
     socket.on('disconnect', function(){

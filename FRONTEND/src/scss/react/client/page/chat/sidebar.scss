@@ -1,8 +1,10 @@
 @import "../../../../variable";
 @import "../../../../mixin";
 .component-sidebar-chat{
+  overflow-y: scroll;
   float: left;
   width: 30%;
+  @include render-scroll-custom();
   // border-right: 1px solid $gray-200;
 
   *{

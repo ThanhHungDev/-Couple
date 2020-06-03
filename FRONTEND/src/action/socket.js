@@ -1,6 +1,6 @@
 var { addMessage, addMessageSendToMe, showTypingUser } = require("../action")
 var EVENT = CONFIG_EVENT
-exports.socketListenner = function( socket, dispatch ){
+exports.socketListenner = function( socket, instanceApp ){
 
     socket.on(EVENT.REQUEST_GET_CHANEL, () => {
         console.log("đã vào " + EVENT.REQUEST_GET_CHANEL)
@@ -8,15 +8,20 @@ exports.socketListenner = function( socket, dispatch ){
     });
     socket.on(EVENT.RESPONSE_MESSAGE, data => {
         console.log("đã vào " + EVENT.RESPONSE_MESSAGE, data)
-        var { user, message, style, attachment, channel } = data 
+        var { user, message, style, attachment, channel, detect } = data 
         if (typeof(Storage) !== 'undefined') {
             var userLocal = JSON.parse(localStorage.getItem('user'))
             if( userLocal && userLocal._id == user ){
-                return false
-            }else{
-                dispatch( addMessageSendToMe({ type: false, content: message, style, attachment, channel }) )
-                return false
+                var { browser, browserMajorVersion, browserVersion, os, osVersion } = detect
+                var clientServerSend = { browser, browserVersion, browserMajorVersion, os, osVersion }
+                var { client } = instanceApp.props
+                console.log(JSON.stringify(clientServerSend), JSON.stringify(client))
+                if( JSON.stringify(clientServerSend) == JSON.stringify(client) ){
+                    return false
+                }
             }
+            instanceApp.props.dispatch( addMessageSendToMe({ type: false, content: message, style, attachment, channel }) )
+            return false
         } else {
             alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
         }

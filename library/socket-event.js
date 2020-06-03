@@ -120,7 +120,7 @@ function sendMessageChat(socket){
             }
             saveMessage(userIdSendMessage, message, style, attachment, channelResult._id)
             console.log(" emit : " + EVENT.RESPONSE_MESSAGE + " / " + channelResult.name)
-            io.in(channelResult.name).emit(EVENT.RESPONSE_MESSAGE, { user : userIdSendMessage, message, style, attachment, channel: channelResult._id })
+            io.in(channelResult.name).emit(EVENT.RESPONSE_MESSAGE, { user : userIdSendMessage, message, style, attachment, channel: channelResult._id, detect: detectClient})
         })
         .catch( error => {
             console.log( error )

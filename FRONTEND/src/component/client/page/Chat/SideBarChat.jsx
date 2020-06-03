@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import SearchUser from "./SearchUser.jsx"
+// import SearchUser from "./SearchUser.jsx"
 import ListUser from "./ListUser.jsx"
 import "../../../../scss/react/client/page/chat/sidebar.scss"
 
@@ -21,7 +21,7 @@ class SideBarChat extends Component {
           </div>
         </div>
         <div className="list-user">
-          <SearchUser />
+          {/* <SearchUser /> */}
           <ListUser />
         </div>
       </div>

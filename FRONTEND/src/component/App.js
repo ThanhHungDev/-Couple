@@ -44,4 +44,10 @@ class App extends Component {
     );
   }
 }
-export default connect ()(App);
+
+let mapStateToProps = (state) => {
+  return {
+    client  : state.client
+  }
+}
+export default connect (mapStateToProps)(App);
