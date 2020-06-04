@@ -86,8 +86,10 @@ function createToken( user, detect ){
         user: user._id,
         detect : JSON.stringify({ ...detect } )
     })
-    newTokenAccess.save()
-    return { tokenRefesh, tokenAccess, period: new Date, expire : CONFIG.TimeExpireAccessToken }
+    return newTokenAccess.save()
+    .then( tokenAcc => {
+        return { tokenRefesh, tokenAccess, period: new Date, expire : CONFIG.TimeExpireAccessToken }
+    })
 }
 
 

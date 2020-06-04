@@ -1,10 +1,6 @@
 var User        = require("../model/UserAccount"),
-    Location    = require("../model/Location"),
     Channel     = require("../model/Channel"),
     TokenAccess = require("../model/TokenAccess"),
-    TokenRefesh = require("../model/TokenRefesh"),
-    crypto      = require('crypto'),
-    mongoose    = require("mongoose"),
     CONFIG      = require("../config")
 
 
@@ -42,7 +38,7 @@ module.exports.get_channel_message = function( req, res ){
         return res.end(JSON.stringify(response))
     })
     .catch( error => {
-        console.log( { access, ...detect }, "oject không thể chứng thực fetch channel")
+        console.log( { error, access, ...detect }, "oject không thể chứng thực fetch channel")
         response = { code: 500, message: error.message, 
             internal_message: error.message, 
             errors : [ { message : error } ] }
