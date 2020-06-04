@@ -28,6 +28,10 @@ var CONFIG = {
             return protocol + local + port_url;
         }
     }, 
+    mailler: {
+        email: "jbtruongthanhhung@gmail.com",
+        password: "...."
+    }
     database : {
         mysql : {
             username: 'root',

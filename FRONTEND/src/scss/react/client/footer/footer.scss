@@ -136,14 +136,7 @@
         float: none;
       }
 
-      .address_detail_map{
-        font-size: 11px;
-        color: $gray-700;
-      }
-      .main_color{
-        font-size: 13px;
-        color: $custom-primary-color-dark;
-      }
+      
     }
     .about-us, .service-us{
       
@@ -198,3 +191,11 @@
   }
 }
 
+.address_detail_map{
+  font-size: 11px;
+  color: $gray-700;
+}
+.main_color{
+  font-size: 13px;
+  color: $custom-primary-color-dark;
+}

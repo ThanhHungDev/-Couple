@@ -1,28 +1,7 @@
-$btn-disabled-opacity:        .65 !default;
+@import "./mixin";
 
-@mixin btn-interaction($background, $border, $color) {
-  &:hover {
-    background-color: $background;
-    border: 2px solid $border;
-    color: $color;
-    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-  }
 
-  &:focus,
-  &.focus {
-    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    outline: 0;
-  }
 
-  &:disabled,
-  &.disabled,
-  fieldset:disabled & { // stylelint-disable-line selector-no-qualifying-type
-    pointer-events: none;
-    opacity: $btn-disabled-opacity;
-  }
-}
 .btn {
 
   display: inline-block;

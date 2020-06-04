@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Register from './client/Register.jsx'
 import Login from "./client/page/Login.jsx"
 import Home from './client/page/Home.jsx'
-
+import Contact from "./client/page/Contact.jsx"
 import DetailTheme from "./client/page/DetailTheme.jsx"
 import ListTheme from "./client/page/Theme/ListTheme.jsx"
 import Chat from './client/page/Chat/Chat.jsx';
@@ -37,6 +37,7 @@ class App extends Component {
           </Switch>
           <Route path="/register" render={() => <Register />} />
           <Route path="/login" render={() => <Login />} />
+          <Route path="/contact" render={() => <Contact />} />
 
         </BrowserRouter>
         <ModalLogoutSuccess />

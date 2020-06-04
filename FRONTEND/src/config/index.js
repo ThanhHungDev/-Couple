@@ -27,7 +27,13 @@ export default {
     }
   },
   SITE: {
-    NAME: 'hùng đẹp trai'
+    NAME: 'EBUDEZAIN',
+    company_name: "EBUDEZAIN Vietnam Limited Company",
+    address: "0674, Binh Gia Commune, Chau Duc District, Ba Ria - Vung Tau Province, Vietnam",
+    tax: "0314650129",
+    tax_register: "28-09-2017",
+    phone: "080-3387-0674",
+    email : "thanhhung.code@gmail.com"
   },
   EMOJIS: [
     { symbol: "🤭", sign: ":3" },

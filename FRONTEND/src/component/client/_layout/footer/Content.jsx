@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import "../../../../scss/react/client/footer/footer.scss";
-
+import config from "../../../../config"
 import $ from "jquery";
 var jQuery = $;
 
@@ -68,8 +68,10 @@ export default class ContentFooter extends Component {
 
     var address_detail =
       '<div class="address_detail_map">' +
-      '<h4 class="main_color">EBUDEZAIN Vietnam Limited Company</h4>' +
-      "0674, Binh Gia Commune, Chau Duc District, Ba Ria - Vung Tau Province, Vietnam" +
+      '<h4 class="main_color">'+
+      config.SITE.company_name +
+      '</h4>' +
+      config.SITE.address +
       "</div>";
 
     address_detail = address_detail.split("\n").join("<br />");
@@ -90,35 +92,32 @@ export default class ContentFooter extends Component {
           <h3 className="title">私たちについて</h3>
           <div className="company-name">
             <i className="hero-icon hero-account-group-outline"></i>
-            <span>EBUDEZAIN Vietnam Limited Company</span>
+            <span>{ config.SITE.company_name }</span>
           </div>
           <div className="tax-code">
             <i className="hero-icon hero-star-box-multiple-outline"></i>
-            <span>0314650129 </span>
+            <span> { config.SITE.tax } </span>
           </div>
           <div className="tax-code-date">
             <i className="hero-icon hero-update"></i>
-            <span>28-09-2017</span>
+            <span> { config.SITE.tax_register }</span>
           </div>
           <div className="address">
             <i className="hero-icon hero-home-map-marker"></i>
             <span>
-              0674, Binh Gia Commune, Chau Duc District, Ba Ria - Vung Tau
-              Province, Vietnam
+              { config.SITE.address }
             </span>
           </div>
           <div className="phone">
             <i className="hero-icon hero-cellphone-nfc"></i>
             <span>
-              Phone in japan: <a href="tel:+8180-3387-0674">080-3387-0674</a>
+              日本の電話： <a href={ "tel:" + config.SITE.phone }> { config.SITE.phone }</a>
             </span>
           </div>
           <div className="email">
             <i className="hero-icon hero-card-account-mail-outline"></i>
             <span>
-              <a href="mailto:thanhhung.code@gmail.com">
-                thanhhung.code@gmail.com
-              </a>
+              <a href={ "mailto:" + config.SITE.email }> { config.SITE.email } </a>
             </span>
           </div>
         </div>
