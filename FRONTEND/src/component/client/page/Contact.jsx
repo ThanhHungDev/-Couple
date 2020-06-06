@@ -9,11 +9,30 @@ import { drawMapContact } from "../../../library/helper.js"
 class Contact extends Component {
     constructor(props) {
         super(props);
+
     }
 
     componentDidMount(){
 
         drawMapContact( config )
+    }
+
+    contactMe = event => {
+        this.setState({ progress : true })
+        var name      = this.name.value,
+            email     = this.email.value,
+            password  = this.password.value,
+            headPhone = this.headPhone.value,
+            phone     = this.phone.value
+        var data = {
+        name, 
+        email, 
+        password, 
+        head_phone : headPhone, 
+        phone
+        }
+        var instanceComponentRegister = this
+        fetchRegister( data , instanceComponentRegister)
     }
 
     render() {
@@ -70,21 +89,22 @@ class Contact extends Component {
                         <div className="right-form-contact">
                             <div className="form-input">
                                 <label> あなたのフルネーム <i>✵</i></label>
-                                <input type="text" />
+                                <input type="text" ref={(input) => this.name = input} />
                             </div>
                             <div className="form-input">
                                 <label> メールアドレス <i>✵</i></label>
-                                <input type="text" />
+                                <input type="text" ref={(input) => this.email = input} />
                             </div>
                             <div className="form-input">
                                 <label> 電話番号 <i>✵</i></label>
-                                <input type="text" />
+                                <input type="text" ref={(input) => this.mobile = input} />
                             </div>
                             <div className="form-input">
                                 <label> メッセージ内容 </label>
-                                <textarea className=""></textarea>
+                                <textarea className="" ref={(input) => this.message = input}></textarea>
                             </div>
-                            <button className="btn-send-mail-contact">メール管理者に送信</button>
+                            <button className="btn-send-mail-contact"
+                            onClick={ this.contactMe }>メール管理者に送信</button>
                         </div>
                     </div>
                     

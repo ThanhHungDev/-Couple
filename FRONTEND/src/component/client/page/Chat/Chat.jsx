@@ -4,8 +4,6 @@ import Header from "../../_layout/header/Header.jsx";
 import Footer from "../../_layout/footer/index.jsx"
 import SideBarChat from "./SideBarChat.jsx"
 import ListMessage from "./ListMessage.jsx"
-import ModalLogin from "./ModalLogin.jsx"
-import ModalRegister from "./ModalRegister.jsx"
 import '../../../../scss/react/client/page/chat/chat.scss'
 import { connect } from "react-redux"
 import { changeChannelActive } from "../../../../action"
@@ -26,10 +24,7 @@ class Chat extends Component {
   componentDidMount(){
     var { user } = this.props,
         instance = this
-    if( !user || !user._id ){
-      
-      listenLoginEvent()
-    }
+    
     if(user){
       console.log( user, " chat " )
       var diff = ((new Date).getTime() - new Date(user.tokens.period).getTime()) / 1000
@@ -64,9 +59,6 @@ class Chat extends Component {
     var { user } = this.props,
         instance = this
     console.log( user )
-    if( !user || !user._id ){
-      listenLoginEvent()
-    }
 
     if( !this.state.stopUpdate ){
       /// join channel ( because 3 channel is admin so join all channel )
@@ -117,8 +109,6 @@ class Chat extends Component {
           </div>
         </div>
         <Footer />
-        <ModalLogin />
-        <ModalRegister />
       </div>
     );
   }

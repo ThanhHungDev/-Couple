@@ -1,16 +1,14 @@
 import React, { Component } from "react"
-import Email from "../../../svg/email.jsx"
-import Password from "../../../svg/password.jsx"
+import Email from "../../svg/email.jsx"
+import Password from "../../svg/password.jsx"
 import { connect } from "react-redux"
-import { fetchLogin , fetchRegisterAnonymous } from "../../../../library/helper.js"
+import { fetchLogin , fetchRegisterAnonymous } from "../../../library/helper.js"
 
 class ModalLogin extends Component {
 
   constructor(props) {
     super(props);
      this.state = {
-            email: "",
-            password: "",
             alertError : '',
             progress : false
           }

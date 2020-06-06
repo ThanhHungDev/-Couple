@@ -1,23 +1,18 @@
 import React, { Component } from "react"
-import Name from "../../../svg/name.jsx"
-import Email from "../../../svg/email.jsx"
-import Password from "../../../svg/password.jsx"
-import Phone from "../../../svg/phone.jsx"
+import Name from "../../svg/name.jsx"
+import Email from "../../svg/email.jsx"
+import Password from "../../svg/password.jsx"
+import Phone from "../../svg/phone.jsx"
 import { connect } from "react-redux"
 import $ from "jquery"
 import "select2"
-import { fetchRegister, fetchRegisterAnonymous } from "../../../../library/helper.js"
+import { fetchRegister, fetchRegisterAnonymous } from "../../../library/helper.js"
 
 class ModalRegister extends Component {
 
   constructor(props) {
     super(props);
      this.state = {
-            name: "",
-            email: "",
-            password: "",
-            headPhone : "",
-            phone: "",
             alertError : '',
             progress : false
           }

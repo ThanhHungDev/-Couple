@@ -140,9 +140,10 @@ export function fetchLogin(data, instanceComponent) {
                 /// modal close
                 $.modal.close()
                 var userLogin = response.data
-                localStorage.setItem('user', JSON.stringify(userLogin));
+                localStorage.setItem('user', JSON.stringify(userLogin))
+                instanceComponent.setState({ alert: '' })
                 instanceComponent.props.dispatch(setterUser(userLogin))
-                instanceComponent.setState({ alert: '', progress: false });
+                
                 /// fetch data message channel
                 data.email = null
                 data.password = null

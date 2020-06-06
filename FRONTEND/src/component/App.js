@@ -9,8 +9,9 @@ import DetailTheme from "./client/page/DetailTheme.jsx"
 import ListTheme from "./client/page/Theme/ListTheme.jsx"
 import Chat from './client/page/Chat/Chat.jsx';
 import ModalLogoutSuccess from "./client/_layout/partial/General/ModalLogoutSuccess.jsx"
-
-
+import ModalLogin from "./client/page/ModalLogin.jsx"
+import ModalRegister from "./client/page/ModalRegister.jsx"
+import PrivateRoute from "./general/PrivateRoute.jsx"
 /// soccket 
 import socketIOClient from "socket.io-client";
 import { socketInitialConnect } from "../library/helper.js"
@@ -28,7 +29,8 @@ class App extends Component {
         <BrowserRouter>
           <Route exact path="/" render={() => <Home />} />
           <Switch>
-            <Route exact path='/chat' render={({ match }) => <Chat match={match}/>}/>
+            <PrivateRoute exact path='/chat' component={ Chat } />
+            {/* <Route  render={({ match }) => <Chat match={match}/>}/> */}
             <Route path='/chat/:id' render={({ match }) => <Chat match={match}/>}/>
           </Switch>
           <Switch>
@@ -38,9 +40,12 @@ class App extends Component {
           <Route path="/register" render={() => <Register />} />
           <Route path="/login" render={() => <Login />} />
           <Route path="/contact" render={() => <Contact />} />
+          
 
         </BrowserRouter>
         <ModalLogoutSuccess />
+        <ModalLogin />
+        <ModalRegister />
       </div>
     );
   }

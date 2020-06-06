@@ -30,8 +30,8 @@ var CONFIG = {
     }, 
     mailler: {
         email: "jbtruongthanhhung@gmail.com",
-        password: "...."
-    }
+        password: "truongthanhhung@266"
+    },
     database : {
         mysql : {
             username: 'root',
