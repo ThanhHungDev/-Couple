@@ -1,15 +1,21 @@
-import React, { Component } from "react";
-import Header from "../_layout/header/Header.jsx";
-import Footer from "../_layout/footer/index.jsx";
-import "../../../scss/react/client/page/contact.scss";
+import React, { Component } from "react"
+import Header from "../_layout/header/Header.jsx"
+import Footer from "../_layout/footer/index.jsx"
+import "../../../scss/react/client/page/contact.scss"
 import config from "../../../config"
-import { Link } from "react-router-dom";
-import { drawMapContact } from "../../../library/helper.js"
+import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { drawMapContact, fetchSendMail } from "../../../library/helper.js"
 
 class Contact extends Component {
     constructor(props) {
         super(props);
 
+        this.state = { 
+            alertError : '',
+            alertSuccess: "",
+            progress : false
+        }
     }
 
     componentDidMount(){
@@ -19,20 +25,20 @@ class Contact extends Component {
 
     contactMe = event => {
         this.setState({ progress : true })
-        var name      = this.name.value,
-            email     = this.email.value,
-            password  = this.password.value,
-            headPhone = this.headPhone.value,
-            phone     = this.phone.value
+        var name    = this.name.value,
+            email   = this.email.value,
+            mobile  = this.mobile.value,
+            message = this.message.value
         var data = {
-        name, 
-        email, 
-        password, 
-        head_phone : headPhone, 
-        phone
+            name, 
+            email, 
+            mobile, 
+            message,
+            ...this.props.client
         }
-        var instanceComponentRegister = this
-        fetchRegister( data , instanceComponentRegister)
+        var instanceComponentContact = this
+        fetchSendMail( data , instanceComponentContact)
+        
     }
 
     render() {
@@ -87,6 +93,8 @@ class Contact extends Component {
                             </h3>
                         </div>
                         <div className="right-form-contact">
+                            { this.state.alertError && <div className="alert alert-danger">{ this.state.alertError }</div> }
+                            { this.state.alertSuccess && <div className="alert alert-success">{ this.state.alertSuccess }</div> }
                             <div className="form-input">
                                 <label> あなたのフルネーム <i>✵</i></label>
                                 <input type="text" ref={(input) => this.name = input} />
@@ -105,6 +113,10 @@ class Contact extends Component {
                             </div>
                             <button className="btn-send-mail-contact"
                             onClick={ this.contactMe }>メール管理者に送信</button>
+                            {
+                                this.state.progress && 
+                                <div className="progress progress-success"><div className="progress-loadding"></div></div>
+                            }
                         </div>
                     </div>
                     
@@ -115,4 +127,10 @@ class Contact extends Component {
     }
 }
 
-export default Contact;
+
+let mapStateToProps = (state) => {
+    return {
+      client  : state.client
+    }
+  }
+  export default connect(mapStateToProps)(Contact)

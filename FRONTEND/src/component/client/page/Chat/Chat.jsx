@@ -4,12 +4,12 @@ import Header from "../../_layout/header/Header.jsx";
 import Footer from "../../_layout/footer/index.jsx"
 import SideBarChat from "./SideBarChat.jsx"
 import ListMessage from "./ListMessage.jsx"
+import "../../../../scss/_modal.jquery.scss"
 import '../../../../scss/react/client/page/chat/chat.scss'
 import { connect } from "react-redux"
 import { changeChannelActive } from "../../../../action"
-import "../../../../scss/_modal.jquery.scss"
-import CONFIG from "../../../../config"
-import { listenLoginEvent, resfeshTokenExpire, fetchChannelMessage } from "../../../../library/helper.js"
+
+import { resfeshTokenExpire, fetchChannelMessage } from "../../../../library/helper.js"
 
 
 class Chat extends Component {

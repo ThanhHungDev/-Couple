@@ -23,5 +23,8 @@
 	"Access is valid": "Access is valid",
 	"get channel succcess": "get channel succcess",
 	"save file success": "save file success",
-	"logout succcess": "logout succcess"
+	"logout succcess": "logout succcess",
+	"Name is required": "Name is required",
+	"contact mail error": "contact mail error",
+	"contact mail success": "contact mail success"
 }

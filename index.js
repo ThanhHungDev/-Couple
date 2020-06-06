@@ -91,6 +91,7 @@ app.use("/api", [ require('./middleware').formatJsonApi ])
 /// set root api 
 app.use("/api", require('./route/authentication'))
 app.use("/api/user", require('./route/user'))
+app.use("/api/mail", require('./route/mailler'))
 app.get('/*', (req, res) => { 
     return res.render("index", {  DOMAIN , PUSH_PUBLIC_KEY: CONFIG.WEBPUSH.PUBLIC_KEY })    
 });

@@ -545,3 +545,58 @@ export function drawMapContact(config) {
     });
     infowindow.open(map, marker);
 }
+
+
+export function fetchSendMail(data, instanceComponent) {
+    var valid = validateContactSendMail(data, instanceComponent)
+    if (!valid) {
+        return false
+    }
+    fetch(CONFIG.SERVER.ASSET() + '/api/mail/contact', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(response => {
+            instanceComponent.setState({ progress: false })
+            if (response.code == 200) {
+                /// open model login
+                instanceComponent.setState({ alertError: '', alertSuccess: "管理者にメールを送信しました。 管理者が応答するまでお待ちください" })
+            } else {
+                instanceComponent.setState({ alertError: response.message })
+            }
+            instanceComponent.name.value = ""
+            instanceComponent.email.value = ""
+            instanceComponent.mobile.value = ""
+            instanceComponent.message.value = ""
+        })
+        .catch(error => {
+            instanceComponent.setState({ progress: false, alertError: error.message })
+            instanceComponent.name.value = ""
+            instanceComponent.email.value = ""
+            instanceComponent.mobile.value = ""
+            instanceComponent.message.value = ""
+        })
+}
+function validateContactSendMail(data, instanceComponent) {
+    try {
+        var { name, email, mobile } = data
+        if (!name) {
+            throw Error("名前は必須フィールドです")
+        }
+        if (!email) {
+            throw Error("メールは必須フィールドです")
+        }
+        if (!mobile || !mobile.match(/\d+/g)) {
+            throw Error("電話番号は必須フィールドです")
+        }
+        return true
+    } catch (error) {
+        instanceComponent.setState({ progress: false, alertError: error.message })
+        return false
+    }
+
+}
