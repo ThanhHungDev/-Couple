@@ -1,0 +1,230 @@
+@import "../../../variable";
+@import "../../../mixin";
+
+
+.component-detail-theme {
+
+    .laptop-device, .tablet-device, .mobile-device{
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+    .laptop-device{
+        min-width: 960px;
+    }
+    .tablet-device{
+        width: 1024px;
+        padding: 60px 20px;
+        border-radius: 20px;
+        background-color: $gray-900;
+        &:before{
+            display: block;
+            content: ".";
+            color: transparent;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: $gray-500;
+            @include render-transform(translateX(-50%));
+        }
+    }
+    .mobile-device{
+        width: 375px;
+        padding: 60px 20px;
+        border-radius: 20px;
+        background-color: $gray-900;
+        &:before{
+            display: block;
+            content: ".";
+            color: transparent;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: $gray-500;
+            @include render-transform(translateX(-50%));
+        }
+    }
+    
+}
+.wrapper-component-menu{
+    @include render-gradient(135deg,  $purple, #fcf7f4);
+}
+.component-menu-theme{
+    @include clearfix();
+    padding: 10px;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    & > a{
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .svg-inline--fa {
+    
+        display: inline-block;
+        font-size: inherit;
+        height: 40px;
+        overflow: visible;
+
+        &.fa-w-16 {
+          width: 1em;
+        }
+        &.fa-w-10 {
+          width: 0.8em;
+        }
+    
+        .fa-secondary {
+          fill: $pink;
+        }
+        .fa-primary {
+          fill: $orange;
+        }
+    }
+}
+
+.component-menu-detail-theme-responsive{
+    display: inline-block;
+    padding: 0 0 0 5em;
+    vertical-align: middle;
+    margin: 0 auto;
+    text-align: center;
+
+    li{
+        display: inline-block;
+        vertical-align: middle;
+
+        img{
+            margin-right: 40px;
+        }
+        i{
+            width: 50px;
+            height: 30px;
+            font-size: 30px;
+            vertical-align: middle;
+            color: $gray-900;
+        }
+        &.active{
+            i{
+                color: $gray-500;
+            }
+        }
+    }
+    
+}
+.selector-theme{
+    display: block;
+    float: right;
+
+    .btn-goto-chat-detail-theme{
+        display: inline-block;
+        color: $body-color;
+        text-align: center;
+        text-decoration: null;
+        white-space: normal;
+        word-wrap: break-word;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        background-color: transparent;
+
+        padding: 0.4rem 1rem 0.2rem;
+        font-size: 0.81rem;
+        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        margin: 0 0.375rem;
+        border: 2px solid transparent;
+        -webkit-border-radius: 0.125rem;
+        border-radius: 0.125rem;
+
+        background-color: $white;
+        color: $custom-indigo;
+        border: 2px solid $custom-indigo ;
+
+        @include btn-interaction($custom-indigo, $custom-indigo, $white )
+    }
+    .btn-select-design-here{
+        display: inline-block;
+        color: $body-color;
+        text-align: center;
+        text-decoration: null;
+        white-space: normal;
+        word-wrap: break-word;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        background-color: transparent;
+
+        padding: 0.4rem 1rem 0.2rem;
+        font-size: 0.81rem;
+        -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        margin: 0 0.375rem;
+        border: 2px solid transparent;
+        -webkit-border-radius: 0.125rem;
+        border-radius: 0.125rem;
+
+        background-color: $custom-indigo ;
+        color: $white;
+        border: 2px solid $custom-indigo ;
+
+        @include btn-interaction($white, color-level($custom-indigo , -8), $custom-indigo )
+    }
+}
+@include Responsive(MD) {
+    
+    .component-menu-detail-theme-responsive{
+        padding: 0 0 0 2em;
+        li{
+            i{
+                width: 40px;
+            }
+        }
+    }
+    
+}
+
+@include Responsive(SM) {
+    
+    .component-menu-detail-theme-responsive{
+        padding: 0 0 0 2em;
+    
+    }
+    .selector-theme{
+        display: block;
+        float: none;
+        padding-top: 10px;
+        text-align: center;
+    
+        .btn-goto-chat-detail-theme{
+            padding: 0.4rem 1rem 0.2rem;
+            font-size: 10px;
+        }
+        .btn-select-design-here{
+            padding: 0.4rem 1rem 0.2rem;
+            font-size: 10px;
+        }
+    }
+}
+@include Responsive(XS) {
+    
+    .component-menu-detail-theme-responsive{
+        li{
+            i{
+                width: 40px;
+            }
+        }
+    }
+}

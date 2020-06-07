@@ -30,8 +30,7 @@ class App extends Component {
           <Route exact path="/" render={() => <Home />} />
           <Switch>
             <PrivateRoute exact path='/chat' component={ Chat } />
-            {/* <Route  render={({ match }) => <Chat match={match}/>}/> */}
-            <Route path='/chat/:id' render={({ match }) => <Chat match={match}/>}/>
+            <PrivateRoute path='/chat/:id' component={ Chat } />
           </Switch>
           <Switch>
             <Route exact path='/theme' render={({ match }) => <ListTheme match={match}/>}/>

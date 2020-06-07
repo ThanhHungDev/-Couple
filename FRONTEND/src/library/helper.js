@@ -590,8 +590,11 @@ function validateContactSendMail(data, instanceComponent) {
         if (!email) {
             throw Error("メールは必須フィールドです")
         }
-        if (!mobile || !mobile.match(/\d+/g)) {
+        if (!mobile) {
             throw Error("電話番号は必須フィールドです")
+        }
+        if (!mobile.match(/\d+/g)) {
+            throw Error("電話番号には数字のみが含まれます[0-9]")
         }
         return true
     } catch (error) {
