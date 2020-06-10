@@ -10,7 +10,7 @@ class DetailTheme extends Component {
   render() {
     return (
       <div className="component-detail-theme">
-        <iframe src="http://velikorodnov.com/dev/homeshop_preview/" frameborder="0" height="10000px" width="100%"></iframe>
+        
       </div>
     );
   }
