@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"
 import "../../../../scss/react/client/page/chat/head-info.scss"
+import { caller } from "../../../../library/helper.js"
 
 class HeadInfo extends Component {
 
@@ -26,9 +27,29 @@ class HeadInfo extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    // return this.props.userChat.isActive !== nextProps.userChat.isActive
-    return true 
+  componentDidUpdate(){
+    var { userChat } = this.props
+    var userActiveChat = userChat.find( user => user.isActive )
+
+    /// tìm được channel đang chat
+    if(userActiveChat){
+      if( typeof userActiveChat.peerid == undefined ){
+        console.log("EMIT PEER ID")
+      }
+    }
+  }
+
+  handleCallerClick = event => {
+    console.log("render lại head ìon")
+    var { userChat } = this.props
+    var userActiveChat = userChat.find( user => user.isActive )
+
+    if(!userActiveChat){
+      alert("failling, you can f5 page")
+      return null
+    }
+
+    caller(userActiveChat, this.props.user, this.props.client)
   }
 
   render() {
@@ -62,7 +83,9 @@ class HeadInfo extends Component {
             <span className="name">{ userActiveChat.name }</span>
             <span className={ ( userActiveChat.isOnline ? "active-now" : '' ) + " time-online"}>{ timeOnline }</span>
           </div>
-          
+          <video id="id-peer-remote" width="300" controls></video>
+          <video id="id-peer-local" width="300" controls></video>
+          <button onClick={ this.handleCallerClick }>call</button>
         </div>
       </div>
     );
@@ -70,7 +93,10 @@ class HeadInfo extends Component {
 }
 let mapStateToProps = (state) => {
   return {
-    userChat: state.userChat
+    userChat: state.userChat,
+    users : state.users,
+    user    : state.users,
+    client  : state.client
   }
 }
 export default connect(mapStateToProps)(HeadInfo);

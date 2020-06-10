@@ -15,6 +15,8 @@ var http       = require('http'),
     socket     = require('socket.io'),
     i18n       = require("i18n")
 
+const { PeerServer } = require('peer')
+
 // Create global app object
 var app = express()
 
@@ -42,7 +44,7 @@ app.use(session({
             },
             resave: false,
             saveUninitialized: false
-        }));
+        }))
 
 const limiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour window
@@ -73,17 +75,27 @@ var options = {
     cert: fs.readFileSync(path.join(__dirname, 'create-ssl/server.crt'))
 };
 var server = null
-
+var peerServer = null
 if(PORT == 443){
     server = http.createServer(options, app)
+    peerServer = PeerServer({
+        port: 9000,
+        path: '/myapp',
+        ssl: {
+            key: fs.readFileSync(path.join(__dirname, 'create-ssl/server.key')),
+            cert: fs.readFileSync(path.join(__dirname, 'create-ssl/server.crt'))
+        }
+    })
 }else{
     server = http.createServer(app)
+    peerServer = PeerServer({ port: 9000, path: '/myapp' })
 }
 const io     = socket(server)
 server.listen(PORT,  () => {
 
     console.log(`server run: ${DOMAIN}`)
     require("./library/socket-event")(io)
+    require("./library/peer-event")(peerServer)
 })
 /// set middleware api
 app.use("/", [  require('./middleware').setAllowOrigin ])

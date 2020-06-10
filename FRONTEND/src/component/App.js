@@ -20,7 +20,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     var instanceApp = this
-    var socket = socketInitialConnect(socketIOClient, instanceApp )
+    socketInitialConnect(socketIOClient, instanceApp )
   }
   render() {
     console.log("draw app")

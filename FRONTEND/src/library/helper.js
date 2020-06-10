@@ -2,11 +2,12 @@ import CONFIG from "../config"
 import { generateName } from "./generate-name.js"
 import $ from "jquery"
 import "jquery-modal"
-import { setterUser, setterChannels, addMessage } from "../action"
-import { socketListenner } from "../action/socket.js"
+import { setterUser, setterChannels, addMessage, addMessageSendToMe } from "../action"
 import { setterSocket } from "../action"
+import Peer from "peerjs"
+var socket = null, 
+globalStream = null
 
-var socket = null;
 
 export function fetchRegister(data, instanceComponent) {
     var valid = validateRegister(data, instanceComponent)
@@ -178,6 +179,7 @@ export function resfeshTokenExpire(data, instanceComponent) {
         .then(res => res.json())
         .then(response => {
             if (response.code != 200) {
+                console.log( response, "mã trả về không pahir 200" + JSON.stringify(dataRefesh))
                 throw new Error("システムエラーが発生しました。もう一度ボタンを押してください")
             }
             console.log(JSON.stringify(response.data), "data refesh token ")
@@ -336,9 +338,9 @@ function validateFetchChannelMessage(data) {
 }
 
 export function socketInitialConnect(socketIOClient, instanceApp) {
-
+    
     var EVENT = CONFIG_EVENT
-    socket = socketIOClient(CONFIG.SERVER.ASSET());
+    socket = socketIOClient(CONFIG.SERVER.ASSET())
     var ApplicationDom = document.getElementById("Application")
     socket.on('connect', function () {
 
@@ -602,4 +604,165 @@ function validateContactSendMail(data, instanceComponent) {
         return false
     }
 
+}
+
+
+const peer = new Peer({ 
+    host: '127.0.0.1',
+    port: 9000,
+    path: '/myapp'
+})
+
+peer.on('open', id => {
+    console.log("========================================================================")
+    console.log("====================" + id + "================")
+    document.getElementById("Application").setAttribute('data-peer', id )
+    console.log("========================================================================")
+})
+
+// //Caller
+export function caller( channelInfor, user, client ){
+    var id = document.getElementById("Application").getAttribute('data-peer' )
+    console.log( id, channelInfor )
+    openStream()
+    .then(stream => {
+        globalStream = stream
+        playStream('id-peer-local', stream);
+        /// fetch peerjs of user in channel
+        return getPeerUserChannel( channelInfor, user, client )
+    })
+    .catch(function(error) {
+        console.log("caller")
+    })
+}
+
+// //Callee
+peer.on('call', call => {
+    openStream()
+    .then(stream => {
+        call.answer(stream);
+        playStream('localStream', stream);
+        call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
+    })
+    .catch(function(error) {
+        console.log("peer.on('call'")
+    })
+});
+
+// $('#ulUser').on('click', 'li', function() {
+//     const id = $(this).attr('id');
+//     console.log(id);
+//     openStream()
+//     .then(stream => {
+//         playStream('localStream', stream);
+//         const call = peer.call(id, stream);
+//         call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
+//     });
+// });
+
+function openStream() {
+    const config = { audio: false, video: true };
+    return navigator.mediaDevices.getUserMedia(config);
+}
+
+function playStream(idVideoTag, stream) {
+    const video = document.getElementById(idVideoTag);
+    video.srcObject = stream;
+    video.play();
+}
+
+function getPeerUserChannel( channelInfor, user, client ){
+
+    var channelId = channelInfor.id,
+    access = user.tokens.tokenAccess
+    if( socket ){
+        socket.emit(EVENT.SEND_PEER, { channelId, access, ...client })
+    }
+}
+
+// openStream()
+// .then(stream => playStream('localStream', stream));
+
+
+
+function socketListenner( socket, instanceApp ){
+    var EVENT = CONFIG_EVENT
+
+    socket.on(EVENT.REQUEST_GET_CHANEL, () => {
+        console.log("đã vào " + EVENT.REQUEST_GET_CHANEL)
+        
+    });
+    socket.on(EVENT.RESPONSE_MESSAGE, data => {
+        console.log("đã vào " + EVENT.RESPONSE_MESSAGE, data)
+        var { user, message, style, attachment, channel, detect } = data 
+        if (typeof(Storage) !== 'undefined') {
+            var userLocal = JSON.parse(localStorage.getItem('user'))
+            if( userLocal && userLocal._id == user ){
+                var { browser, browserMajorVersion, browserVersion, os, osVersion } = detect
+                var clientServerSend = { browser, browserVersion, browserMajorVersion, os, osVersion }
+                var { client } = instanceApp.props
+                console.log(JSON.stringify(clientServerSend), JSON.stringify(client))
+                if( JSON.stringify(clientServerSend) == JSON.stringify(client) ){
+                    return false
+                }
+            }
+            instanceApp.props.dispatch( addMessageSendToMe({ type: false, content: message, style, attachment, channel }) )
+            return false
+        } else {
+            alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
+        }
+        
+    })
+    socket.on(EVENT.RESPONSE_TYPING, data => {
+        console.log("vaof EVENT.RESPONSE_TYPING" + EVENT.RESPONSE_TYPING)
+        var { user, channel } = data 
+        if (typeof(Storage) !== 'undefined') {
+            var userLocal = JSON.parse(localStorage.getItem('user'))
+            if( userLocal && userLocal._id == user ){
+                return false
+            }else{
+                console.log("cos theer show typing ")
+                if(timeoutTyping){
+                    clearTimeout(timeoutTyping)
+                }
+                var domTyping = document.getElementById("js-typing")
+                if(domTyping.getAttribute("channel") == channel)
+                domTyping.classList.add("show")
+                /// scroll bottom 
+                var inputMessage = document.getElementById("js-is-write-message")
+                if(inputMessage.classList.contains("writing")){
+                    document.getElementById('js-scroll-to-bottom').scrollTop  = document.getElementById('js-scroll-to-bottom').scrollHeight
+                }
+                var timeoutTyping = setTimeout(function() {
+                    var domTyping = document.getElementById("js-typing")
+                    if(domTyping.getAttribute("channel") == channel)
+                    domTyping.classList.remove("show")
+                }, 10000);
+                return false
+            }
+        } else {
+            alert('このアプリケーションはこのブラウザをサポートしていません。アップグレードしてください')
+        }
+        
+    })
+    socket.on(EVENT.RESPONSE_PEER, data => {
+        console.log(data, "đã vào " + EVENT.RESPONSE_PEER)
+        var peerid = { data }
+        var call = peer.call(peerid, globalStream)
+        call.on('stream', remoteStream => playStream('id-peer-remote', remoteStream))
+    })
+    socket.on(EVENT.REQUEST_GET_PEER, data => {
+        console.log(data, "đã vào " + EVENT.REQUEST_GET_PEER)
+        var peerid = document.getElementById("Application").setAttribute('data-peer'),
+        detect = null
+        /// get user
+        if (typeof(Storage) !== 'undefined') {
+            
+            detect = JSON.parse(localStorage.getItem('detect'))
+            user = JSON.parse(localStorage.getItem('user'))
+            socket.emit(EVENT.RESPONSE_GET_PEER, { peerid, user, ...detect })
+        }else{
+            socket.emit(EVENT.RESPONSE_GET_PEER, null)
+        }
+    })
 }

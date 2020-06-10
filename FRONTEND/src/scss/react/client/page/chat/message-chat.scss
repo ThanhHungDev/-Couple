@@ -58,6 +58,8 @@
       .text{
         padding: 10px;
         border-radius: 15px;
+        white-space: pre;
+        word-break: break-all;
         @include render-gradient(135deg, $gray-100, $purple);
 
         &.EMOJI{

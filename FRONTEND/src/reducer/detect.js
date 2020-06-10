@@ -215,7 +215,9 @@ function detectClient() {
     osVersion: osVersion.toString()
   }
 }
-console.log(detectClient())
+if (typeof(Storage) !== 'undefined') {
+  localStorage.setItem('detect', JSON.stringify(detectClient()));
+}
 export default function DetectClientReducer(state = detectClient()) {
   return state;
 }
